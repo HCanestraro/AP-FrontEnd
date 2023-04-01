@@ -3,3 +3,19 @@
 {
     border: 2px solid blue;
 }
+
+.font1 {
+    font-family: 'Comic Sans HS', "Comic Sans", cursive;
+}
+
+.font2 {
+    font-family: "Arial";
+}
+
+.progress {
+    border-radius: 10px;
+}
+
+.progress .progress-bar {
+    border-radius: 10px;
+}

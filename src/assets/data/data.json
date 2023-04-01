@@ -1,34 +1,30 @@
 {
-    "id": "1",
-    
-    "Persona": [
-        {
+    "persona": [{
             "id": "1",
-            "nombres": "PERSONA Hernan Canestraro",
+            "nombres": "Hernan Canestraro",
             "apellido": "Hernan Canestraro",
             "fecha_nacimiento": "27/09/1976",
             "nacionalidad": "Argentino",
             "mail": "hernancanestraro@gmail.com",
             "sobre_mi": "Autodidacta",
-            "ocupación": "Programador Full Stack Jr.",
+            "ocupacion": "Programador Full Stack Jr.",
             "image_background_header": "https://png.pngtree.com/thumb_back/fw800/background/20190223/ourmid/pngtree-black-shading-red-shard-geometry-banner-background-shadingred-debrisred-glowgeometry-image_80184.jpg",
             "image_perfil": "https://drive.google.com/uc?export=download&id=1DdFJjIWAxC9QQMOaUlxnddhe5nl6YPdI",
             "id_domicilio": "2"
         }
     ],
-    "aboutMe": [
-        {
-            "bannerImage": "./../media/zxspectrum.jpeg",
+    "aboutme": [{
+            "bannerImage": "https://drive.google.com/uc?export=download&id=1n7Zw94hqOWvhXpoumSTDtpM35JTr_rCY",
             "profilePicture": "./../media/chedata1foto.png",
             "ubication": "La Matanza, Buenos Aires, Argentina",
             "institution": "Intituto Nacional de Tecnología Industrial",
-            "institutionImage": "./../media/cheinti.png",
+            "institutionImage": "https://www.argentina.gob.ar/sites/default/files/logo-inti-arg-blanco_23.png",
             "posicion": "Estudiante",
             "descripcion": "Description",
             "bannerImage2": "https://drive.google.com/uc?export=download&id=1H-fPPXI-WczRIV2N0cPiF2xu0_IUBklS",
             "profilePicture2": "https://drive.google.com/uc?export=download&id=1DdFJjIWAxC9QQMOaUlxnddhe5nl6YPdI",
             "about": "Sobre mí...Sobre mí...Sobre mí...Sobre mí...Sobre mí...Sobre mí...",
-                    "company": {
+            "company": {
                 "name": "I.N.T.I. Argentina Programa",
                 "url": "https://argentinaprograma.inti.gob.ar",
                 "logo": "https://drive.google.com/uc?export=download&id=1-lX9QgBw8iGXLEgBd_pmdsM_Fz3l6LJn"
