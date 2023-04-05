@@ -1,0 +1,8 @@
+<div *ngFor="let myProyectos of myProyectos  ; let i = index" [attr.data-index]="i">
+	<div class="row justify-content-center box1">
+		<p>{{myProyectos.titulo}}</p>
+        <img src="{{myProyectos.imagen}}" alt="">
+		<p>{{myProyectos.descripcion}}</p>
+
+	</div>
+</div>

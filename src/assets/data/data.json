@@ -15,7 +15,7 @@
     ],
     "aboutme": [{
             "bannerImage": "https://drive.google.com/uc?export=download&id=1n7Zw94hqOWvhXpoumSTDtpM35JTr_rCY",
-            "profilePicture": "./../media/chedata1foto.png",
+            "profilePicture": "https://drive.google.com/uc?export=download&id=1cJWZ-4fWDwXLptzX6E1_rwtHB9kSiLWN",
             "ubication": "La Matanza, Buenos Aires, Argentina",
             "institution": "Intituto Nacional de Tecnología Industrial",
             "institutionImage": "https://www.argentina.gob.ar/sites/default/files/logo-inti-arg-blanco_23.png",
@@ -61,7 +61,7 @@
             }
         ],
     
-    "experience": [
+    "experiencia": [
         {
             "ubicacion": "Administrador de Finanzas",
             "puesto": "Pastas Anita",
@@ -86,7 +86,7 @@
 
 
     ],
-    "hardskills": [
+    "skills": [
         {
             "name": "HTML",
             "level": "75"
@@ -126,7 +126,7 @@
         "description": "SoftSkills... Description..."
     }
 ],
-    "project": [
+    "proyectos": [
         {
             "titulo": "Proyecto Events: Argentina Programa, MINDHUB",
             "imagen": "https://drive.google.com/uc?export=download&id=1-lX9QgBw8iGXLEgBd_pmdsM_Fz3l6LJn",
