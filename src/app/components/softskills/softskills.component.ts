@@ -9,7 +9,7 @@ import { PortfolioService } from './../../services/portfolio.service';
 export class SoftskillsComponent implements OnInit {
 
   mySoftskills: any;
-
+	modeNewRecord: boolean = false;
 	constructor( private portfolioData: PortfolioService) {}
 	ngOnInit(): void {
 		this.portfolioData.getdata().subscribe(data => {

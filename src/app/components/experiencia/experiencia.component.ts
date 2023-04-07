@@ -9,6 +9,7 @@ import { PortfolioService } from './../../services/portfolio.service';
 export class ExperienciaComponent implements OnInit {
 
 	myExperiencia: any;
+	modoNuevoRegistro: boolean=false;
 
 	constructor( private portfolioData: PortfolioService) {}
 	ngOnInit(): void {
@@ -17,5 +18,5 @@ export class ExperienciaComponent implements OnInit {
 			
 			console.log("DATA-Experiencia", this.myExperiencia);
 		})}
-
+		onCrear() {}
 	}		

@@ -14,7 +14,7 @@ export class EducacionComponent implements OnInit {
 
 	miPortafolio: any;
 	myPortfolio: any;
-	educationList: any;
+	educacionList: any;
 	modoEdicion: boolean = false;
 	modoNuevoRegistro: boolean = false;
 	i!: number;
@@ -37,13 +37,13 @@ export class EducacionComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.portfolioData.getdata().subscribe(data => {
-			this.educationList = data.education;
-			this.myPortfolio = data.education;
-			console.log("DATA-EDUCATION", this.myPortfolio);
+			this.educacionList = data.educacion;
+			this.myPortfolio = data.educacion;
+			console.log("DATA-educacion", this.myPortfolio);
 		})
-		//this.portfolioData.obtenerDatosEducation().subscribe(data => {
+		//this.portfolioData.obtenerDatoseducacion().subscribe(data => {
 		//JSON.stringify(data);
-		//console.log("DATA-EDUCATION JSON Datos Personales: " + JSON.stringify(data));
+		//console.log("DATA-educacion JSON Datos Personales: " + JSON.stringify(data));
 		//      console.log("data: ",data);
 		//console.log("miPortafolio", this.miPortafolio);
 		//});
@@ -106,12 +106,12 @@ export class EducacionComponent implements OnInit {
 
 	onSaveEdit(event: Event) {
 		event.preventDefault;
-		/*   this.portfolioData.putEducation(this.form.value, this.editID).subscribe(data => {
+		/*   this.portfolioData.puteducacion(this.form.value, this.editID).subscribe(data => {
 			console.log("this.form.value: " , this.form.value);
 			console.log("id: " , this.editID);
 			console.log("EDUCACIÓN method PUT Data Editada", data);
 	  
-			this.portfolioData.obtenerOneDatosEducation(this.editID).subscribe(data => {
+			this.portfolioData.obtenerOneDatoseducacion(this.editID).subscribe(data => {
 			  console.log("Dato: " + JSON.stringify(data));
 			  this.miPortafolio[this.i]=data;
 			  console.log("miPortafolio[i : ", this.miPortafolio[this.i]);
@@ -126,11 +126,11 @@ export class EducacionComponent implements OnInit {
 
 	onSaveNewNuevoRegistro(event: Event) {
 		event.preventDefault;
-		/* this.portfolioData.postEducation(this.form.value).subscribe(data => {
+		/* this.portfolioData.posteducacion(this.form.value).subscribe(data => {
 		  console.log("this.form.value: " , this.form.value);
 		  console.log("AcercaDe method post Data", data);
 	 
-		  this.portfolioData.obtenerDatosEducation().subscribe(data => {
+		  this.portfolioData.obtenerDatoseducacion().subscribe(data => {
 			this.miPortafolio=data;
 		  });
 		});
@@ -155,10 +155,10 @@ export class EducacionComponent implements OnInit {
 			cancelButtonColor: '#00b5ff'
 		}).then((result) => {
 			/* if (result.isConfirmed) {
-				this.portfolioData.deleteEducation(this.miPortafolio[i].id).subscribe(data => {
+				this.portfolioData.deleteeducacion(this.miPortafolio[i].id).subscribe(data => {
 					console.log("Borrando registro", data);
 
-					this.portfolioData.obtenerDatosEducation().subscribe(data => {
+					this.portfolioData.obtenerDatoseducacion().subscribe(data => {
 						this.miPortafolio = data;
 					});
 

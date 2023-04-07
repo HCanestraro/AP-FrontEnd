@@ -16,6 +16,7 @@ import { SkillsComponent } from './components/skills/skills.component';
 import { SoftskillsComponent } from './components/softskills/softskills.component';
 import { ProyectosComponent } from './components/proyectos/proyectos.component';
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { PortfolioComponent } from './components/portfolio/portfolio.component';
     SkillsComponent,
     SoftskillsComponent,
     ProyectosComponent,
-    PortfolioComponent
+    PortfolioComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
