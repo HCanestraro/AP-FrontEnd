@@ -14,3 +14,5 @@ function cheCreateHtml(array) {
     document.write(fff);
     document.close();
 }
+
+

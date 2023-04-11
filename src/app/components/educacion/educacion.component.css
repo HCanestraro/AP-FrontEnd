@@ -10,7 +10,12 @@
 	margin: .5em;
 	transition: .3s;
 }
-
+.logo-m {
+	width: 3.6em;
+	height: 3.6em;
+	margin: .5em;
+	transition: .3s;
+}
 .mt-8 {
 	margin-top: 8em;
 }

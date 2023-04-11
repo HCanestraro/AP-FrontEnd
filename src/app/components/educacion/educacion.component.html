@@ -6,7 +6,7 @@
 <!-- https://drive.google.com/uc?export=download&id=1iW5i4HOltXKRwV0Q2qsJp6mrZvmFq0rw   logodelete -->
 <div class="justify-content-center p-2">
 	<!-- NUEVO REGISTRO -->
-	<div *ngIf="modoNuevoRegistro === false">
+	<div *ngIf="modeNewRecord === false">
 		<div class="d-flex justify-content-center mb-4 m-4">
 			<button class="btn btn-sm btn-green border shadow m-1 text-center text-light fw-bold"
 				(click)="onCrear($event)">
@@ -17,10 +17,10 @@
 	</div>
 
 	<!------    FORMULARIO NEW    ------>
-	<div *ngIf="modoNuevoRegistro === true" class="d-flex justify-content-center">
+	<div *ngIf="modeNewRecord === true" class="d-flex justify-content-center">
 		<form class="col-md-8 col-12 mb-4" [ formGroup ]="form">
 			<div class="text-center p-3 border shadow rounded mt-5 bg-white">
-				<div *ngIf="modoNuevoRegistro === true">
+				<div *ngIf="modeNewRecord === true">
 					<div class="d-flex justify-content-end">
 						<div class="p-1">
 							<button class="btn p-0 m-1" (click)="onCancelNuevoRegistro()">
@@ -90,11 +90,11 @@
 	<!------    FORMULARIO NEW    ------>
 
 	<!------    FORMULARIO EDIT    ------>
-	<div *ngIf="modoEdicion === true" class="d-flex justify-content-center">
+	<div *ngIf="modeEdition === true" class="d-flex justify-content-center">
 		<form class="col-md-8 col-12 mb-4 p-3 bg-white rounded shadow" [ formGroup ]="form">
 			<!-- MÓDULO BOTONES EDIT -->
 
-			<div *ngIf="modoEdicion === true" class="d-flex justify-content-center mt-2">
+			<div *ngIf="modeEdition === true" class="d-flex justify-content-center mt-2">
 				<div class="row w-100">
 					<div class="d-flex justify-content-end">
 						<button class="btn p-0 m-1" (click)="onCancel($event)">
@@ -163,13 +163,13 @@
 	</div>
 	<!------  FIN  FORMULARIO EDIT    ------>
 
-	<div *ngFor="let myPortfolio of myPortfolio; let i = index" [attr.data-index]="i">
+	<div *ngFor="let myEducacion of myEducacion; let i = index" [attr.data-index]="i">
 		<div class="row justify-content-center">
 			<div class="border rounded p-2 col-md-8 col-12 bg-white shadow-lg mb-4">
-				<div *ngIf="modoEdicion === false">
+				<div *ngIf="modeEdition === false">
 					<div class="d-flex justify-content-end">
 						<div class="p-1">
-							<button class="btn p-0 m-1" (click)="onEdit(myPortfolio.id, i, $event)">
+							<button class="btn p-0 m-1" (click)="onEdit(myEducacion.id, i, $event)">
 								<span><img
 										src="https://drive.google.com/uc?export=download&id=1jA2K7nPYax0JVefFmgn8HvsYre_25zie"
 										alt="editar" class="logo-sm mt-1" /></span>
@@ -194,38 +194,38 @@
 						</div>
 						<div>
 							<h4 class="fw-bold mb-4 col-12 ms-2">
-								{{ myPortfolio.escuela }}
+								{{ myEducacion.escuela }}
 							</h4>
 						</div>
 					</div>
 					<div class="ms-4">
 						<p class="fw-bold mb-0">🎓 ESCUELA</p>
 						<p class="fw-normal ms-4">
-							<span class="ms-1"></span>{{ myPortfolio.escuela }}
+							<span class="ms-1"></span>{{ myEducacion.escuela }}
 						</p>
 						<p class="fw-bold mb-0">🎓 TÍTULO</p>
 						<p class="fw-normal ms-4">
-							<span class="ms-1"></span>{{ myPortfolio.titulo }}
+							<span class="ms-1"></span>{{ myEducacion.titulo }}
 						</p>
 						<p class="fw-bold mb-0">🎓 IMAGEN</p>
 						<p class="fw-normal ms-4">
-							<img class="ms-1" src="{{ myPortfolio.imagen }}" alt="">
+							<img class="ms-1 logo-m" src="{{ myEducacion.imagen }}" alt="">
 						</p>
 						<p class="fw-bold mb-0">📆 PERIODO</p>
 						<p class="fw-normal ms-4">
-							<span class="ms-1"></span>{{ myPortfolio.carrer }}
+							<span class="ms-1"></span>{{ myEducacion.carrer }}
 						</p>
 						<p class="fw-bold mb-0">⏳ PUNTAJE</p>
 						<p class="fw-normal ms-4">
-							<span class="ms-1"></span>{{ myPortfolio.puntaje }}
+							<span class="ms-1"></span>{{ myEducacion.puntaje }}
 						</p>
 						<p class="fw-bold mb-0">ℹ INICIO</p>
 						<p class="fw-normal ms-4">
-							<span class="ms-1"></span>{{ myPortfolio.inicio }}
+							<span class="ms-1"></span>{{ myEducacion.inicio }}
 						</p>
 						<p class="fw-bold mb-0">🎓 FIN</p>
 						<p class="fw-normal ms-4">
-							<span class="ms-1"></span>{{ myPortfolio.fin }}
+							<span class="ms-1"></span>{{ myEducacion.fin }}
 						</p>
 					</div>
 				</div>
