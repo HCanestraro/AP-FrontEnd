@@ -10,7 +10,7 @@
 		<div class="d-flex justify-content-center mb-4 m-4">
 			<button class="btn btn-sm btn-green border shadow m-1 text-center text-light fw-bold"
 				(click)="onCrear($event)">
-				<span><img src="https://drive.google.com/uc?export=download&id=11BKh21cSfuiTBDHbY26XH5Ux9TBVYdWm"
+				<span><img src={{logoadd}}
 						alt="editar" class="logo-sm mt-1 bg-white rounded-circle" />AGREGAR EDUCACIÓN</span>
 			</button>
 		</div>
@@ -25,8 +25,7 @@
 						<div class="p-1">
 							<button class="btn p-0 m-1" (click)="onCancelNuevoRegistro()">
 								<span><img
-										src="https://drive.google.com/uc?export=download&id=1DnHtyYLt7LgH7Nl6HsIOfSh2CDjNiYAE"
-										alt="editar" class="logo-sm mt-1" /></span>
+										src={{logocancel}} alt="editar" class="logo-sm mt-1" /></span>
 							</button>
 
 							<button class="btn p-0 m-1" (click)="onSaveNewNuevoRegistro($event)">
@@ -171,7 +170,7 @@
 						<div class="p-1">
 							<button class="btn p-0 m-1" (click)="onEdit(myEducacion.id, i, $event)">
 								<span><img
-										src="https://drive.google.com/uc?export=download&id=1jA2K7nPYax0JVefFmgn8HvsYre_25zie"
+										src="{{logopencil}}"
 										alt="editar" class="logo-sm mt-1" /></span>
 							</button>
 						</div>

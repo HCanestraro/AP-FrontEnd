@@ -1,8 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AngularFireModule } from '@angular/fire/compat';
+import { environment } from './../environments/environments';
+// import { FontAwesomeModule } from './../../node_modules/fortawesome';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -17,6 +20,11 @@ import { SoftskillsComponent } from './components/softskills/softskills.componen
 import { ProyectosComponent } from './components/proyectos/proyectos.component';
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
 import { LoginComponent } from './components/login/login.component';
+
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -36,7 +44,12 @@ import { LoginComponent } from './components/login/login.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    MatCardModule,
+    MatProgressBarModule,
+    MatButtonModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig)
+    // FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,4 +1,5 @@
 {
+
 	"id": 1,
 			"persona": [
 				{
@@ -136,17 +137,23 @@
 				{
 					"titulo": "Proyecto Events: Argentina Programa, MINDHUB",
 					"imagen": "https://drive.google.com/uc?export=download&id=1-lX9QgBw8iGXLEgBd_pmdsM_Fz3l6LJn",
-					"descripcion": "Proyecto realizado como práctica para MINDHUB"
+					"descripcion": "Proyecto realizado como práctica para MINDHUB",
+					"linklivedemo": "",
+        			"linksourcecode": "https://github.com/HCanestraro/HernanCanestraro_T1_M1.git"
 				},
 				{
 					"titulo": "Proyecto FrontEnd: Argentina Programa, YoProgramo2",
 					"imagen": "https://drive.google.com/uc?export=download&id=1-lX9QgBw8iGXLEgBd_pmdsM_Fz3l6LJn",
-					"descripcion": "Proyecto realizado como práctica para la segunda etapa de Argentina Programa, #YoProgramo"
+					"descripcion": "Proyecto realizado como práctica para la segunda etapa de Argentina Programa, #YoProgramo",
+					"linklivedemo": "",
+        			"linksourcecode": "https://github.com/HCanestraro/AP-FrontEnd.git"
 				},
 				{
 					"titulo": "Proyecto Portfolio: Argentina Programa",
 					"imagen": "https://drive.google.com/uc?export=download&id=1-lX9QgBw8iGXLEgBd_pmdsM_Fz3l6LJn",
-					"descripcion": "Proyecto realizado como práctica para la segunda etapa de Argentina Programa, #YoProgramo"
+					"descripcion": "Proyecto realizado como práctica para la segunda etapa de Argentina Programa, #YoProgramo",
+					"linklivedemo": "",
+        			"linksourcecode": "https://github.com/HCanestraro/AP-FrontEnd.git"
 				}
 			]
 		}

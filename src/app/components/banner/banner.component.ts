@@ -32,15 +32,10 @@ export class BannerComponent implements OnInit {
 			// this.myAboutMe = JSON.stringify(data);
 			this.myAboutMe = data.aboutme;
 			console.log("obtenerDatosAboutMe: ", this.myAboutMe);
-			
+			this.myPersona = data.persona;console.log(this.myPersona);
 			// this.myPersona = JSON.stringify(data);
 		});
-		this.portfolioData.getdata().subscribe(data => {
-			
-			// this.myPersona = JSON.stringify(data);
-			this.myPersona = data.persona;
-			console.log(this.myPersona);
-		});
+	
 
 	}
 	onDelete(id: any, event: Event) {

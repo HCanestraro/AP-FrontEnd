@@ -14,6 +14,7 @@ import { Ipersona } from '../interfaces/ipersona';
 })
 export class PortfolioService {
 
+	imageurl:any= String;
 	// url = 'localhost:4200';
 
 	/* 	constructor( private http: HttpClient ) { }
@@ -25,6 +26,8 @@ export class PortfolioService {
 
 	url = 'localhost:4200/';
 	chejson='./../../assets/data/data.json';
+
+
 	// Headers para POST, PUT Y DELETE.
 	headers = new HttpHeaders({
 		'Content-Type': 'application/json',
@@ -35,23 +38,23 @@ export class PortfolioService {
 
 	getdata(): Observable<any> {
 		console.log('getdata');
-		return this.http.get('./../../assets/data/data.json');
+		return this.http.get(`${this.chejson}`);
 	}
-
-	cheimg(cheimg: String) {
-		let il = "";
-		if(cheimg==="logopencil") il =  "https://drive.google.com/uc?export=download&id=1jA2K7nPYax0JVefFmgn8HvsYre_25zie" ;
-		if(cheimg==="logoadd") il =  "https://drive.google.com/uc?export=download&id=11BKh21cSfuiTBDHbY26XH5Ux9TBVYdWm";
-		if(cheimg==="logoedu") il =  "https://drive.google.com/uc?export=download&id=1_TzJ4uPlPA_qU9DaaARLKqlLoXVi5pWu";  
-		if(cheimg==="logosave") il =  "https://drive.google.com/uc?export=download&id=1QjXoDP0V0L7EHnjlfAx5bMFH2T-NbYU7";
-		if(cheimg==="logocancel") il =  "https://drive.google.com/uc?export=download&id=1DnHtyYLt7LgH7Nl6HsIOfSh2CDjNiYAE";
-		if(cheimg==="logodelete") il =  "https://drive.google.com/uc?export=download&id=1iW5i4HOltXKRwV0Q2qsJp6mrZvmFq0rw";
-		return il;
-	}
-
+	
+	
 	// *********************************************************************
 	// **************   |   METHOD'S GET ALL    | **************************
 	// *********************************************************************
+	// obtenerDatosAcercaDe():Observable<any> {
+		// return this.http.get('./assets/data/data.json');
+		// return this.http.get<any>( this.url + 'acerca_de' );
+	//   }
+	
+	  // obtenerDatosEducacion():Observable<IEducacion> {
+		// obtenerDatosEducacion():Observable<any> {
+		// return this.http.get('./assets/data/data.json');
+		// return this.http.get<IEducacion>( this.url + 'educacion');
+	//   } 
 
 	obtenerDatosAboutMe(): Observable<Iaboutme> {
 		let ff = this.http.get<Iaboutme>(this.url + "aboutme");
@@ -81,13 +84,13 @@ export class PortfolioService {
 
 	obtenerDatosExperiencia(): Observable<Iexperiencia> {
 		console.log('obtenerDatosExperience');
-		//return this.http.get<Iexperiencia>(this.url + 'Experience');
+		//return this.http.get<Iexperiencia>(this.url + 'experiencia/');
 		return this.http.get<Iexperiencia>( `chejson` );
 	}
 
-	obtenerDatosProject(): Observable<Iproyecto> {
-		console.log('obtenerDatosProject');
-		//    return this.http.get<Iproyecto>(this.url + 'Projects');
+	obtenerDatosProyecto(): Observable<Iproyecto> {
+		console.log('obtenerDatosProyecto');
+		//    return this.http.get<Iproyecto>(this.url + 'proyecto');
 		return this.http.get<Iproyecto>('./../../assets/data/data.json');
 	}
 
@@ -119,8 +122,8 @@ export class PortfolioService {
 		return this.http.get<Iexperiencia>(this.url + 'Experiencia/' + id);
 	}
 
-	obtenerOneDatosProject(id: number): Observable<Iproyecto> {
-		return this.http.get<Iproyecto>(this.url + 'Projects/' + id);
+	obtenerOneDatosProyecto(id: number): Observable<Iproyecto> {
+		return this.http.get<Iproyecto>(this.url + 'proyecto/' + id);
 	}
 
 	obtenerOneDatosSkill(id: number): Observable<Iskills> {
@@ -139,7 +142,7 @@ export class PortfolioService {
 	}
 
 	postEducacion(Educacion: Ieducacion): Observable<Ieducacion> {
-		return this.http.post<Ieducacion>(this.url + 'Educacion', Educacion, {
+		return this.http.post<Ieducacion>(this.url + 'educacion', Educacion, {
 			headers: this.headers,
 		});
 	}
@@ -150,8 +153,8 @@ export class PortfolioService {
 		});
 	}
 
-	postProject(Project: Iproyecto): Observable<Iproyecto> {
-		return this.http.post<Iproyecto>(this.url + 'Proyecto', Project, {
+	postProyecto(Proyecto: Iproyecto): Observable<Iproyecto> {
+		return this.http.post<Iproyecto>(this.url + 'Proyecto', Proyecto, {
 			headers: this.headers,
 		});
 	}
@@ -191,7 +194,7 @@ export class PortfolioService {
 		});
 	}
 
-	putProject(Proyecto: Iproyecto, id: Number): Observable<Iproyecto> {
+	putProyecto(Proyecto: Iproyecto, id: Number): Observable<Iproyecto> {
 		return this.http.put<Iproyecto>(this.url + 'Proyecto/' + id, Proyecto, {
 			headers: this.headers,
 		});
@@ -225,7 +228,7 @@ export class PortfolioService {
 		});
 	}
 
-	deleteProject(id: Number): Observable<Iproyecto> {
+	deleteProyecto(id: Number): Observable<Iproyecto> {
 		console.log("DELETE PROJECT:", this.url + "Proyecto/" + id);
 		return this.http.delete<Iproyecto>(this.url + 'Proyecto/' + id, {
 			headers: this.headers,
