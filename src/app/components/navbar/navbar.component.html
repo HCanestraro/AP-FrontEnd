@@ -1,9 +1,10 @@
 <div class="d-flex conteiner-fluid">
 	<div class="d-flex container-fluid col-2">
-	<a href="https://argentinaprograma.inti.gov.ar" target="_blank" class="nav-link active">
-		<img class="logointi" src="https://drive.google.com/uc?download&id=1YpESKuvXAUsP1TcJ-laFQlsmOKAf8VkP" alt="INTI...">
-	</a>
-</div>
+		<a href="https://argentinaprograma.inti.gov.ar" target="_blank" class="nav-link active">
+			<img class="logointi" src="https://drive.google.com/uc?download&id=1YpESKuvXAUsP1TcJ-laFQlsmOKAf8VkP"
+				alt="INTI...">
+		</a>
+	</div>
 	<div class="d-flex container-fluid flex-direction-row justify-content-center align-items-center text-center">
 		<span>Proyecto Integrador</span>
 	</div>
@@ -12,28 +13,59 @@
 			<img class="logos" src="https://drive.google.com/uc?export=download&id=1YFszfvj_-afq1bH9tsXXF8zrDOQvHxo-
 			" alt="Picture...">
 		</a>
-		<a href="https://instagram.com/@canestraro-che" target="_blank" class="nav-link active" rel="noreferrer noopener">
+		<a href="https://instagram.com/@canestraro-che" target="_blank" class="nav-link active"
+			rel="noreferrer noopener">
 			<img class="logos" src="https://drive.google.com/uc?export=download&id=13jp0SW_F2WCL5qAiRhDlZWXHoUMlN2gR
 			" alt="Picture...">
 		</a>
-		<a href="https://www.twitter.com/@canestraro-che" target="_blank" class="nav-link active" rel="noreferrer noopener">
+		<a href="https://www.twitter.com/@canestraro-che" target="_blank" class="nav-link active"
+			rel="noreferrer noopener">
 			<img class="logos" src="https://drive.google.com/uc?export=download&id=1BXwyUpUm_AnXnh4-xIIUv8gdvYOU0quV
 			" alt="Picture...">
 		</a>
-		<a href="https://ar.linkedin.com/in/hernan-canestraro-44448435" target="_blank" class="nav-link active" rel="noreferrer noopener">
+		<a href="https://ar.linkedin.com/in/hernan-canestraro-44448435" target="_blank" class="nav-link active"
+			rel="noreferrer noopener">
 			<img class="logos" src="https://drive.google.com/uc?export=download&id=1tDmdALAhhy9kS6edRWUqDgt4QJUuXaMd
 			" alt="Picture...">
 		</a>
-		<a href="https://sites.google.com/view/HCanestraro" target="_blank" class="nav-link active" rel="noreferrer noopener">
+		<a href="https://sites.google.com/view/HCanestraro" target="_blank" class="nav-link active"
+			rel="noreferrer noopener">
 			<img class="logos" src="https://drive.google.com/uc?export=download&id=1NuIu3CYzCAZ_F34TH6zXTdHo1-BiP-GP
 			" alt="Picture...">
 		</a>
-		<a href="https://www.youtube.com/@HCanestraro" target="_blank" class="nav-link active" rel="noreferrer noopener">
+		<a href="https://www.youtube.com/@HCanestraro" target="_blank" class="nav-link active"
+			rel="noreferrer noopener">
 			<img class="logos" src="https://drive.google.com/uc?export=download&id=1Fi4F7MzyrKIAIkK3bdNSeZ3oNjb5ly11
 			" alt="Picture...">
 		</a>
 	</div>
-	<div class="d-flex container-fluid align-items-center justify-content-center">
-		<span>Iniciar sesión</span>
+	<!-- 	<div class="d-flex container-fluid align-items-center justify-content-center">
+		<span class="font1" style="background-color: green; color: black;">Iniciar sesión</span>
+	</div> -->
+	<div class="d-flex col-md-6 col-sm-6 justify-content-center mb-2">
+		<div *ngIf="portfolioActive === false ">
+			<div class="d-flex justify-content-around   col-md-12 col-sm-12   ">
+				<div class="col-12 text-center ">
+					<button class=" btn btn-info btn-md w-100 text-white fw-bold shadow-lg " routerLink="/login">MODO
+						EDICIÓN
+					</button>
+				</div>
+				<!--
+				<div class="col-8 text-center ">
+					<button class="btn btn-info border border-info btn-md w-100 text-white fw-bold fw-bold shadow-lg ms-3"
+					routerLink="/register"
+					>CREAR CUENTA</button>
+				</div>
+				-->
+			</div>
+		</div>
+		<div *ngIf="portfolioActive === true ">
+			<div class="d-flex justify-content-around   col-md-12 w-100 col-sm-12 mt-1 mb-2">
+				<div class="col-6 w-100 text-center">
+					<button class=" btn btn-dark rounded  btn-md w-100 text-white fw-bold shadow-lg "
+						(click)="logout($event)">TERMINAR EDICIÓN</button>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>

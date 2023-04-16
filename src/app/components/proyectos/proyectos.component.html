@@ -4,45 +4,274 @@
 <!-- https://drive.google.com/uc?export=download&id=1QjXoDP0V0L7EHnjlfAx5bMFH2T-NbYU7  logosave -->
 <!-- https://drive.google.com/uc?export=download&id=1DnHtyYLt7LgH7Nl6HsIOfSh2CDjNiYAE   logocancel -->
 <!-- https://drive.google.com/uc?export=download&id=1iW5i4HOltXKRwV0Q2qsJp6mrZvmFq0rw   logodelete -->
+<!-- <div class="justify-content-center p-2 w-100">
 
-<div class="justify-content-center p-2">
-
-	<div *ngIf="modeNewRecord === false">
+	<div *ngIf="modeNewRecord===false">
 		<div class="d-flex justify-content-center mb-4 m-4">
 			<button class="btn btn-sm btn-green border shadow m-1 text-center text-light fw-bold"
-				(click)="onCrear($event)">
-				<span><img src="https://drive.google.com/uc?export=download&id=11BKh21cSfuiTBDHbY26XH5Ux9TBVYdWm"
-						alt="Editar..." class="logo-sm mt-1 bg-white rounded-circle">AGREGAR PROYECTOS</span>
-			</button>
+				(click)="onCrear($event)"><span><img src={{logoadd}} alt="editar"
+						class="logo-sm mt-1 bg-white rounded-circle">AGREGAR PROYECTO</span></button>
 		</div>
 	</div>
 
-	<div *ngFor="let myProyectos of myProyectos  ; let i = index" [attr.data-index]="i">
-		<div class="d-flex justify-content-center mb-4 m-4">
-			<div
-				class="border rounded p-2 col-md-8 col-12 bg-white shadow-lg mb-4 align-items-center text-center justify-content-center">
-				<div class="d-flex justify-content-end">
-
-					<div class="p-1">
-						<button class="btn p-0 m-1"> <!-- (click)="onCancelNuevoRegistro()" -->
-							<span><img
-									src="https://drive.google.com/uc?export=download&id=1jA2K7nPYax0JVefFmgn8HvsYre_25zie"
-									alt="editar" class="logo-sm mt-1" /></span>
-						</button>
-
-						<button class="btn p-0 m-1"> <!-- (click)="onSaveNewNuevoRegistro($event)" -->
-							<span><img
-									src="https://drive.google.com/uc?export=download&id=1iW5i4HOltXKRwV0Q2qsJp6mrZvmFq0rw"
-									alt="editar" class="logo-sm mt-1" /></span>
-						</button>
+	<div *ngIf="modeNewRecord===true" class="d-flex justify-content-center">
+		<form class="col-md-8 col-12 mb-4" [ FormGroup] = "form" >
+			<div class="text-center p-3 border shadow rounded bg-white mt-4">
+				<div *ngIf="modeNewRecord===true">
+					<div class="d-flex justify-content-end">
+						<div class="p-1">
+							<button class="btn p-0 m-1" (click)="onCancelNuevoRegistro()"><span><img src={{logocancel}}
+										alt="editar" class="logo-sm mt-1"></span></button>
+							<button class="btn p-0 m-1" (click)="onSaveNewNuevoRegistro($event)"><span><img
+										src={{logosave}} alt="editar" class="logo-sm mt-1"></span></button>
+						</div>
 					</div>
 				</div>
-				<h4><b>Titulo: </b>{{myProyectos.titulo}}</h4>
-				<img class="image-sm" src="{{myProyectos.imagen}}" alt="">
-				<h4><b>Descripción: </b>{{myProyectos.descripcion}}</h4>
+				<h3 class="text-center text-info m-3"><img src="assets/media/logoProyecto.png" class="logo-proyecto"
+						alt="logo-proyecto"><span class="ms-3">Nuevo Proyecto</span></h3>
+
+				<div class=" ">
+					<div class="text-start ">
+						<label for="titulo" class="form-label  fw-bold">Título:</label>
+					</div>
+					<input type="text" class="col-md-10 col-12 p-2 mb-2 border rounded  border-1 border-danger shadow"
+						placeholder=" ✳ Título" formControlName="titulo" id="titulo" required autofocus>
+				</div>
+
+				<div class="">
+					<div class="text-start ">
+						<label for="descripcion" class="form-label  fw-bold">Descripción:</label>
+					</div>
+					<input type="text" class="col-md-10 col-12 p-2 mb-2 border rounded  border-1 border-danger shadow"
+						placeholder=" 📝 Descripción" formControlName="descripcion" id="descripcion" required>
+				</div>
+
+				<div class=" ">
+					<div class="text-start ">
+						<label for="imagen" class="form-label  fw-bold">Link Imagen:</label>
+					</div>
+					<input type="text"
+						class="col-md-10 col-12 p-2 mb-2 border rounded  border-1 border-danger shadow  mb-4"
+						placeholder=" 🖼 Link Imagen" formControlName="imagen" id="imagen" required>
+				</div>
+
 			</div>
 
-		</div>
-
+		</form>
 	</div>
+	<div *ngIf="modeEdition===true" class="d-flex justify-content-center">
+		<form class="col-md-8 col-12 mb-4 bg-white justify-content-center rounded shadow p-3" [ formGroup]="form">
+
+			<div class=" d-flex justify-content-end">
+				<div class="d-flex justify-content-end">
+					<button class="btn p-0 m-1" (click)="onCancel($event)"><span><img src={{logocancel}} alt="editar"
+								class="logo-sm mt-1"></span></button>
+					<button class="btn p-0 m-1" (click)="onSaveEdit($event)"><span><img src={{logosave}} alt="editar"
+								class="logo-sm mt-1"></span></button>
+				</div>
+			</div>
+			<div class="text-center p-2 ">
+				<h3 class="text-center text-info m-3"><img src="./../../../assets/media/logoProyecto.png" class="logo-proyecto"
+						alt="logo-proyecto"><span class="ms-3">Editar Proyecto</span></h3>
+
+				<div class=" ">
+					<div class="text-start">
+						<label for="titulo" class="form-label  fw-bold">Título:</label>
+					</div>
+					<input type="text" class="col-md-10 col-12 p-2 mb-2 border rounded  border-1 border-danger shadow"
+						placeholder=" ✳ Título" formControlName="titulo" id="titulo" required autofocus>
+				</div>
+
+				<div class="">
+					<div class="text-start">
+						<label for="descripcion" class="form-label  fw-bold">Descripción:</label>
+					</div>
+					<input type="text" class="col-md-10 col-12 p-2 mb-2 border rounded  border-1 border-danger shadow"
+						placeholder=" 📝 Descripción" formControlName="descripcion" id="descripcion" required>
+				</div>
+
+				<div class=" ">
+					<div class="text-start">
+						<label for="imagen" class="form-label  fw-bold">Link Imagen:</label>
+					</div>
+					<input type="text"
+						class="col-md-10 col-12 p-2 mb-2 border rounded  border-1 border-danger shadow mb-4"
+						placeholder="  🖼 Link Imagen" formControlName="imagen" id="imagen" required>
+				</div>
+
+			</div>
+
+		</form>
+	</div>
+
+
+	<div class="row">
+		<div *ngFor="let myProyecto of myProyectos ; let i = index" [attr.data-index]="i" class="col-md-4 col-sm-12">
+			<div class="text-center m-2 border rounded p-2 bg-white mb-4 shadow-lg">
+				<div *ngIf="modeEdition===false">
+					<div class=" d-flex justify-content-end">
+						<div class="p-1">
+							<button class="btn p-0 m-1" (click)="onEdit(myProyecto.id, i, $event)"><span><img
+										src={{logopencil}} alt="editar"
+										class="logo-sm mt-1"></span></button>
+						</div>
+
+						<div class="p-1">
+							<button class="btn p-0 m-1" (click)="onDelete(i, $event)"><span><img
+										src={{logodelete}} alt="editar"
+										class="logo-sm mt-1"></span></button>
+						</div>
+					</div>
+				</div>
+
+				<h5 class="m-2"> ✳ {{myProyecto.titulo}}</h5>
+				<a href="" target="_blank" rel="noreferrer noopener">
+					<img src={{myProyecto.imagen}} alt="imagenproyecto" class="logosProyectos hoverProyectos">
+				</a>
+				<p class="p-2 m-3"> 📝 {{myProyecto.descripcion}}</p>
+			</div>
+		</div>
+	</div>
+</div>
+ -->
+
+ <div class="d-flex">
+	<!-- <h1 class="borde3">CHE Proyectos</h1> -->
+<section class="mat-card card project mx-auto " id="projects">
+    	<div class="title-button">
+      		<!-- <h3 class="content-title">{{}}</h3> -->
+      		<i class="fa-solid fa-plus"  data-bs-toggle="modal" data-bs-target="#addproject"></i>
+    	</div>
+    	<div class="content">
+      		<li *ngFor="let myProyecto of myProyectos">
+        		<mat-card class="example-card">
+          			<div style="padding: 5px;" class="title-button">
+            				<h5 class="card-title text-center">{{myProyectos.titulo}}</h5>
+            				<div class="d-block">
+              					<span style="padding-right: 5px;"><i class="fa-solid fa-edit"  data-bs-toggle="modal" data-bs-target="#editproject"></i></span>
+              					<span style="padding-right: 5px;"><i class="fa-solid fa-trash" data-bs-toggle="modal" data-bs-target="#eliminar"></i></span>
+            				</div>
+          			</div>
+          			<img mat-card-image src="{{myProyectos.imagen}}" alt="Project Image" class="logo-skill">
+		        	<p>{{myProyectos.descripcion}}</p>
+          			<mat-card-actions>
+            				<a href="{{myProyectos.linklivedemo}}"><button mat-button>Live Demo</button></a>
+            				<a href="{{myProyectos.linksourcecode}}"><button mat-button>Source Code</button></a>
+          			</mat-card-actions>
+        		</mat-card>
+      		</li>
+  
+      <!-- 
+      <li *ngFor="let projects of projectList">
+        <div class="mat-card">
+          <img src="{{projects.projectImage}}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <div class="title-button">
+              <h5 class="card-title">{{projects.name}}</h5>
+              <i class="fa-solid fa-edit"  data-bs-toggle="modal" data-bs-target="#editproject"></i>
+            </div>
+            <p class="card-text">{{projects.description}}</p>
+            <a href="{{projects.linkLiveDemo}}" class="card-link">Live Demo</a>
+            <a href="{{projects.linkSourceCode}}" class="card-link">Source code</a>
+          </div>
+        </div>
+      </li>
+      -->
+    </div>
+  </section>
+  
+  <div class="modal fade borde1" id="editproject" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Modificar proyecto</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="nameImput" class="form-label">Nombre</label>
+              <input class="form-control" type="text" placeholder="Escriba el nombre del proyecto"
+                aria-label="Escriba el nombre del proyecto">
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlTextarea1" class="form-label">Describa brevemente su proyecto</label>
+              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="nameImput" class="form-label">Vista previa</label>
+              <input class="form-control" type="text" placeholder="Escriba el enlace a la vista previa"
+                aria-label="Escriba el enlace a la vista previa">
+            </div>
+            <div class="mb-3">
+              <label for="nameImput" class="form-label">Enlace al código fuente</label>
+              <input class="form-control" type="text" placeholder="Escriba el enlace al código fuente"
+                aria-label="Escriba el enlace al código fuente">
+            </div>
+            <br>
+            <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary ms-2">Guardar cambios</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="modal fade borde1" id="addproject" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Añadir proyecto</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="nameImput" class="form-label">Nombre</label>
+              <input class="form-control" type="text" placeholder="Escriba el nombre del proyecto"
+                aria-label="Escriba el nombre del proyecto">
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlTextarea1" class="form-label">Describa brevemente su proyecto</label>
+              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="nameImput" class="form-label">Vista previa</label>
+              <input class="form-control" type="text" placeholder="Escriba el enlace a la vista previa"
+                aria-label="Escriba el enlace a la vista previa">
+            </div>
+            <div class="mb-3">
+              <label for="nameImput" class="form-label">Enlace al código fuente</label>
+              <input class="form-control" type="text" placeholder="Escriba el enlace al código fuente"
+                aria-label="Escriba el enlace al código fuente">
+            </div>
+            <br>
+            <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary ms-2">Guardar cambios</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal -->
+  <div class="modal fade borde1" id="eliminar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Eliminar elemento</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ¿Seguro que querés eliminar este elemento?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary">Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

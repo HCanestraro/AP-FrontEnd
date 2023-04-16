@@ -5,14 +5,13 @@
 	<div id="info">
 		<div class="info-about">
 			<div class="img-about mb-3">
-				<!-- <img src="https://i.pinimg.com/550x/d8/da/b3/d8dab349862cf5397b90379cc0bcb8b5.jpg" alt="ProfilePicture" id="img-about"> -->
 				<img src="{{myAboutMe[0].profilePicture}}" alt="ProfilePicture" id="img-about" width="50px"
 					height="50px">
 				<a href="#" data-bs-toggle="modal" data-bs-target="#editmenu"><i
 						class="fa-solid fa-pen-to-square"></i></a>
 
 				<!-- Menú de edición -->
-				<!-- <div class="modal fade" id="editmenu" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+				<div class="modal fade" id="editmenu" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
 					aria-labelledby="staticBackdropLabel" aria-hidden="true">
 					<div class="modal-dialog modal-lg">
 						<div class="modal-content">
@@ -60,7 +59,7 @@
 							</div>
 						</div>
 					</div>
-				</div> -->
+				</div> 
 
 
 			</div>
@@ -77,7 +76,6 @@
 					<li>
 						<a href="{{myAboutMe[0].company.url}}" style="text-decoration: none;">
 							<img src="{{myAboutMe[0].company.logo}}" alt="LogoInti" width="20px" height="20px">
-							<!-- <img src="../../../assets/images/cheinti.png" alt="LogoInti" width="20px" height="20px"> -->
 							<h5>{{myAboutMe[0].company.name}}</h5>
 						</a>
 					</li>

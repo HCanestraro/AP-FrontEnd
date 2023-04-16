@@ -39,4 +39,17 @@
   .alineado-sm{
     margin-left: 2em;
   }
-  
+  .progress {
+    border-radius: 10px;
+}
+
+.progress .progress-bar {
+    border-radius: 10px;
+}
+
+.font1 {
+	font-family: "Comic Sans HS", "Comic Sans", cursive;
+}
+.font2 {
+	font-family: "Arial";
+}
