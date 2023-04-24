@@ -4,93 +4,100 @@
 <!-- https://drive.google.com/uc?export=download&id=1QjXoDP0V0L7EHnjlfAx5bMFH2T-NbYU7  logosave -->
 <!-- https://drive.google.com/uc?export=download&id=1DnHtyYLt7LgH7Nl6HsIOfSh2CDjNiYAE   logocancel -->
 <!-- https://drive.google.com/uc?export=download&id=1iW5i4HOltXKRwV0Q2qsJp6mrZvmFq0rw   logodelete -->
-<div class="justify-content-center p-2">
-
-	<div *ngIf="modoNuevoRegistro === false">
-		<div class="d-flex justify-content-center mb-4 m-4">
-			<button
-				class="btn btn-sm btn-green border shadow m-1 text-center text-light fw-bold"><!-- (click)="onCrear($event)" -->
-				<span><img src="{{logoadd}}"
-						alt="editar" class="logo-sm mt-1 bg-white rounded-circle" />AGREGAR EXPERIENCIA</span>
-			</button>
-		</div>
+<!--------------- EXPERIENCIA --------------->
+<div class="container shadow bg-info">
+	<div class="row mt-5">
+		<h5 class="text-center p-1 bg-dark text-light rounded border p-2">EXPERIENCIA</h5>
 	</div>
+	<div class="justify-content-center p-2">
 
-	<div *ngFor="let myExperiencia of myExperiencia  ; let i = index" [attr.data-index]="i">
-		<div class="d-flex justify-content-center mb-4 m-4">
-			<div class="border rounded p-2 col-md-8 col-12 bg-white shadow-lg mb-4">
+		<div *ngIf="modoNuevoRegistro === false">
+			<div class="d-flex justify-content-center mb-4 m-4">
+				<button
+					class="btn btn-sm btn-green border shadow m-1 text-center text-light fw-bold"><!-- (click)="onCrear($event)" -->
+					<span><img src="{{logoadd}}" alt="editar" class="logo-sm mt-1 bg-white rounded-circle" />AGREGAR
+						EXPERIENCIA</span>
+				</button>
+			</div>
+		</div>
 
-				<div class="d-flex justify-content-end">
-					<div class="p-1">
-						<button class="btn p-0 m-1">  <!-- (click)="onCancelNuevoRegistro()" -->
-							<span><img
-									src="{{logopencil}}"
-									alt="editar" class="logo-sm mt-1" /></span>
-						</button>
-	
-						<button class="btn p-0 m-1" > <!-- (click)="onSaveNewNuevoRegistro($event)" -->
-							<span><img
-									src="https://drive.google.com/uc?export=download&id=1iW5i4HOltXKRwV0Q2qsJp6mrZvmFq0rw"
-									alt="editar" class="logo-sm mt-1" /></span>
-						</button>
+		<div *ngFor="let myExperiencia of myExperiencia  ; let i = index" [attr.data-index]="i">
+			<div class="d-flex justify-content-center mb-4 m-4">
+				<div class="border rounded p-2 col-md-12 col-12 bg-white shadow-lg mb-4">
+
+					<div class="d-flex justify-content-end">
+						<div class="p-1">
+							<button class="btn p-0 m-1"> <!-- (click)="onCancelNuevoRegistro()" -->
+								<span><img src="{{logopencil}}" alt="editar" class="logo-sm mt-1" /></span>
+							</button>
+
+							<button class="btn p-0 m-1"> <!-- (click)="onSaveNewNuevoRegistro($event)" -->
+								<span><img
+										src="https://drive.google.com/uc?export=download&id=1iW5i4HOltXKRwV0Q2qsJp6mrZvmFq0rw"
+										alt="editar" class="logo-sm mt-1" /></span>
+							</button>
+						</div>
 					</div>
+					<!-- <div class="row justify-content-center box1 align-items-center p-1"> -->
+					<h6>Ubicación: {{myExperiencia.ubicacion}}</h6>
+					<h6>Puesto: {{myExperiencia.puesto}}</h6>
+					<h6>Periodo: {{myExperiencia.periodo}}</h6>
+					<h6>Empresa: {{myExperiencia.empresa}}</h6>
+					<h6>Actividades: {{myExperiencia.actividades}}</h6>
 				</div>
-				<!-- <div class="row justify-content-center box1 align-items-center p-1"> -->
-				<h4>Ubicación: {{myExperiencia.ubicacion}}</h4>
-				<h4>Puesto: {{myExperiencia.puesto}}</h4>
-				<h4>Periodo: {{myExperiencia.periodo}}</h4>
-				<h4>Empresa: {{myExperiencia.empresa}}</h4>
-				<h4>Actividades: {{myExperiencia.actividades}}</h4>
 			</div>
 		</div>
 	</div>
-</div>
 
-<!-- Experiencia -->
-<div *ngIf="modeNewRecord===true" class="card mat-card mx-auto" id="experience">
-	<div id="info">
-		<div class="row align-item-center">
-			<!-- Columna -->
-			<div class="col-lg-6">
-				<div class="title mb-1">
-					<!-- <h3>Experiencia</h3> -->
-					<h3	style="border: 1px solid blue;border-radius: 3%;margin: 0px 0px 2px 2px; background-color: cornflowerblue;padding: 6px 12px;">Experiencia</h3>
-					<i class="fa-solid fa-plus"></i>
-				</div>
+	<!-- Experiencia -->
+	<div *ngIf="modeNewRecord===true" class="card mat-card mx-auto" id="experience">
+		<div id="info">
+			<div class="row align-item-center">
+				<!-- Columna -->
+				<div class="col-lg-6">
+					<div class="title mb-1">
+						<!-- <h3>Experiencia</h3> -->
+						<h3
+							style="border: 1px solid blue;border-radius: 3%;margin: 0px 0px 2px 2px; background-color: cornflowerblue;padding: 6px 12px;">
+							Experiencia</h3>
+						<i class="fa-solid fa-plus"></i>
+					</div>
 
-				<div class="modal fade" id="editexperience" data-bs-backdrop="static" data-bs-keyboard="false"
-					tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-					<div class="modal-dialog modal-lg">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="staticBackdropLabel">Modificar experiencia</h5>
-								<button type="button" class="btn-close" data-bs-dismiss="modal"
-									aria-label="Close"></button>
-							</div>
-							<div class="modal-body">
-								<form>
-									<div class="mb-3">
-										<label for="nameImput" class="form-label">Lugar de trabajo</label>
-										<input class="form-control" type="text"
-											placeholder="Escriba la empresa donde trabajó"
-											aria-label="Escriba la empresa donde trabajó">
-									</div>
-									<div class="mb-3">
-										<label for="nameImput" class="form-label">Cargo</label>
-										<input class="form-control" type="text" placeholder="Escriba cargo conseguido"
-											aria-label="Escriba cargo conseguido">
-									</div>
-									<div class="mb-3">
-										<label for="exampleFormControlTextarea1" class="form-label">Describa las
-											actividades del cargo que ocupaba</label>
-										<textarea class="form-control" id="exampleFormControlTextarea1"
-											rows="3"></textarea>
-									</div>
-									<br>
-									<button type="button" class="btn btn-outline-primary"
-										data-bs-dismiss="modal">Cancelar</button>
-									<button type="submit" class="btn btn-primary ms-2">Guardar cambios</button>
-								</form>
+					<div class="modal fade" id="editexperience" data-bs-backdrop="static" data-bs-keyboard="false"
+						tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+						<div class="modal-dialog modal-lg">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="staticBackdropLabel">Modificar experiencia</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal"
+										aria-label="Close"></button>
+								</div>
+								<div class="modal-body">
+									<form>
+										<div class="mb-3">
+											<label for="nameImput" class="form-label">Lugar de trabajo</label>
+											<input class="form-control" type="text"
+												placeholder="Escriba la empresa donde trabajó"
+												aria-label="Escriba la empresa donde trabajó">
+										</div>
+										<div class="mb-3">
+											<label for="nameImput" class="form-label">Cargo</label>
+											<input class="form-control" type="text"
+												placeholder="Escriba cargo conseguido"
+												aria-label="Escriba cargo conseguido">
+										</div>
+										<div class="mb-3">
+											<label for="exampleFormControlTextarea1" class="form-label">Describa las
+												actividades del cargo que ocupaba</label>
+											<textarea class="form-control" id="exampleFormControlTextarea1"
+												rows="3"></textarea>
+										</div>
+										<br>
+										<button type="button" class="btn btn-outline-primary"
+											data-bs-dismiss="modal">Cancelar</button>
+										<button type="submit" class="btn btn-primary ms-2">Guardar cambios</button>
+									</form>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -98,52 +105,55 @@
 			</div>
 		</div>
 	</div>
-</div>
 
-<div *ngIf="modeEdition===true" class="card mat-card mx-auto" id="experience">
-	<div id="info">
-		<div class="row align-item-center">
-			<!-- Columna -->
-			<div class="col-lg-6">
-				<div class="title mb-1">
-					<!-- <h3>Experiencia</h3> -->
-					<h3	style="border: 1px solid blue;border-radius: 3%;margin: 0px 0px 2px 2px; background-color: cornflowerblue;padding: 6px 12px;">Experiencia</h3>
-					<i class="fa-solid fa-plus"></i>
-				</div>
+	<div *ngIf="modeEdition===true" class="card mat-card mx-auto" id="experience">
+		<div id="info">
+			<div class="row align-item-center">
+				<!-- Columna -->
+				<div class="col-lg-6">
+					<div class="title mb-1">
+						<!-- <h3>Experiencia</h3> -->
+						<h3
+							style="border: 1px solid blue;border-radius: 3%;margin: 0px 0px 2px 2px; background-color: cornflowerblue;padding: 6px 12px;">
+							Experiencia</h3>
+						<i class="fa-solid fa-plus"></i>
+					</div>
 
-				<div class="modal fade" id="editexperience" data-bs-backdrop="static" data-bs-keyboard="false"
-					tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-					<div class="modal-dialog modal-lg">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="staticBackdropLabel">Modificar experiencia</h5>
-								<button type="button" class="btn-close" data-bs-dismiss="modal"
-									aria-label="Close"></button>
-							</div>
-							<div class="modal-body">
-								<form>
-									<div class="mb-3">
-										<label for="nameImput" class="form-label">Lugar de trabajo</label>
-										<input class="form-control" type="text"
-											placeholder="Escriba la empresa donde trabajó"
-											aria-label="Escriba la empresa donde trabajó">
-									</div>
-									<div class="mb-3">
-										<label for="nameImput" class="form-label">Cargo</label>
-										<input class="form-control" type="text" placeholder="Escriba cargo conseguido"
-											aria-label="Escriba cargo conseguido">
-									</div>
-									<div class="mb-3">
-										<label for="exampleFormControlTextarea1" class="form-label">Describa las
-											actividades del cargo que ocupaba</label>
-										<textarea class="form-control" id="exampleFormControlTextarea1"
-											rows="3"></textarea>
-									</div>
-									<br>
-									<button type="button" class="btn btn-outline-primary"
-										data-bs-dismiss="modal">Cancelar</button>
-									<button type="submit" class="btn btn-primary ms-2">Guardar cambios</button>
-								</form>
+					<div class="modal fade" id="editexperience" data-bs-backdrop="static" data-bs-keyboard="false"
+						tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+						<div class="modal-dialog modal-lg">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="staticBackdropLabel">Modificar experiencia</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal"
+										aria-label="Close"></button>
+								</div>
+								<div class="modal-body">
+									<form>
+										<div class="mb-3">
+											<label for="nameImput" class="form-label">Lugar de trabajo</label>
+											<input class="form-control" type="text"
+												placeholder="Escriba la empresa donde trabajó"
+												aria-label="Escriba la empresa donde trabajó">
+										</div>
+										<div class="mb-3">
+											<label for="nameImput" class="form-label">Cargo</label>
+											<input class="form-control" type="text"
+												placeholder="Escriba cargo conseguido"
+												aria-label="Escriba cargo conseguido">
+										</div>
+										<div class="mb-3">
+											<label for="exampleFormControlTextarea1" class="form-label">Describa las
+												actividades del cargo que ocupaba</label>
+											<textarea class="form-control" id="exampleFormControlTextarea1"
+												rows="3"></textarea>
+										</div>
+										<br>
+										<button type="button" class="btn btn-outline-primary"
+											data-bs-dismiss="modal">Cancelar</button>
+										<button type="submit" class="btn btn-primary ms-2">Guardar cambios</button>
+									</form>
+								</div>
 							</div>
 						</div>
 					</div>

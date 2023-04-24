@@ -1,73 +1,70 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { PortfolioService } from 'src/app/services/portfolio.service';
-import Swal from 'sweetalert2';
-import { Ipersona } from './../../interfaces/ipersona';
-import { Iaboutme } from './../../interfaces/iaboutme';
+import { DomSanitizer } from '@angular/platform-browser';
+import { Cloudinary, CloudinaryImage } from '@cloudinary/url-gen';
+import { fill } from "@cloudinary/url-gen/actions/resize";
+import { CloudinaryImageComponent } from '@cloudinary/ng';
 
 @Component({
 	selector: 'app-banner',
 	templateUrl: './banner.component.html',
 	styleUrls: ['./banner.component.css']
 })
+
 export class BannerComponent implements OnInit {
 
+	img!: CloudinaryImage;
+	myPortfolio: any;
 	myPersona: any;
 	myAboutMe: any;
-	modeEdition: boolean = false;
-	modeNewRecord: boolean = false;
-	form: FormGroup;
-	alertaDelete: string = "¿Eliminar información AcercaDe?"
+	logopencil!: String;
+	logoadd!: String;
+	logoedu!: String;
+	logosave!: String;
+	logocancel!: String;
+	logodelete!: String;
+	logoskills!: String;
 
-	constructor(private portfolioData: PortfolioService, private formBuilder: FormBuilder) {
-		this.form = new FormGroup({
-			fullname: new FormControl(['', [Validators.required, Validators.minLength(2)]]),
-			posicion: new FormControl(['', [Validators.required, Validators.minLength(2)]]),
-			descripcion: new FormControl(['', [Validators.required, Validators.minLength(2)]])
-		})
-	}
+	constructor(private portfolioData: PortfolioService, private sanitizer: DomSanitizer) { }
 
-	ngOnInit(): void {
-		this.portfolioData.getdata().subscribe(data => {
-			// this.myAboutMe = JSON.stringify(data);
-			this.myAboutMe = data.aboutme;
-			console.log("obtenerDatosAboutMe: ", this.myAboutMe);
-			this.myPersona = data.persona;console.log(this.myPersona);
-			// this.myPersona = JSON.stringify(data);
-		});
-	
+	ngOnInit(): void 
+	{
+		this.logopencil="https://drive.google.com/uc?export=download&id=1jA2K7nPYax0JVefFmgn8HvsYre_25zie";
+		this.logoadd= "https://drive.google.com/uc?export=download&id=11BKh21cSfuiTBDHbY26XH5Ux9TBVYdWm";
+		this.logoedu= "https://drive.google.com/uc?export=download&id=1_TzJ4uPlPA_qU9DaaARLKqlLoXVi5pWu";
+		this.logosave= "https://drive.google.com/uc?export=download&id=1QjXoDP0V0L7EHnjlfAx5bMFH2T-NbYU7";
+		this.logocancel= "https://drive.google.com/uc?export=download&id=1DnHtyYLt7LgH7Nl6HsIOfSh2CDjNiYAE";
+		this.logodelete= "https://drive.google.com/uc?export=download&id=1iW5i4HOltXKRwV0Q2qsJp6mrZvmFq0rw";
+		this.logoskills= "https://drive.google.com/uc?export=download&id=1XApdWSnN7YZC0Y5B0IybEyefUZ10wTuu";
 
-	}
-	onDelete(id: any, event: Event) {
-		this.modeEdition = false;
-		event.preventDefault;
-		Swal.fire({
-			title: '¿Desea Eliminar la información Acerca De?',
-			text: "No podrá revertir los cambios.",
-			icon: 'warning',
-			showCancelButton: true,
-			confirmButtonColor: '#d33',
-			cancelButtonColor: '#3085d6',
-			confirmButtonText: 'ELIMINAR'
-		}).then((result) => {
-			if (result.isConfirmed) {
-				this.portfolioData.deleteAboutMe(id).subscribe(data => {
-					console.log("Borrando registro", data);
-
-					this.portfolioData.obtenerDatosAboutMe().subscribe(data => {
-						this.myAboutMe = data;
-					});
-
-				});
-
-
-				Swal.fire(
-					'ELIMINADO',
-					'La Información Acerca De ha sido eliminada con éxito.',
-					'success'
-				)
+		// Create a Cloudinary instance, setting some Cloud and URL configuration parameters.
+		const cld = new Cloudinary({
+			cloud: {
+				cloudName: 'demo'
 			}
-		})
+		});
+		// cld.image returns a CloudinaryImage with the configuration set.
+		this.img = cld.image("docs/models");
+		this.img.resize( fill().width(250).height(250));
 
+		// The URL of the image is: https://res.cloudinary.com/demo/image/upload/sample
+		// }
+
+		this.portfolioData.getdata().subscribe(data => {
+			this.myPortfolio = data;
+			this.myPersona = data.persona;
+			console.log(this.myPersona);
+
+			this.myAboutMe = data.aboutme;
+			console.log(this.myAboutMe);
+			
+	});
+	};
+
+	cheSeg(curl: string) {
+		// const url = curl;
+		return this.sanitizer.bypassSecurityTrustUrl(curl);
+		// return urlSegura;
 	}
 }
+	

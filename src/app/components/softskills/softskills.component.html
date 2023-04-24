@@ -1,8 +1,14 @@
+<!--------------- SOFTSKILLS --------------->
+<div class="container shadow bg-info">
+    <div class="row mt-5">
+        <h5 class="text-center p-1 bg-dark text-light rounded border p-2">SOFTSKILLS</h5>
+    </div>
+
 <div *ngIf="modeNewRecord === false">
 	<div class="d-flex justify-content-center mb-4 m-4">
 		<button
 			class="btn btn-sm btn-green border shadow m-1 text-center text-light fw-bold"><!-- (click)="onCrear($event)" -->
-			<span><img src="{{logoadd}}"
+			<span><img src={{logoadd}}
 					alt="editar" class="logo-sm mt-1 bg-white rounded-circle" />AGREGAR SOFTSKILLS</span>
 		</button>
 	</div>
@@ -15,9 +21,7 @@
 			<div class="d-flex justify-content-end">
 				<div class="p-1">
 					<button class="btn p-0 m-1">  <!-- (click)="onCancelNuevoRegistro()" -->
-						<span><img
-								src="https://drive.google.com/uc?export=download&id=1jA2K7nPYax0JVefFmgn8HvsYre_25zie"
-								alt="editar" class="logo-sm mt-1" /></span>
+						<span><img src="{{logopencil}}" alt="editar" class="logo-sm mt-1" /></span>
 					</button>
 
 					<button class="btn p-0 m-1" > <!-- (click)="onSaveNewNuevoRegistro($event)" -->
@@ -27,8 +31,9 @@
 					</button>
 				</div>
 			</div>
-			<h4>{{mySoftskills.description}}</h4>
+			<h4>{{mySoftskills.descripcion}}</h4>
 
 		</div>
 	</div>
+</div>
 </div>

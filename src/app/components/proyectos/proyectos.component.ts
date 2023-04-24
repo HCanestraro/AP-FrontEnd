@@ -4,6 +4,7 @@ import { PortfolioService } from './../../services/portfolio.service';
 import Swal from 'sweetalert2';
 import { MatCardModule } from '@angular/material/card';
 import { MatCardActions } from '@angular/material/card';
+import { NgFor } from '@angular/common';
 
 @Component({
 	selector: 'app-proyectos',
@@ -27,27 +28,39 @@ export class ProyectosComponent implements OnInit {
 	logoskills!: String;
 
 	constructor(private portfolioData: PortfolioService) {
-		this.logopencil = "https://drive.google.com/uc?export=download&id=1jA2K7nPYax0JVefFmgn8HvsYre_25zie";
+		/* this.logopencil = "https://drive.google.com/uc?export=download&id=1jA2K7nPYax0JVefFmgn8HvsYre_25zie";
 		this.logoadd = "https://drive.google.com/uc?export=download&id=11BKh21cSfuiTBDHbY26XH5Ux9TBVYdWm";
 		this.logoedu = "https://drive.google.com/uc?export=download&id=1_TzJ4uPlPA_qU9DaaARLKqlLoXVi5pWu";
 		this.logosave = "https://drive.google.com/uc?export=download&id=1QjXoDP0V0L7EHnjlfAx5bMFH2T-NbYU7";
 		this.logocancel = "https://drive.google.com/uc?export=download&id=1DnHtyYLt7LgH7Nl6HsIOfSh2CDjNiYAE";
 		this.logodelete = "https://drive.google.com/uc?export=download&id=1iW5i4HOltXKRwV0Q2qsJp6mrZvmFq0rw";
-		this.logoskills = "https://drive.google.com/uc?export=download&id=1XApdWSnN7YZC0Y5B0IybEyefUZ10wTuu";
+		this.logoskills = "https://drive.google.com/uc?export=download&id=1XApdWSnN7YZC0Y5B0IybEyefUZ10wTuu"; */
 
 		this.form = new FormGroup({
 			descripcion: new FormControl(['', [Validators.required, Validators.minLength(2)]]),
 			imagen: new FormControl(['', [Validators.required, Validators.minLength(2)]]),
 			titulo: new FormControl(['', [Validators.required, Validators.minLength(2)]]),
+			linklivedemo: new FormControl(['', [Validators.required, Validators.minLength(2)]]),
+			linksourcedemo: new FormControl(['', [Validators.required, Validators.minLength(2)]]),
 		})
 	}
 
 	ngOnInit(): void {
-		this.portfolioData.getdata().subscribe(data => {
-			this.myProyectos = data.proyectos;
+			this.logopencil="https://drive.google.com/uc?export=download&id=1jA2K7nPYax0JVefFmgn8HvsYre_25zie";
+		this.logoadd= "https://drive.google.com/uc?export=download&id=11BKh21cSfuiTBDHbY26XH5Ux9TBVYdWm";
+		this.logoedu= "https://drive.google.com/uc?export=download&id=1_TzJ4uPlPA_qU9DaaARLKqlLoXVi5pWu";
+		this.logosave= "https://drive.google.com/uc?export=download&id=1QjXoDP0V0L7EHnjlfAx5bMFH2T-NbYU7";
+		this.logocancel= "https://drive.google.com/uc?export=download&id=1DnHtyYLt7LgH7Nl6HsIOfSh2CDjNiYAE";
+		this.logodelete= "https://drive.google.com/uc?export=download&id=1iW5i4HOltXKRwV0Q2qsJp6mrZvmFq0rw";
+		this.logoskills= "https://drive.google.com/uc?export=download&id=1XApdWSnN7YZC0Y5B0IybEyefUZ10wTuu";
 
+			this.portfolioData.getdata().subscribe(data => {
+			this.myProyectos = data.proyectos;
 			console.log("DATA-proyectos", this.myProyectos);
-		})
+			// console.log("LEN",this.myProyectos.length);
+			// console.log(this.myProyectos[0]);
+			
+			});
 	}
 
 	onCrear(event: Event) {
@@ -60,11 +73,14 @@ export class ProyectosComponent implements OnInit {
 		valueForms[0].setValue('');
 		valueForms[1].setValue('');
 		valueForms[2].setValue('');
+		valueForms[3].setValue('');
+		valueForms[4].setValue('');
 
-
-		console.log("valueFormDetalles: ", valueForms[0].value);
-		console.log("valueFormEstado: ", valueForms[1].value);
-		console.log("valueFormInstitucion: ", valueForms[2].value);
+		console.log("valueFormTitulo: ", valueForms[0].value);
+		console.log("valueFormImagen: ", valueForms[1].value);
+		console.log("valueFormDescripcion: ", valueForms[2].value);
+		console.log("valueFormLinkLiveDemo: ", valueForms[3].value);
+		console.log("valueFormLinkSourceDemo: ", valueForms[4].value);
 
 		this.modeNewRecord = true;
 
@@ -78,16 +94,14 @@ export class ProyectosComponent implements OnInit {
 		console.log("id: ", id);
 
 		this.form.setValue({
-			descripcion: this.myProyectos[i].descripcion,
+			titulo: this.myProyectos[i].titulo,
 			imagen: this.myProyectos[i].imagen,
-			titulo: this.myProyectos[i].titulo
+			descripcion: this.myProyectos[i].descripcion,
+			linklivedemo: this.myProyectos[i].linklivedemo,
+			linksourcedemo: this.myProyectos[i].linksourcedemo
 		})
-
 		console.log("this.form.value: ", this.form.value);
-
 		this.modeEdition = true;
-
-
 	}
 
 	onSaveEdit(event: Event) {

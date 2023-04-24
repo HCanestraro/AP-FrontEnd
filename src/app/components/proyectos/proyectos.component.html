@@ -134,34 +134,39 @@
 	</div>
 </div>
  -->
+<!--------------- PROYECTOS --------------->
+<div class="container shadow bg-info">
+	<div class="row mt-5">
+		<h5 class="text-center p-1 bg-dark text-light rounded border p-2">PROYECTOS</h5>
+	</div>
+	<div class="d-flex row">
+		<section class="mat-card" id="projects">
+			<div class="title-button">
+				<h3 class="content-title">Titulo</h3>
+				<img src={{logoadd}} class="logo-sm" data-bs-toggle="modal" data-bs-target="#addproject">
+			</div>
+			<div class="content">
+				<li *ngFor="let myProyectos of myProyectos">
+					<mat-card class="m-3 box1">
+						<div style="padding: 5px;" class="title-button">
+							<h5 class="card-title text-center">{{myProyectos.titulo}}</h5>
+							<div class="d-block">
+								<span style="padding-right: 5px;"><img src={{logopencil}} class="logo-sm"
+										data-bs-toggle="modal" data-bs-target="#editproject"></span>
+								<span style="padding-right: 5px;"><img src={{logodelete}} class="logo-sm"
+										data-bs-toggle="modal" data-bs-target="#eliminar"></span>
+							</div>
+						</div>
+						<img mat-card-image src={{myProyectos.imagen}} alt="Project Image" class="image-sm checentro">
+						<h6 class="checentro"><b>Descripción:</b> {{myProyectos.descripcion}}</h6>
+						<mat-card-actions class="checentro">
+							<a href={{myProyectos.linklivedemo}} class="card-link"><button mat-raised-button color="primary">Live Demo</button></a>
+							<a href={{myProyectos.linksourcecode}} class="card-link"><button mat-raised-button color="primary">Source Code</button></a>
+						</mat-card-actions>
+					</mat-card>
+				</li>
 
- <div class="d-flex">
-	<!-- <h1 class="borde3">CHE Proyectos</h1> -->
-<section class="mat-card card project mx-auto " id="projects">
-    	<div class="title-button">
-      		<!-- <h3 class="content-title">{{}}</h3> -->
-      		<i class="fa-solid fa-plus"  data-bs-toggle="modal" data-bs-target="#addproject"></i>
-    	</div>
-    	<div class="content">
-      		<li *ngFor="let myProyecto of myProyectos">
-        		<mat-card class="example-card">
-          			<div style="padding: 5px;" class="title-button">
-            				<h5 class="card-title text-center">{{myProyectos.titulo}}</h5>
-            				<div class="d-block">
-              					<span style="padding-right: 5px;"><i class="fa-solid fa-edit"  data-bs-toggle="modal" data-bs-target="#editproject"></i></span>
-              					<span style="padding-right: 5px;"><i class="fa-solid fa-trash" data-bs-toggle="modal" data-bs-target="#eliminar"></i></span>
-            				</div>
-          			</div>
-          			<img mat-card-image src="{{myProyectos.imagen}}" alt="Project Image" class="logo-skill">
-		        	<p>{{myProyectos.descripcion}}</p>
-          			<mat-card-actions>
-            				<a href="{{myProyectos.linklivedemo}}"><button mat-button>Live Demo</button></a>
-            				<a href="{{myProyectos.linksourcecode}}"><button mat-button>Source Code</button></a>
-          			</mat-card-actions>
-        		</mat-card>
-      		</li>
-  
-      <!-- 
+				<!-- 
       <li *ngFor="let projects of projectList">
         <div class="mat-card">
           <img src="{{projects.projectImage}}" class="card-img-top" alt="...">
@@ -177,101 +182,109 @@
         </div>
       </li>
       -->
-    </div>
-  </section>
-  
-  <div class="modal fade borde1" id="editproject" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">Modificar proyecto</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="mb-3">
-              <label for="nameImput" class="form-label">Nombre</label>
-              <input class="form-control" type="text" placeholder="Escriba el nombre del proyecto"
-                aria-label="Escriba el nombre del proyecto">
-            </div>
-            <div class="mb-3">
-              <label for="exampleFormControlTextarea1" class="form-label">Describa brevemente su proyecto</label>
-              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-            </div>
-            <div class="mb-3">
-              <label for="nameImput" class="form-label">Vista previa</label>
-              <input class="form-control" type="text" placeholder="Escriba el enlace a la vista previa"
-                aria-label="Escriba el enlace a la vista previa">
-            </div>
-            <div class="mb-3">
-              <label for="nameImput" class="form-label">Enlace al código fuente</label>
-              <input class="form-control" type="text" placeholder="Escriba el enlace al código fuente"
-                aria-label="Escriba el enlace al código fuente">
-            </div>
-            <br>
-            <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Cancelar</button>
-            <button type="submit" class="btn btn-primary ms-2">Guardar cambios</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <div class="modal fade borde1" id="addproject" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">Añadir proyecto</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="mb-3">
-              <label for="nameImput" class="form-label">Nombre</label>
-              <input class="form-control" type="text" placeholder="Escriba el nombre del proyecto"
-                aria-label="Escriba el nombre del proyecto">
-            </div>
-            <div class="mb-3">
-              <label for="exampleFormControlTextarea1" class="form-label">Describa brevemente su proyecto</label>
-              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-            </div>
-            <div class="mb-3">
-              <label for="nameImput" class="form-label">Vista previa</label>
-              <input class="form-control" type="text" placeholder="Escriba el enlace a la vista previa"
-                aria-label="Escriba el enlace a la vista previa">
-            </div>
-            <div class="mb-3">
-              <label for="nameImput" class="form-label">Enlace al código fuente</label>
-              <input class="form-control" type="text" placeholder="Escriba el enlace al código fuente"
-                aria-label="Escriba el enlace al código fuente">
-            </div>
-            <br>
-            <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Cancelar</button>
-            <button type="submit" class="btn btn-primary ms-2">Guardar cambios</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Modal -->
-  <div class="modal fade borde1" id="eliminar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Eliminar elemento</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          ¿Seguro que querés eliminar este elemento?
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-primary">Eliminar</button>
-        </div>
-      </div>
-    </div>
-  </div>
+			</div>
+		</section>
+
+		<div class="modal fade borde1" id="editproject" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+			aria-labelledby="staticBackdropLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="staticBackdropLabel">Modificar proyecto</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<form>
+							<div class="mb-3">
+								<label for="nameImput" class="form-label">Nombre</label>
+								<input class="form-control" type="text" placeholder="Escriba el nombre del proyecto"
+									aria-label="Escriba el nombre del proyecto">
+							</div>
+							<div class="mb-3">
+								<label for="exampleFormControlTextarea1" class="form-label">Describa brevemente su
+									proyecto</label>
+								<textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+							</div>
+							<div class="mb-3">
+								<label for="nameImput" class="form-label">Vista previa</label>
+								<input class="form-control" type="text"
+									placeholder="Escriba el enlace a la vista previa"
+									aria-label="Escriba el enlace a la vista previa">
+							</div>
+							<div class="mb-3">
+								<label for="nameImput" class="form-label">Enlace al código fuente</label>
+								<input class="form-control" type="text" placeholder="Escriba el enlace al código fuente"
+									aria-label="Escriba el enlace al código fuente">
+							</div>
+							<br>
+							<button type="button" class="btn btn-outline-primary"
+								data-bs-dismiss="modal">Cancelar</button>
+							<button type="submit" class="btn btn-primary ms-2">Guardar cambios</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade borde1" id="addproject" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+			aria-labelledby="staticBackdropLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="staticBackdropLabel">Añadir proyecto</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<form>
+							<div class="mb-3">
+								<label for="nameImput" class="form-label">Nombre</label>
+								<input class="form-control" type="text" placeholder="Escriba el nombre del proyecto"
+									aria-label="Escriba el nombre del proyecto">
+							</div>
+							<div class="mb-3">
+								<label for="exampleFormControlTextarea1" class="form-label">Describa brevemente su
+									proyecto</label>
+								<textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+							</div>
+							<div class="mb-3">
+								<label for="nameImput" class="form-label">Vista previa</label>
+								<input class="form-control" type="text"
+									placeholder="Escriba el enlace a la vista previa"
+									aria-label="Escriba el enlace a la vista previa">
+							</div>
+							<div class="mb-3">
+								<label for="nameImput" class="form-label">Enlace al código fuente</label>
+								<input class="form-control" type="text" placeholder="Escriba el enlace al código fuente"
+									aria-label="Escriba el enlace al código fuente">
+							</div>
+							<br>
+							<button type="button" class="btn btn-outline-primary"
+								data-bs-dismiss="modal">Cancelar</button>
+							<button type="submit" class="btn btn-primary ms-2">Guardar cambios</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Modal -->
+		<div class="modal fade borde1" id="eliminar" tabindex="-1" aria-labelledby="exampleModalLabel"
+			aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Eliminar elemento</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						¿Seguro que querés eliminar este elemento?
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+						<button type="button" class="btn btn-primary">Eliminar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

@@ -39,10 +39,10 @@ export class SkillsComponent implements OnInit {
 		this.logocancel= "https://drive.google.com/uc?export=download&id=1DnHtyYLt7LgH7Nl6HsIOfSh2CDjNiYAE";
 		this.logodelete= "https://drive.google.com/uc?export=download&id=1iW5i4HOltXKRwV0Q2qsJp6mrZvmFq0rw";
 		this.logoskills= "https://drive.google.com/uc?export=download&id=1XApdWSnN7YZC0Y5B0IybEyefUZ10wTuu";
+		
 		this.portfolioData.getdata().subscribe(data => {
 			this.mySkills = data.skills;
-
-			console.log("DATA-skills", this.mySkills);
+			console.log("getdata-DATA-skills:", this.mySkills);
 		})
 	}
 

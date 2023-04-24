@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from './../environments/environments';
-// import { FontAwesomeModule } from './../../node_modules/fortawesome';
+// import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { AppComponent } from './app.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -20,39 +20,53 @@ import { SoftskillsComponent } from './components/softskills/softskills.componen
 import { ProyectosComponent } from './components/proyectos/proyectos.component';
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
 import { LoginComponent } from './components/login/login.component';
+import { CloudinaryModule } from "@cloudinary/ng";
 
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatSliderModule } from '@angular/material/slider';
 import { AppRoutingModule } from './app-routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ChelibComponent } from './components/chelib/chelib.component';
+import { CloudinaryConfig } from '@cloudinary/url-gen';
+const materialModules = [
+	MatButtonModule,
+	MatCardModule,
+	MatDatepickerModule,
+	MatNativeDateModule,
+	MatSliderModule
+];
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    FooterComponent,
-    NavbarComponent,
-    BannerComponent,
-    Che404Component,
-    EducacionComponent,
-    ExperienciaComponent,
-    SkillsComponent,
-    SoftskillsComponent,
-    ProyectosComponent,
-    PortfolioComponent,
-    LoginComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    MatCardModule,
-    MatProgressBarModule,
-    MatButtonModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig)
-    // FontAwesomeModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent],
-  
+	declarations: [
+		AppComponent,
+		FooterComponent,
+		NavbarComponent,
+		BannerComponent,
+		Che404Component,
+		EducacionComponent,
+		ExperienciaComponent,
+		SkillsComponent,
+		SoftskillsComponent,
+		ProyectosComponent,
+		PortfolioComponent,
+		LoginComponent,
+		ChelibComponent
+	],
+	imports: [
+		BrowserModule,
+		AppRoutingModule,
+		HttpClientModule,
+		CloudinaryModule,
+		materialModules,
+		AngularFireModule.initializeApp(environment.firebaseConfig),
+		BrowserAnimationsModule,
+		// FontAwesomeModule
+	],
+	providers: [],
+	bootstrap: [AppComponent],
+
 })
 export class AppModule { }

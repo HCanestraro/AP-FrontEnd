@@ -10,8 +10,8 @@ export class AutenticacionService {
 
   // urlLogin="https://argentina-programa-portafolio.herokuapp.com/auth/login";
   // urlNuevo="https://argentina-programa-portafolio.herokuapp.com/auth/nuevo";
-  urlLogin="localhost:4200";
-  urlNuevo="localhost:4200";
+  urlLogin="localhost:4200/";
+  urlNuevo="localhost:4200/";
   
   usuario: BehaviorSubject<any>;
 

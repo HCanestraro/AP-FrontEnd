@@ -1,17 +1,20 @@
 <!-- Profile -->
-<div class="card mat-card mx-auto" id="card-about">
-	<h4>{{myPersona[0].nombres}}</h4>
-	<img class="card-img-top" src={{myAboutMe[0].bannerImage}} alt="Card image cap">
+<!-- <div class="card mat-card mx-auto" id="card-about">
+ -->
+ <div class="card mat-card mx-auto">
+	<h4 class="color-green">{{ myPersona[0].nombres }}</h4>
+	<img class="card-img-top" src="{{ myAboutMe[0].bannerImage }}"  alt="Card image cap">
+	<!-- <advanced-image [cldImg]="img"></advanced-image> -->
 	<div id="info">
 		<div class="info-about">
 			<div class="img-about mb-3">
-				<img src="{{myAboutMe[0].profilePicture}}" alt="ProfilePicture" id="img-about" width="50px"
-					height="50px">
+				<!-- <img src="https://i.pinimg.com/550x/d8/da/b3/d8dab349862cf5397b90379cc0bcb8b5.jpg" alt="ProfilePicture" id="img-about"> -->
+				<img src= "{{ myAboutMe[0].profilePicture }}"  alt="ProfilePicture" id="img-about" width="50px" height="50px">
 				<a href="#" data-bs-toggle="modal" data-bs-target="#editmenu"><i
 						class="fa-solid fa-pen-to-square"></i></a>
 
 				<!-- Menú de edición -->
-				<div class="modal fade" id="editmenu" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+				<!-- <div class="modal fade" id="editmenu" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
 					aria-labelledby="staticBackdropLabel" aria-hidden="true">
 					<div class="modal-dialog modal-lg">
 						<div class="modal-content">
@@ -59,7 +62,7 @@
 							</div>
 						</div>
 					</div>
-				</div> 
+				</div> -->
 
 
 			</div>
@@ -69,13 +72,14 @@
 					<h2>{{myPersona[0].nombres}}</h2>
 					<div id="info-company">{{myPersona[0].ocupacion}}</div>
 					<div id="info-contact">
-						<span>{{myAboutMe[0].ubication}}</span>
+						<span>{{myAboutMe[0].ubicacion}}</span>
 					</div>
 				</div>
 				<ul id="info-details">
 					<li>
-						<a href="{{myAboutMe[0].company.url}}" style="text-decoration: none;">
-							<img src="{{myAboutMe[0].company.logo}}" alt="LogoInti" width="20px" height="20px">
+						<a href="{{ myAboutMe[0].company.url }}" style="text-decoration: none;">
+							<img src="{{ myAboutMe[0].company.logo }}" alt="LogoInti" width="20px" height="20px">
+							<!-- <img src="../../../assets/images/cheinti.png" alt="LogoInti" width="20px" height="20px"> -->
 							<h5>{{myAboutMe[0].company.name}}</h5>
 						</a>
 					</li>
@@ -83,15 +87,15 @@
 			</div>
 			<div id="info-action">
 				<a href="#" class="btn btn-primary font2">Intereses: </a>
-				<a href="#" class="btn btn-light font2" id="dropdownMenuAction" data-bs-toggle="dropdown"
-					aria-expanded="false">Añadir sección: </a>
+				<!-- <a href="#" class="btn btn-light font2" id="dropdownMenuAction" data-bs-toggle="dropdown" aria-expanded="false">Añadir sección: </a> -->
+				<a href="#" class="btn btn-light font2" id="dropdownMenuAction" >Añadir sección: </a>
 				<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuAction">
 					<li><a class="dropdown-item" href="#">Añadir <strong>Cursos</strong></a></li>
 					<li><a class="dropdown-item" href="#">Añadir <strong>Pasantías</strong></a></li>
 				</ul>
-				<a href="#" class="btn btn-light" id="dropdownMenuAction" data-bs-toggle="dropdown"
-					aria-expanded="false">Más: </a>
-				<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuAction">
+				<!-- <a href="#" class="btn btn-light" id="dropdownMenuAction" data-bs-toggle="dropdown" aria-expanded="false">Más: </a> -->
+				<a href="#" class="btn btn-light" id="dropdownMenuAction">Más: </a>
+				<ul class="dropdown-menu dropdown-menu-end">
 					<li><a class="dropdown-item" href="#">Compartir perfil</a></li>
 					<li><a class="dropdown-item" href="#">Descargar en PDF</a></li>
 				</ul>
