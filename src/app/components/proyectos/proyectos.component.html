@@ -140,14 +140,14 @@
 		<h5 class="text-center p-1 bg-dark text-light rounded border p-2">PROYECTOS</h5>
 	</div>
 	<div class="d-flex row">
-		<section class="mat-card" id="projects">
+		<section class="card mat-card" id="projects">
 			<div class="title-button">
 				<h3 class="content-title">Titulo</h3>
 				<img src={{logoadd}} class="logo-sm" data-bs-toggle="modal" data-bs-target="#addproject">
 			</div>
 			<div class="content">
 				<li *ngFor="let myProyectos of myProyectos">
-					<mat-card class="m-3 box1">
+					<mat-card>
 						<div style="padding: 5px;" class="title-button">
 							<h5 class="card-title text-center">{{myProyectos.titulo}}</h5>
 							<div class="d-block">
@@ -159,7 +159,7 @@
 						</div>
 						<img mat-card-image src={{myProyectos.imagen}} alt="Project Image" class="image-sm checentro">
 						<h6 class="checentro"><b>Descripción:</b> {{myProyectos.descripcion}}</h6>
-						<mat-card-actions class="checentro">
+						<mat-card-actions>
 							<a href={{myProyectos.linklivedemo}} class="card-link"><button mat-raised-button color="primary">Live Demo</button></a>
 							<a href={{myProyectos.linksourcecode}} class="card-link"><button mat-raised-button color="primary">Source Code</button></a>
 						</mat-card-actions>

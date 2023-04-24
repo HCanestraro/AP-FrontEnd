@@ -1,52 +1,43 @@
-import { Injectable } from "@angular/core";
-import { AngularFireAuth } from "@angular/fire/compat/auth";
-import firebase from 'firebase/compat/app';
+import { Injectable } from '@angular/core';
+import {
+  Auth,
+  signInWithEmailAndPassword,
+  authState,
+  createUserWithEmailAndPassword,
+  updateProfile,
+  UserInfo,
+  UserCredential,
+} from '@angular/fire/auth';
+import { concatMap, from, Observable, of, switchMap } from 'rxjs';
 
 @Injectable({
-	providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class AuthService {
-	constructor(private afauth: AngularFireAuth) {}
+  currentUser$ = authState(this.auth);
 
-	async register(email:string, password: string) {
-		try {
-			return await this.afauth.createUserWithEmailAndPassword(email,password);
+  constructor(private auth: Auth) {}
 
-		} catch (err) {
-			console.log('Error en login:', err);
-			return null;
+  signUp(email: string, password: string): Observable<UserCredential> {
+    return from(createUserWithEmailAndPassword(this.auth, email, password));
+  }
 
-		}
-	}
+  login(email: string, password: string): Observable<any> {
+    return from(signInWithEmailAndPassword(this.auth, email, password));
+  }
 
-	async login(email:string, password: string) {
-		try {
-			return await this.afauth.signInWithEmailAndPassword(email,password);
+  // updateProfile(profileData: Partial<UserInfo>): Observable<any> {
+  //   const user = this.auth.currentUser;
+  //   return of(user).pipe(
+  //     concatMap((user) => {
+  //       if (!user) throw new Error('Not authenticated');
 
-		} catch (err) {
-			console.log('Error en login:', err);
-			return null;
+  //       return updateProfile(user, profileData);
+  //     })
+  //   );
+  // }
 
-		}
-	}
-
-	async loginWithGoogle(email:string, password: string) {
-		try {
-			return await this.afauth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
-
-		} catch (err) {
-			console.log('Error en login con google:', err);
-			return null;
-
-		}
-	}
-
-	getUserLogged() {
-		return this.afauth.authState;
-	}
-
-	logout() {
-		this.afauth.signOut();
-	}
+  logout(): Observable<any> {
+    return from(this.auth.signOut());
+  }
 } 

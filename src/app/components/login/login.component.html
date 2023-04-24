@@ -1,24 +1,47 @@
-<!-- <div class="wrapper"> -->
-<div class="d-flex container-fluid shadow justify-content-center align-content-center">
-	<div class="d-flex flex-direction-row">
-		<img src="https://drive.google.com/uc?export=download&id=1Od_UBwprzgV6uezmay1pgQImtC146_BD" alt="Login" width="150px" height="150px">
-		<h1>Login</h1>
-		<form>
-			<div class="mb-3">
-				<input type="email" class="form-control" placeholder="name@example.com">
-				<label>Email</label>
-			</div>
-			<div class="mb-3">
-				<input type="password" class="form-control" placeholder="Password">
-				<label>Password</label>
-			</div>
-			<div class="d-grid gap-2">
-				<button class="btn btn-primary btn-lg" type="button">Ingresar</button>
-			</div>
-			<p>No tienes cuenta</p>
-			<p>recuperar password</p>
-			<!-- <p class="mt-3">No tienes cuenta? <a routerLink="/registrar-usuario">Registrar</a></p> -->
-			<!-- <a class="mt-3" routerLink="/recuperar-password">Recuperar contraseña</a> -->
-		</form>
-	</div>
-</div>
+<app-navbar></app-navbar>
+<!-- 	<div class="d-flex container-fluid border-2 shadow ma-2 my-2 flex-direction-column">
+		<div class="shadow justify-content-center align-items-center">
+			<b> LOGIN </b>
+		</div>
+			<div class="container">
+			
+			<label style="float:left;">Email</label>
+			<input class="form-control m-2" type="email" placeholder="ingrese su email">
+
+			<label style="float:left;">Password</label>
+			<input class="form-control m-2" type="password" placeholder="ingrese su password">
+
+			<button class="btn btn-primary btn-block m-2" (click)="Ingresar()">Ingresar</button>
+			<button class="btn btn-info btn-block m-2" (click)="Ingresar()">Ingresar con google</button>
+			<label>Aun no tienes cuenta? <a href="#">Registrarse</a></label>
+		</div>
+		<div>
+			<button class="btn btn-info btn-block m-2" (click)="obtenerUsuarioLogeado()">Usuario Logeado</button>
+			<button class="btn btn-info btn-block m-2" (click)="logout()">Logout</button>
+		</div>
+	</div> -->
+	<div class="form-container mat-elevation-z5">
+  <h1>Login</h1>
+  <form [formGroup ]="loginForm" (ngSubmit)="submit()">
+    <mat-form-field>
+      <input matInput placeholder="Email address" formControlName="email" />
+      <mat-error *ngIf="email?.errors?.['required']">
+        Email address is required
+      </mat-error>
+      <mat-error *ngIf="email?.errors?.['email']">
+        Please enter a valid email address
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="password" placeholder="Password" formControlName="password" />
+      <mat-error *ngIf="password?.errors?.['required']">
+        Password is required
+      </mat-error>
+    </mat-form-field>
+    <div class="center margin-top">
+        <button type="submit" mat-raised-button color="primary">Login</button>
+    </div>
+    <span class="center margin-top">New to our platform? <a class="sign-up-link" routerLink="/">Sign up!</a></span>
+  </form>
+</div> 
+<app-footer></app-footer>

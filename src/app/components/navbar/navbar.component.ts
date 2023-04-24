@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { PortfolioService } from 'src/app/services/portfolio.service';
-import { AutenticacionService } from 'src/app/services/autenticacion.service';
 import { Router } from '@angular/router';
+import { AutenticacionService } from 'src/app/services/autenticacion.service';
+import { PortfolioService } from 'src/app/services/portfolio.service';
 import Swal from 'sweetalert2';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -13,12 +13,45 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class NavbarComponent implements OnInit {
 	portfolioActive: Boolean = true;
 	autenticacionService: any;
-
+	loginActive: boolean=true;
+	registerActive: boolean=false;
+	portafolioActive: boolean=false;
+	pageNotFoundActive: boolean=false;
+	// subscription?: Subscription;
+	// showLogin: boolean = false;
 	constructor( private router: Router, private sanitizer: DomSanitizer) { }
 
 	ngOnInit(): void {
-		console.log("CHE RUTA ACTIVA: ", this.router.url);
-		
+		console.log("CHE HEADER-TOP: ",this.router.url);
+
+		console.log("APLICATION MSG: Ruta activa: ",this.router.url);
+		switch(this.router.url) {
+		  case '/login': {
+			this.loginActive=true;
+			this.registerActive=false;
+			this.portafolioActive=false;
+			this.pageNotFoundActive=false;
+			break;
+		  }
+		  case '/register': {
+			this.registerActive=true;
+			this.loginActive=false;
+			break;
+		  }
+		  case '/portfolio': {
+			this.loginActive=false;
+			this.registerActive=false;
+			this.portafolioActive=true;
+			break;
+		  }
+		  default: {
+			this.loginActive=false;
+			this.registerActive=false;
+			this.portafolioActive=false;
+			this.pageNotFoundActive=true;
+			break;
+		  }
+		} 		
 	}
 
 	/* getImageUrl(user: User, width: Number, height: Number, size: string): any {
@@ -47,7 +80,9 @@ export class NavbarComponent implements OnInit {
 	cheSeg( imagePath: string ) {
 		return this.sanitizer.bypassSecurityTrustUrl(`imagePath`);
   	}
-
+	  hasRoute(route:string){
+		return this.router.url === route
+	  }
 	logout( event : Event){
     event.preventDefault;
     Swal.fire({
@@ -64,7 +99,7 @@ export class NavbarComponent implements OnInit {
         sessionStorage.removeItem('token');
          this.autenticacionService.removeToken();
           console.log("Token removido, notifico desde archivo banner", sessionStorage.getItem('token'));
-          this.router.navigate(['/login']);
+          this.router.navigate(['/']);
           }
         }
       )

@@ -21,27 +21,31 @@ i {
     	font-weight: 600;
 }
 
+.card {
+    width: auto;
+    height: auto;
+}
 .checentro {
     align-items: center;
     justify-content: center;
 
 }
-/* .mat-card {
-    	border-radius: 10px 10px 10px 10px;
-    	margin: 10px 10px;
-    	padding: 0px;
-    	width: 100%;
+  .mat-card {
+    border-radius: 10px 10px 10px 10px;
+    margin: 10px 10px;
+    padding: 3px;
+    width: 90%;
 }
- */
- .mat-card {
+
+/*  .mat-card {
     display: flex;
     justify-content: center;
     border-radius: 10px 10px 10px 10px;
     margin: 10px 10px 40px 10px;
     padding: 3px;
     width: 80%;
-    height: auto;
-}
+    height: 400px;
+} */
 .example-card {
     max-width: 400px;
   }

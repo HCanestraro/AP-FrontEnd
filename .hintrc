@@ -1,16 +1,3 @@
 {
-    "extends": [
-        "web-recommended"
-    ],
-    
-        "connector": {},
-        "formatters": [],
-        "hints": {
-            "image-optimization-cloudinary": ["error", {
-                "apiKey": "539445375368983",
-                "apiSecret": "qvRmaWI9tE7xzFXrXDWYn8QNNfE",
-                "cloudName": "dnyvgdf6d"
-            }]
-        }
-    
+
 }

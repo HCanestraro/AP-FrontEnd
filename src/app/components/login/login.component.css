@@ -1,0 +1,10 @@
+.loginbox {
+    display:flexbox;
+    max-height: fit-content;
+    background-color: aqua;
+    align-items: center;
+    text-align: center;
+    border: 3px solid blue;
+    border-radius: 2%;
+    margin: 5px 5px 5px 5px;
+  }

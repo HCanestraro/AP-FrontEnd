@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { PortfolioService } from 'src/app/services/portfolio.service';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Cloudinary, CloudinaryImage } from '@cloudinary/url-gen';
-import { fill } from "@cloudinary/url-gen/actions/resize";
-import { CloudinaryImageComponent } from '@cloudinary/ng';
+// import { Cloudinary, CloudinaryImage } from '@cloudinary/url-gen';
+// import { fill } from "@cloudinary/url-gen/actions/resize";
+// import { CloudinaryImageComponent } from '@cloudinary/ng';
 
 @Component({
 	selector: 'app-banner',
@@ -13,7 +13,7 @@ import { CloudinaryImageComponent } from '@cloudinary/ng';
 
 export class BannerComponent implements OnInit {
 
-	img!: CloudinaryImage;
+	// img!: CloudinaryImage;
 	myPortfolio: any;
 	myPersona: any;
 	myAboutMe: any;
@@ -38,14 +38,14 @@ export class BannerComponent implements OnInit {
 		this.logoskills= "https://drive.google.com/uc?export=download&id=1XApdWSnN7YZC0Y5B0IybEyefUZ10wTuu";
 
 		// Create a Cloudinary instance, setting some Cloud and URL configuration parameters.
-		const cld = new Cloudinary({
-			cloud: {
-				cloudName: 'demo'
-			}
-		});
+		// const cld = new Cloudinary({
+			// cloud: {
+				// cloudName: 'demo'
+			// }
+		// });
 		// cld.image returns a CloudinaryImage with the configuration set.
-		this.img = cld.image("docs/models");
-		this.img.resize( fill().width(250).height(250));
+		// this.img = cld.image("docs/models");
+		// this.img.resize( fill().width(250).height(250));
 
 		// The URL of the image is: https://res.cloudinary.com/demo/image/upload/sample
 		// }

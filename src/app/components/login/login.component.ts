@@ -1,69 +1,55 @@
 import { Component, OnInit } from '@angular/core';
+import { NonNullableFormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { HotToastService } from '@ngneat/hot-toast';
 import { AuthService } from 'src/app/services/auth.service';
-import { FormGroup, FormsModule, Validators, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
-
+  styleUrls: ['./login.component.scss'],
 })
-
 export class LoginComponent implements OnInit {
-  
-  usuario = {
-    email: '',
-    password: ''
-  }
-  form: FormGroup;
-  formBuilder: any;
+  loginForm = this.fb.group({
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', Validators.required],
+  });
 
-  constructor( private authService: AuthService ) {
-    this.form = this.formBuilder.group( 
-      {
-        email: ['', [Validators.required, Validators.email]],
-        nombreUsuario: ['', [Validators.required, Validators.minLength(2)]],
-        password: ['', [Validators.required, Validators.minLength(8)]]
-      } ) 
-   }
+  constructor(
+    private authService: AuthService,
+    private toast: HotToastService,
+    private router: Router,
+    private fb: NonNullableFormBuilder
+  ) {}
 
-  register() {
-    console.log(this.usuario);
-    const {email, password}= this.usuario;
-    this.authService.register(email,password).then(res => {
-      console.log("YoProgramo:FIREBASE:se registro:",res);
-    });
-  }
-  
+  ngOnInit(): void {}
 
-  Ingresar() {
-    console.log(this.usuario);
-    const {email, password}= this.usuario;
-    this.authService.login(email,password).then(res => {
-      console.log("YoProgramo:FIREBASE:se registro:",res);
-    });
-  }
-  
-  IngresarConGoogle() {
-    console.log(this.usuario);
-    const {email, password}= this.usuario;
-    this.authService.loginWithGoogle(email,password).then(res => {
-      console.log("YoProgramo:Ingresar con google-FIREBASE:se registro:",res);
-    });
+  get email() {
+    return this.loginForm.get('email');
   }
 
-  obtenerUsuarioLogeado() {
-    this.authService.getUserLogged().subscribe(res => {
-      console.log("YoProgramo: FIREBASE-Usuario logeado: ",res?.email);
-    })
+  get password() {
+    return this.loginForm.get('password');
   }
 
-  logout() {
-    console.log("YoProgramo: FIREBASE-Usuario LOGOUT:");
-    this.authService.logout();
-  }
+  submit() {
+    const { email, password } = this.loginForm.value;
 
-  ngOnInit(): void {
-  }
+    if (!this.loginForm.valid || !email || !password) {
+      return;
+    }
 
+    this.authService
+      .login(email, password)
+      .pipe(
+        this.toast.observe({
+          success: 'Logged in successfully',
+          loading: 'Logging in...',
+          error: ({ message }) => `There was an error: ${message} `,
+        })
+      )
+      .subscribe(() => {
+        this.router.navigate(['/home']);
+      });
+  }
 } 

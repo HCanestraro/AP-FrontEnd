@@ -3,10 +3,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { Che404Component } from './components/che404/che404.component';
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
 import { LoginComponent } from './components/login/login.component';
+
 const routes: Routes = [
   { path: '', component: PortfolioComponent},
-  { path: 'login', component: LoginComponent }
-  // { path: '**', component: Che404Component }
+  { path: 'login', component: LoginComponent },
+  { path: '**', component: Che404Component }
 ];
 
 @NgModule({
