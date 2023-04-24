@@ -10,7 +10,7 @@
 		<div class="d-flex justify-content-center mb-4 m-4">
 			<button
 				class="btn btn-sm btn-green border shadow m-1 text-center text-light fw-bold"><!-- (click)="onCrear($event)" -->
-				<span><img src="{{logoadd}}"
+				<span><img src="https://drive.google.com/uc?export=download&id=11BKh21cSfuiTBDHbY26XH5Ux9TBVYdWm"
 						alt="editar" class="logo-sm mt-1 bg-white rounded-circle" />AGREGAR EXPERIENCIA</span>
 			</button>
 		</div>
@@ -24,7 +24,7 @@
 					<div class="p-1">
 						<button class="btn p-0 m-1">  <!-- (click)="onCancelNuevoRegistro()" -->
 							<span><img
-									src="{{logopencil}}"
+									src="https://drive.google.com/uc?export=download&id=1jA2K7nPYax0JVefFmgn8HvsYre_25zie"
 									alt="editar" class="logo-sm mt-1" /></span>
 						</button>
 	
@@ -41,113 +41,6 @@
 				<h4>Periodo: {{myExperiencia.periodo}}</h4>
 				<h4>Empresa: {{myExperiencia.empresa}}</h4>
 				<h4>Actividades: {{myExperiencia.actividades}}</h4>
-			</div>
-		</div>
-	</div>
-</div>
-
-<!-- Experiencia -->
-<div *ngIf="modeNewRecord===true" class="card mat-card mx-auto" id="experience">
-	<div id="info">
-		<div class="row align-item-center">
-			<!-- Columna -->
-			<div class="col-lg-6">
-				<div class="title mb-1">
-					<!-- <h3>Experiencia</h3> -->
-					<h3	style="border: 1px solid blue;border-radius: 3%;margin: 0px 0px 2px 2px; background-color: cornflowerblue;padding: 6px 12px;">Experiencia</h3>
-					<i class="fa-solid fa-plus"></i>
-				</div>
-
-				<div class="modal fade" id="editexperience" data-bs-backdrop="static" data-bs-keyboard="false"
-					tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-					<div class="modal-dialog modal-lg">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="staticBackdropLabel">Modificar experiencia</h5>
-								<button type="button" class="btn-close" data-bs-dismiss="modal"
-									aria-label="Close"></button>
-							</div>
-							<div class="modal-body">
-								<form>
-									<div class="mb-3">
-										<label for="nameImput" class="form-label">Lugar de trabajo</label>
-										<input class="form-control" type="text"
-											placeholder="Escriba la empresa donde trabajó"
-											aria-label="Escriba la empresa donde trabajó">
-									</div>
-									<div class="mb-3">
-										<label for="nameImput" class="form-label">Cargo</label>
-										<input class="form-control" type="text" placeholder="Escriba cargo conseguido"
-											aria-label="Escriba cargo conseguido">
-									</div>
-									<div class="mb-3">
-										<label for="exampleFormControlTextarea1" class="form-label">Describa las
-											actividades del cargo que ocupaba</label>
-										<textarea class="form-control" id="exampleFormControlTextarea1"
-											rows="3"></textarea>
-									</div>
-									<br>
-									<button type="button" class="btn btn-outline-primary"
-										data-bs-dismiss="modal">Cancelar</button>
-									<button type="submit" class="btn btn-primary ms-2">Guardar cambios</button>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
-<div *ngIf="modeEdition===true" class="card mat-card mx-auto" id="experience">
-	<div id="info">
-		<div class="row align-item-center">
-			<!-- Columna -->
-			<div class="col-lg-6">
-				<div class="title mb-1">
-					<!-- <h3>Experiencia</h3> -->
-					<h3	style="border: 1px solid blue;border-radius: 3%;margin: 0px 0px 2px 2px; background-color: cornflowerblue;padding: 6px 12px;">Experiencia</h3>
-					<i class="fa-solid fa-plus"></i>
-				</div>
-
-				<div class="modal fade" id="editexperience" data-bs-backdrop="static" data-bs-keyboard="false"
-					tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-					<div class="modal-dialog modal-lg">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="staticBackdropLabel">Modificar experiencia</h5>
-								<button type="button" class="btn-close" data-bs-dismiss="modal"
-									aria-label="Close"></button>
-							</div>
-							<div class="modal-body">
-								<form>
-									<div class="mb-3">
-										<label for="nameImput" class="form-label">Lugar de trabajo</label>
-										<input class="form-control" type="text"
-											placeholder="Escriba la empresa donde trabajó"
-											aria-label="Escriba la empresa donde trabajó">
-									</div>
-									<div class="mb-3">
-										<label for="nameImput" class="form-label">Cargo</label>
-										<input class="form-control" type="text" placeholder="Escriba cargo conseguido"
-											aria-label="Escriba cargo conseguido">
-									</div>
-									<div class="mb-3">
-										<label for="exampleFormControlTextarea1" class="form-label">Describa las
-											actividades del cargo que ocupaba</label>
-										<textarea class="form-control" id="exampleFormControlTextarea1"
-											rows="3"></textarea>
-									</div>
-									<br>
-									<button type="button" class="btn btn-outline-primary"
-										data-bs-dismiss="modal">Cancelar</button>
-									<button type="submit" class="btn btn-primary ms-2">Guardar cambios</button>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
 			</div>
 		</div>
 	</div>
