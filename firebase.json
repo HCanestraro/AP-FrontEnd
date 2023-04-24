@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/ap-front-end",
+    "public": "dist/AP-FrontEnd",
     "ignore": [
       "firebase.json",
       "**/.*",
