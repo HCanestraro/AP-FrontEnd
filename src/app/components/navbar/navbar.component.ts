@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+<<<<<<< HEAD
 import { AutenticacionService } from 'src/app/services/autenticacion.service';
 import { PortfolioService } from 'src/app/services/portfolio.service';
 import Swal from 'sweetalert2';
 import { DomSanitizer } from '@angular/platform-browser';
+=======
+
+>>>>>>> cadfd36998eef0bb8f990e4175f1c3a1cf496a27
 
 @Component({
   selector: 'app-navbar',
@@ -11,6 +15,7 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+<<<<<<< HEAD
 	portfolioActive: Boolean = true;
 	autenticacionService: any;
 	loginActive: boolean=true;
@@ -20,6 +25,11 @@ export class NavbarComponent implements OnInit {
 	// subscription?: Subscription;
 	// showLogin: boolean = false;
 	constructor( private router: Router, private sanitizer: DomSanitizer) { }
+=======
+	portfolio: Boolean = true;
+
+	constructor( private router: Router) {}
+>>>>>>> cadfd36998eef0bb8f990e4175f1c3a1cf496a27
 
 	ngOnInit(): void {
 		console.log("CHE HEADER-TOP: ",this.router.url);
@@ -53,6 +63,7 @@ export class NavbarComponent implements OnInit {
 		  }
 		} 		
 	}
+<<<<<<< HEAD
 
 	/* getImageUrl(user: User, width: Number, height: Number, size: string): any {
 
@@ -103,6 +114,7 @@ export class NavbarComponent implements OnInit {
           }
         }
       )
+=======
+>>>>>>> cadfd36998eef0bb8f990e4175f1c3a1cf496a27
 
-  }
 }

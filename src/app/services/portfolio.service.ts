@@ -50,6 +50,7 @@ export class PortfolioService {
     console.log("OBTENERDATOSBANNERX");
     return this.http.get('./../../assets/data/data.json');
   }
+<<<<<<< HEAD
   obtenerDatosEducacion(): Observable<Ieducacion> {
     // obtenerDatosEducacion():Observable<any> {
       console.log('obtenerDatosEducacion');
@@ -58,14 +59,30 @@ export class PortfolioService {
   }
 
   obtenerDatosExperiencia(): Observable<Iexperiencia> {
+=======
+  obtenerDatosEducation(): Observable<Ieducacion> {
+    // obtenerDatosEducation():Observable<any> {
+      console.log('obtenerDatosEducation');
+     return this.http.get<Ieducacion>('./../../assets/data/data.json');
+//return this.http.get<Ieducacion>(this.url + 'education');
+  }
+
+  obtenerDatosExperience(): Observable<Iexperiencia> {
+>>>>>>> cadfd36998eef0bb8f990e4175f1c3a1cf496a27
     console.log('obtenerDatosExperience');
     //return this.http.get<Iexperiencia>(this.url + 'Experience');
     return this.http.get<Iexperiencia>('./../../assets/data/data.json');
   }
 
+<<<<<<< HEAD
   obtenerDatosProyecto(): Observable<Iproyecto> {
     console.log('obtenerDatosProyecto');
 //    return this.http.get<Iproyecto>(this.url + 'Proyectos');
+=======
+  obtenerDatosProject(): Observable<Iproyecto> {
+    console.log('obtenerDatosProject');
+//    return this.http.get<Iproyecto>(this.url + 'Projects');
+>>>>>>> cadfd36998eef0bb8f990e4175f1c3a1cf496a27
       return this.http.get<Iproyecto>('./../../assets/data/data.json');
 }
 
@@ -88,17 +105,28 @@ export class PortfolioService {
     return this.http.get<any>(this.url + 'aboutme/' + id);
   }
 
+<<<<<<< HEAD
   obtenerOneDatosEducacion(id: number): Observable<Ieducacion> {
     console.log("OBTENERDATOSEducacion",this.http.get<Ieducacion>(this.url + 'Educacion/' + id));
     return this.http.get<Ieducacion>(this.url + 'Educacion/' + id);
+=======
+  obtenerOneDatosEducation(id: number): Observable<Ieducacion> {
+    console.log("OBTENERDATOSEDUCATION",this.http.get<Ieducacion>(this.url + 'Education/' + id));
+    return this.http.get<Ieducacion>(this.url + 'Education/' + id);
+>>>>>>> cadfd36998eef0bb8f990e4175f1c3a1cf496a27
   }
 
   obtenerOneDatosExperiencia(id: number): Observable<Iexperiencia> {
     return this.http.get<Iexperiencia>(this.url + 'Experiencia/' + id);
   }
 
+<<<<<<< HEAD
   obtenerOneDatosProyecto(id: number): Observable<Iproyecto> {
     return this.http.get<Iproyecto>(this.url + 'Proyectos/' + id);
+=======
+  obtenerOneDatosProject(id: number): Observable<Iproyecto> {
+    return this.http.get<Iproyecto>(this.url + 'Projects/' + id);
+>>>>>>> cadfd36998eef0bb8f990e4175f1c3a1cf496a27
   }
 
   obtenerOneDatosSkill(id: number): Observable<Iskills> {
@@ -116,8 +144,13 @@ export class PortfolioService {
     });
   }
 
+<<<<<<< HEAD
   postEducacion(Educacion: Ieducacion): Observable<Ieducacion> {
     return this.http.post<Ieducacion>(this.url + 'Educacion', Educacion, {
+=======
+  postEducation(Education: Ieducacion): Observable<Ieducacion> {
+    return this.http.post<Ieducacion>(this.url + 'Education', Education, {
+>>>>>>> cadfd36998eef0bb8f990e4175f1c3a1cf496a27
       headers: this.headers,
     });
   }
@@ -128,8 +161,13 @@ export class PortfolioService {
     });
   }
 
+<<<<<<< HEAD
   postProyecto(Proyecto: Iproyecto): Observable<Iproyecto> {
     return this.http.post<Iproyecto>(this.url + 'Proyectos', Proyecto, {
+=======
+  postProject(Project: Iproyecto): Observable<Iproyecto> {
+    return this.http.post<Iproyecto>(this.url + 'Projects', Project, {
+>>>>>>> cadfd36998eef0bb8f990e4175f1c3a1cf496a27
       headers: this.headers,
     });
   }
@@ -158,13 +196,22 @@ export class PortfolioService {
     );
   }
 
+<<<<<<< HEAD
   putEducacion(Educacion: Ieducacion, id: Number): Observable<Ieducacion> {
     return this.http.put<Ieducacion>(this.url + 'Educacion/' + id, Educacion, {
+=======
+  putEducation(Education: Ieducacion, id: Number): Observable<Ieducacion> {
+    return this.http.put<Ieducacion>(this.url + 'Educacion/' + id, Education, {
+>>>>>>> cadfd36998eef0bb8f990e4175f1c3a1cf496a27
       headers: this.headers,
     });
   }
 
+<<<<<<< HEAD
   putProyecto(Proyecto: Iproyecto, id: Number): Observable<Iproyecto> {
+=======
+  putProject(Proyecto: Iproyecto, id: Number): Observable<Iproyecto> {
+>>>>>>> cadfd36998eef0bb8f990e4175f1c3a1cf496a27
     return this.http.put<Iproyecto>(this.url + 'Proyecto/' + id, Proyecto, {
       headers: this.headers,
     });
@@ -186,7 +233,11 @@ export class PortfolioService {
     });
   }
 
+<<<<<<< HEAD
   deleteEducacion(id: Number): Observable<Ieducacion> {
+=======
+  deleteEducation(id: Number): Observable<Ieducacion> {
+>>>>>>> cadfd36998eef0bb8f990e4175f1c3a1cf496a27
     return this.http.delete<Ieducacion>(this.url + 'Educacion/' + id, {
       headers: this.headers,
     });
@@ -198,8 +249,13 @@ export class PortfolioService {
     });
   }
 
+<<<<<<< HEAD
   deleteProyecto(id: Number): Observable<Iproyecto> {
     console.log("DELETE Proyecto:",this.url+"Proyecto/"+id);
+=======
+  deleteProject(id: Number): Observable<Iproyecto> {
+    console.log("DELETE PROJECT:",this.url+"Proyecto/"+id);
+>>>>>>> cadfd36998eef0bb8f990e4175f1c3a1cf496a27
     return this.http.delete<Iproyecto>(this.url + 'Proyecto/' + id, {
       headers: this.headers,
     });

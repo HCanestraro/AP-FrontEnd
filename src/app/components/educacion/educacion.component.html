@@ -4,10 +4,23 @@
 <!-- https://drive.google.com/uc?export=download&id=1QjXoDP0V0L7EHnjlfAx5bMFH2T-NbYU7  logosave -->
 <!-- https://drive.google.com/uc?export=download&id=1DnHtyYLt7LgH7Nl6HsIOfSh2CDjNiYAE   logocancel -->
 <!-- https://drive.google.com/uc?export=download&id=1iW5i4HOltXKRwV0Q2qsJp6mrZvmFq0rw   logodelete -->
+<<<<<<< HEAD
 
 <div class="container shadow bg-info">
 	<div class="row mt-5">
 		<h5 class="text-center p-1 bg-dark text-light rounded border p-2">EDUCACIÓN</h5>
+=======
+<div class="justify-content-center p-2">
+	<!-- NUEVO REGISTRO -->
+	<div *ngIf="modoNuevoRegistro === false">
+		<div class="d-flex justify-content-center mb-4 m-4">
+			<button class="btn btn-sm btn-green border shadow m-1 text-center text-light fw-bold"
+				(click)="onCrear($event)">
+				<span><img src="https://drive.google.com/uc?export=download&id=11BKh21cSfuiTBDHbY26XH5Ux9TBVYdWm"
+						alt="editar" class="logo-sm mt-1 bg-white rounded-circle" />AGREGAR EDUCACIÓN</span>
+			</button>
+		</div>
+>>>>>>> cadfd36998eef0bb8f990e4175f1c3a1cf496a27
 	</div>
 	<div class="justify-content-center p-2">
 		<!-- NUEVO REGISTRO -->
@@ -21,6 +34,7 @@
 			</div>
 		</div>
 
+<<<<<<< HEAD
 		<!------    FORMULARIO NEW    ------>
 		<div *ngIf="modeNewRecord === true" class="d-flex justify-content-center">
 			<form class="col-md-8 col-12 mb-4" [ formGroup ]="form">
@@ -102,6 +116,16 @@
 					<div class="row w-100">
 						<div class="d-flex justify-content-end">
 							<button class="btn p-0 m-1" (click)="onCancel($event)">
+=======
+	<!------    FORMULARIO NEW    ------>
+	<div *ngIf="modoNuevoRegistro === true" class="d-flex justify-content-center">
+		<form class="col-md-8 col-12 mb-4" [ formGroup ]="form">
+			<div class="text-center p-3 border shadow rounded mt-5 bg-white">
+				<div *ngIf="modoNuevoRegistro === true">
+					<div class="d-flex justify-content-end">
+						<div class="p-1">
+							<button class="btn p-0 m-1" (click)="onCancelNuevoRegistro()">
+>>>>>>> cadfd36998eef0bb8f990e4175f1c3a1cf496a27
 								<span><img
 										src="https://drive.google.com/uc?export=download&id=1DnHtyYLt7LgH7Nl6HsIOfSh2CDjNiYAE"
 										alt="editar" class="logo-sm mt-1" /></span>
@@ -122,9 +146,143 @@
 							class="logo-edu" alt="logo educación" /><span class="ms-3">Editar Educación</span>
 					</h3>
 
+<<<<<<< HEAD
 					<div class="bg-gray">
 						<div class="text-start">
 							<label for="institucion" class="form-label fw-bold">Institución:</label>
+=======
+				<div class="">
+					<div class="text-start">
+						<label for="institucion" class="form-label fw-bold">Institución:</label>
+					</div>
+					<input type="text" class="col-md-10 col-12 p-2 mb-2 border rounded border-1 border-info shadow"
+						placeholder=" 🏛 Institución" formControlName="institucion" id="institucion" required
+						autofocus />
+				</div>
+
+				<div class=" ">
+					<div class="text-start">
+						<label for="titulo" class="form-label fw-bold">Título:</label>
+					</div>
+					<input type="text" class="col-md-10 col-12 p-2 mb-2 border rounded border-1 border-info shadow"
+						placeholder=" 🎓 Título" formControlName="titulo" id="titulo" required />
+				</div>
+
+				<div class=" ">
+					<div class="text-start">
+						<label for="periodo" class="form-label fw-bold">Periodo:</label>
+					</div>
+					<input type="text" class="col-md-10 col-12 p-2 mb-2 border rounded border-1 border-info shadow"
+						placeholder=" 📆 Periodo" formControlName="periodo" id="periodo" required />
+				</div>
+
+				<div class="">
+					<div class="text-start">
+						<label for="estado" class="form-label fw-bold">Estado:</label>
+					</div>
+					<input type="text" class="col-md-10 col-12 p-2 mb-2 border rounded border-1 border-info shadow"
+						placeholder="⏳ Estado" formControlName="estado" id="estado" required />
+				</div>
+
+				<div class="">
+					<div class="text-start">
+						<label for="detalles" class="form-label fw-bold">Detalles:</label>
+					</div>
+					<input type="text" class="col-md-10 col-12 p-2 mb-2 border rounded border-1 border-info shadow mb-4"
+						placeholder=" ℹ Detalles" formControlName="detalles" id="detalles" required />
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<!------    FORMULARIO NEW    ------>
+
+	<!------    FORMULARIO EDIT    ------>
+	<div *ngIf="modoEdicion === true" class="d-flex justify-content-center">
+		<form class="col-md-8 col-12 mb-4 p-3 bg-white rounded shadow" [ formGroup ]="form">
+			<!-- MÓDULO BOTONES EDIT -->
+
+			<div *ngIf="modoEdicion === true" class="d-flex justify-content-center mt-2">
+				<div class="row w-100">
+					<div class="d-flex justify-content-end">
+						<button class="btn p-0 m-1" (click)="onCancel($event)">
+							<span><img
+									src="https://drive.google.com/uc?export=download&id=1DnHtyYLt7LgH7Nl6HsIOfSh2CDjNiYAE"
+									alt="editar" class="logo-sm mt-1" /></span>
+						</button>
+						<button class="btn p-0 m-1" (click)="onSaveEdit($event)">
+							<span><img
+									src="https://drive.google.com/uc?export=download&id=1QjXoDP0V0L7EHnjlfAx5bMFH2T-NbYU7"
+									alt="editar" class="logo-sm mt-1" /></span>
+						</button>
+					</div>
+				</div>
+			</div>
+			<!-- FIN MÓDULO BOTONES EDIT -->
+
+			<div class="text-center p-2">
+				<h3 class="text-center text-info m-3">
+					<img src="https://drive.google.com/uc?export=download&id=1_TzJ4uPlPA_qU9DaaARLKqlLoXVi5pWu"
+						class="logo-edu" alt="logo educación" /><span class="ms-3">Editar Educación</span>
+				</h3>
+
+				<div class="bg-gray">
+					<div class="text-start">
+						<label for="institucion" class="form-label fw-bold">Institución:</label>
+					</div>
+					<input type="text" class="col-md-10 col-12 p-2 mb-2 border rounded border-1 border-info shadow"
+						placeholder=" 🏛 Institución" formControlName="institucion" id="institucion" required
+						autofocus />
+				</div>
+
+				<div class=" ">
+					<div class="text-start">
+						<label for="titulo" class="form-label fw-bold">Título:</label>
+					</div>
+					<input type="text" class="col-md-10 col-12 p-2 mb-2 border rounded border-1 border-info shadow"
+						placeholder=" 🎓 Título" formControlName="titulo" id="titulo" required />
+				</div>
+
+				<div class=" ">
+					<div class="text-start">
+						<label for="periodo" class="form-label fw-bold">Periodo:</label>
+					</div>
+					<input type="text" class="col-md-10 col-12 p-2 mb-2 border rounded border-1 border-info shadow"
+						placeholder=" 📆 Periodo" formControlName="periodo" id="periodo" required />
+				</div>
+
+				<div class="">
+					<div class="text-start">
+						<label for="estado" class="form-label fw-bold">Estado:</label>
+					</div>
+					<input type="text" class="col-md-10 col-12 p-2 mb-2 border rounded border-1 border-info shadow"
+						placeholder="⏳ Estado" formControlName="estado" id="estado" required />
+				</div>
+
+				<div class="">
+					<div class="text-start">
+						<label for="detalles" class="form-label fw-bold">Detalles:</label>
+					</div>
+					<input type="text" class="col-md-10 col-12 p-2 mb-2 border rounded border-1 border-info shadow mb-4"
+						placeholder=" ℹ Detalles" formControlName="detalles" id="detalles" required />
+				</div>
+			</div>
+		</form>
+	</div>
+	<!------  FIN  FORMULARIO EDIT    ------>
+
+	<div *ngFor="let myPortfolio of myPortfolio; let i = index" [attr.data-index]="i">
+		<div class="row justify-content-center">
+			<div class="border rounded p-2 col-md-8 col-12 bg-white shadow-lg mb-4">
+				<div *ngIf="modoEdicion === false">
+					<div class="d-flex justify-content-end">
+						<div class="p-1">
+							<button class="btn p-0 m-1" (click)="onEdit(myPortfolio.id, i, $event)">
+								<span><img
+										src="https://drive.google.com/uc?export=download&id=1jA2K7nPYax0JVefFmgn8HvsYre_25zie"
+										alt="editar" class="logo-sm mt-1" /></span>
+							</button>
+>>>>>>> cadfd36998eef0bb8f990e4175f1c3a1cf496a27
 						</div>
 						<input type="text" class="col-md-10 col-12 p-2 mb-2 border rounded border-1 border-info shadow"
 							placeholder=" 🏛 Institución" formControlName="institucion" id="institucion" required
@@ -201,6 +359,7 @@
 								</h4>
 							</div>
 						</div>
+<<<<<<< HEAD
 						<div class="ms-4">
 							<p class="fw-bold mb-0">🎓 ESCUELA</p>
 							<p class="fw-normal ms-4">
@@ -232,6 +391,44 @@
 							</p>
 						</div>
 					</div>
+=======
+						<div>
+							<h4 class="fw-bold mb-4 col-12 ms-2">
+								{{ myPortfolio.escuela }}
+							</h4>
+						</div>
+					</div>
+					<div class="ms-4">
+						<p class="fw-bold mb-0">🎓 ESCUELA</p>
+						<p class="fw-normal ms-4">
+							<span class="ms-1"></span>{{ myPortfolio.escuela }}
+						</p>
+						<p class="fw-bold mb-0">🎓 TÍTULO</p>
+						<p class="fw-normal ms-4">
+							<span class="ms-1"></span>{{ myPortfolio.titulo }}
+						</p>
+						<p class="fw-bold mb-0">🎓 IMAGEN</p>
+						<p class="fw-normal ms-4">
+							<img class="ms-1" src="{{ myPortfolio.imagen }}" alt="">
+						</p>
+						<p class="fw-bold mb-0">📆 PERIODO</p>
+						<p class="fw-normal ms-4">
+							<span class="ms-1"></span>{{ myPortfolio.carrer }}
+						</p>
+						<p class="fw-bold mb-0">⏳ PUNTAJE</p>
+						<p class="fw-normal ms-4">
+							<span class="ms-1"></span>{{ myPortfolio.puntaje }}
+						</p>
+						<p class="fw-bold mb-0">ℹ INICIO</p>
+						<p class="fw-normal ms-4">
+							<span class="ms-1"></span>{{ myPortfolio.inicio }}
+						</p>
+						<p class="fw-bold mb-0">🎓 FIN</p>
+						<p class="fw-normal ms-4">
+							<span class="ms-1"></span>{{ myPortfolio.fin }}
+						</p>
+					</div>
+>>>>>>> cadfd36998eef0bb8f990e4175f1c3a1cf496a27
 				</div>
 			</div>
 		</div>

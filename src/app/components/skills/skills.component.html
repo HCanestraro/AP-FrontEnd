@@ -5,13 +5,28 @@
 <!-- https://drive.google.com/uc?export=download&id=1DnHtyYLt7LgH7Nl6HsIOfSh2CDjNiYAE   logocancel -->
 <!-- https://drive.google.com/uc?export=download&id=1iW5i4HOltXKRwV0Q2qsJp6mrZvmFq0rw   logodelete -->
 <!-- https://drive.google.com/uc?export=download&id=1XApdWSnN7YZC0Y5B0IybEyefUZ10wTuu   logoskills -->
+<<<<<<< HEAD
 <!--------------- SKILLS --------------->
 <div class="container shadow bg-info">
 	<div class="row mt-5">
 		<h5 class="text-center p-1 bg-dark text-light rounded border p-2">SKILLS</h5>
+=======
+
+<div class="justify-content-center p-2">
+
+	<div *ngIf="modeNewRecord === false">
+		<div class="d-flex justify-content-center mb-4 m-4">
+			<button
+				class="btn btn-sm btn-green border shadow m-1 text-center text-light fw-bold"><!-- (click)="onCrear($event)" -->
+				<span><img src="https://drive.google.com/uc?export=download&id=11BKh21cSfuiTBDHbY26XH5Ux9TBVYdWm"
+						alt="editar" class="logo-sm mt-1 bg-white rounded-circle" />AGREGAR SKILLS</span>
+			</button>
+		</div>
+>>>>>>> cadfd36998eef0bb8f990e4175f1c3a1cf496a27
 	</div>
 	<div class="justify-content-center p-2">
 
+<<<<<<< HEAD
 		<div *ngIf="modeNewRecord === false">
 			<div class="d-flex justify-content-center mb-4 m-4">
 				<button
@@ -74,6 +89,26 @@
 				</div>
 
 
+=======
+				<div class="p-1 justify-content-end">
+					
+					<button class="btn p-0 m-1">  <!-- (click)="onCancelNuevoRegistro()" -->
+						<span><img
+								src="https://drive.google.com/uc?export=download&id=1jA2K7nPYax0JVefFmgn8HvsYre_25zie"
+								alt="editar" class="logo-sm mt-1" /></span>
+					</button>
+
+					<button class="btn p-0 m-1" > <!-- (click)="onSaveNewNuevoRegistro($event)" -->
+						<span><img
+								src="https://drive.google.com/uc?export=download&id=1iW5i4HOltXKRwV0Q2qsJp6mrZvmFq0rw"
+								alt="editar" class="logo-sm mt-1" /></span>
+					</button>
+				</div>
+				</div>
+				<h4><b>Nombre:</b>{{mySkills.name}}</h4>
+				<img class="image-sm" src="{{mySkills.urlImage}}" alt="Imagen asociada...">
+				<h4><b>Nivel:</b>{{mySkills.level}}</h4>
+>>>>>>> cadfd36998eef0bb8f990e4175f1c3a1cf496a27
 			</div>
 		</div>
 	</div>
@@ -83,7 +118,7 @@
 			<div class="d-flex justify-content-center mb-4 m-4">
 				<button class="btn btn-sm btn-green border shadow m-1 text-center text-light fw-bold"
 					(click)="onCrear($event)">
-					<span><img src="{{logoadd}}"
+					<span><img src="https://drive.google.com/uc?export=download&id=11BKh21cSfuiTBDHbY26XH5Ux9TBVYdWm"
 							alt="editar" class="logo-sm mt-1 bg-white rounded-circle" />AGREGAR SKILL</span>
 				</button>
 			</div>
@@ -195,7 +230,7 @@
 							<div class="p-1">
 								<button class="btn p-0 m-1" (click)="onEdit(mySkills.id, i, $event)">
 									<span><img
-											src="{{logopencil}}"
+											src="https://drive.google.com/uc?export=download&id=1jA2K7nPYax0JVefFmgn8HvsYre_25zie"
 											alt="editar" class="logo-sm mt-1" /></span>
 								</button>
 							</div>

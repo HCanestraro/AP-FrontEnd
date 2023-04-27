@@ -1,18 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { PortfolioService } from 'src/app/services/portfolio.service';
+<<<<<<< HEAD
 import { DomSanitizer } from '@angular/platform-browser';
 // import { Cloudinary, CloudinaryImage } from '@cloudinary/url-gen';
 // import { fill } from "@cloudinary/url-gen/actions/resize";
 // import { CloudinaryImageComponent } from '@cloudinary/ng';
+=======
+>>>>>>> cadfd36998eef0bb8f990e4175f1c3a1cf496a27
 
 @Component({
-	selector: 'app-banner',
-	templateUrl: './banner.component.html',
-	styleUrls: ['./banner.component.css']
+  selector: 'app-banner',
+  templateUrl: './banner.component.html',
+  styleUrls: ['./banner.component.css']
 })
 
 export class BannerComponent implements OnInit {
 
+<<<<<<< HEAD
 	// img!: CloudinaryImage;
 	myPortfolio: any;
 	myPersona: any;
@@ -66,5 +70,24 @@ export class BannerComponent implements OnInit {
 		return this.sanitizer.bypassSecurityTrustUrl(curl);
 		// return urlSegura;
 	}
+=======
+  myPortfolio:any;
+  myPersona:any;
+	myAboutMe:any;
+  constructor(private portfolioData:PortfolioService) { }
+
+  ngOnInit(): void {
+    this.portfolioData.getdata().subscribe(data => {
+      this.myPortfolio = data;
+	  this.myPersona=data.persona;
+	  console.log(this.myPersona);
+	  
+	  this.myAboutMe=data.aboutme;
+	  console.log(this.myAboutMe);
+	  
+    });
+  }
+
+>>>>>>> cadfd36998eef0bb8f990e4175f1c3a1cf496a27
 }
 	

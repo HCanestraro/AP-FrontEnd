@@ -1,5 +1,4 @@
 {
-
 	"id": 1,
 			"persona": [
 				{
@@ -11,7 +10,11 @@
 					"mail": "hernancanestraro@gmail.com",
 					"sobre_mi": "Autodidacta",
 					"ocupacion": "Programador Full Stack Jr.",
+<<<<<<< HEAD
 					"image_background_header": "https://drive.google.com/uc?export=download&id=1n7Zw94hqOWvhXpoumSTDtpM35JTr_rCY",
+=======
+					"image_background_header": "https://png.pngtree.com/thumb_back/fw800/background/20190223/ourmid/pngtree-black-shading-red-shard-geometry-banner-background-shadingred-debrisred-glowgeometry-image_80184.jpg",
+>>>>>>> cadfd36998eef0bb8f990e4175f1c3a1cf496a27
 					"image_perfil": "https://drive.google.com/uc?export=download&id=1DdFJjIWAxC9QQMOaUlxnddhe5nl6YPdI",
 					"id_domicilio": "2"
 				}
@@ -48,8 +51,8 @@
 				{
 					"escuela": "Se Programar",
 					"titulo": "Se Programar",
-					"imagen": "https://drive.google.com/uc?export=download&id=1ehlHLwVVJ8CHwIo6jvfbHDo1mWG2dGi5",
-					"carrera": "Desarrollo de Software",
+					"imagen": "https://media-exp1.licdn.com/dms/image/C560BAQEUHhax7RCj0A/company-logo_100_100/0/1584819716706?e=1637798400&v=beta&t=4UkXYz39PCtn4PqDYbwXZNWPSC3MgoHckfDfqQLBlHc",
+					"career": "Desarrollo de Software",
 					"puntaje": 82,
 					"inicio": "2021",
 					"fin": "2021"
@@ -57,8 +60,13 @@
 				{
 					"escuela": "Argentina Programa, MINDHUB",
 					"titulo": "FullStack FrontEnd Jr.",
+<<<<<<< HEAD
 					"imagen": "https://drive.google.com/uc?export=download&id=1ehlHLwVVJ8CHwIo6jvfbHDo1mWG2dGi5",
 					"carrera": "Programación web",
+=======
+					"imagen": "https://media-exp1.licdn.com/dms/image/C4E0BAQFhOoraRhsOSQ/company-logo_100_100/0/1590421269154?e=1637798400&v=beta&t=gyinTA0GPG1xIBDPj01L33mQHcdOdyMOdpoRHY640Pc",
+					"career": "Programación web",
+>>>>>>> cadfd36998eef0bb8f990e4175f1c3a1cf496a27
 					"puntaje": 70,
 					"inicio": "2023",
 					"fin": "2023"
@@ -137,23 +145,35 @@
 				{
 					"titulo": "Proyecto Events: Argentina Programa, MINDHUB",
 					"imagen": "https://drive.google.com/uc?export=download&id=1-lX9QgBw8iGXLEgBd_pmdsM_Fz3l6LJn",
+<<<<<<< HEAD
 					"descripcion": "Proyecto realizado como práctica para MINDHUB",
 					"linklivedemo": "https://ap-frontend-che.web.app",
         			"linksourcecode": "https://github.com/HCanestraro/HernanCanestraro_T1_M1.git"
+=======
+					"descripcion": "Proyecto realizado como práctica para MINDHUB"
+>>>>>>> cadfd36998eef0bb8f990e4175f1c3a1cf496a27
 				},
 				{
 					"titulo": "Proyecto FrontEnd: Argentina Programa, YoProgramo2",
 					"imagen": "https://drive.google.com/uc?export=download&id=1-lX9QgBw8iGXLEgBd_pmdsM_Fz3l6LJn",
+<<<<<<< HEAD
 					"descripcion": "Proyecto realizado como práctica para la segunda etapa de Argentina Programa, #YoProgramo",
 					"linklivedemo": "https://ap-frontend-che.web.app",
         			"linksourcecode": "https://github.com/HCanestraro/AP-FrontEnd.git"
+=======
+					"descripcion": "Proyecto realizado como práctica para la segunda etapa de Argentina Programa, #YoProgramo"
+>>>>>>> cadfd36998eef0bb8f990e4175f1c3a1cf496a27
 				},
 				{
 					"titulo": "Proyecto Portfolio: Argentina Programa",
 					"imagen": "https://drive.google.com/uc?export=download&id=1-lX9QgBw8iGXLEgBd_pmdsM_Fz3l6LJn",
+<<<<<<< HEAD
 					"descripcion": "Proyecto realizado como práctica para la segunda etapa de Argentina Programa, #YoProgramo",
 					"linklivedemo": "https://ap-frontend-che.web.app",
         			"linksourcecode": "https://github.com/HCanestraro/AP-FrontEnd.git"
+=======
+					"descripcion": "Proyecto realizado como práctica para la segunda etapa de Argentina Programa, #YoProgramo"
+>>>>>>> cadfd36998eef0bb8f990e4175f1c3a1cf496a27
 				}
 			]
 		}

@@ -1,11 +1,15 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+<<<<<<< HEAD
 import { AngularFireModule } from '@angular/fire/compat';
-import { environment } from './../environments/environments';
+import { environments } from './../environments/environments';
 // import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+=======
+
+import { AppRoutingModule } from './app-routing.module';
+>>>>>>> cadfd36998eef0bb8f990e4175f1c3a1cf496a27
 import { AppComponent } from './app.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -25,6 +29,7 @@ import { PortfolioComponent } from './components/portfolio/portfolio.component';
 // import { CloudinaryModule } from "@cloudinary/ng";
 import { Datastore } from '@google-cloud/datastore';
 
+<<<<<<< HEAD
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -85,5 +90,30 @@ const materialModules = [
 	providers: [],
 	bootstrap: [AppComponent],
 
+=======
+@NgModule({
+  declarations: [
+    AppComponent,
+    FooterComponent,
+    NavbarComponent,
+    BannerComponent,
+    Che404Component,
+    EducacionComponent,
+    ExperienciaComponent,
+    SkillsComponent,
+    SoftskillsComponent,
+    ProyectosComponent,
+    PortfolioComponent,
+    LoginComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent],
+  
+>>>>>>> cadfd36998eef0bb8f990e4175f1c3a1cf496a27
 })
 export class AppModule { }

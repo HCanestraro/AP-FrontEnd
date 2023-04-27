@@ -16,6 +16,7 @@ var logodelete = "https://drive.google.com/uc?export=download&id=1iW5i4HOltXKRwV
 var logoskills = "https://drive.google.com/uc?export=download&id=1XApdWSnN7YZC0Y5B0IybEyefUZ10wTuu"; */
 
 function cheCreateHtml(array) {
+<<<<<<< HEAD
 	fff = array;
 	document.open();
 	document.write(fff);
@@ -23,3 +24,10 @@ function cheCreateHtml(array) {
 }
 
 
+=======
+    fff=array;
+    document.open();
+    document.write(fff);
+    document.close();
+}
+>>>>>>> cadfd36998eef0bb8f990e4175f1c3a1cf496a27

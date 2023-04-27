@@ -1,12 +1,17 @@
+<<<<<<< HEAD
 import { Component, OnInit } from '@angular/core';
 import { NonNullableFormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
 import { AuthService } from 'src/app/services/auth.service';
+=======
+import { Component } from '@angular/core';
+>>>>>>> cadfd36998eef0bb8f990e4175f1c3a1cf496a27
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
+<<<<<<< HEAD
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
@@ -53,3 +58,10 @@ export class LoginComponent implements OnInit {
       });
   }
 } 
+=======
+  styleUrls: ['./login.component.css']
+})
+export class LoginComponent {
+
+}
+>>>>>>> cadfd36998eef0bb8f990e4175f1c3a1cf496a27

@@ -2,34 +2,33 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PortfolioService } from './../../services/portfolio.service';
 import Swal from 'sweetalert2';
+<<<<<<< HEAD
 import { MatCardModule } from '@angular/material/card';
 import { MatCardActions } from '@angular/material/card';
 import { NgFor } from '@angular/common';
+=======
+>>>>>>> cadfd36998eef0bb8f990e4175f1c3a1cf496a27
 
 @Component({
-	selector: 'app-proyectos',
-	templateUrl: './proyectos.component.html',
-	styleUrls: ['./proyectos.component.css']
+  selector: 'app-proyectos',
+  templateUrl: './proyectos.component.html',
+  styleUrls: ['./proyectos.component.css']
 })
 
-export class ProyectosComponent implements OnInit {
-	myProyectos: any;
-	form: FormGroup;
-	modeNewRecord: boolean = false;
-	modeEdition: boolean = false;
-	i!: number;
-	editID!: number;
-	logopencil!: String;
-	logoadd!: String;
-	logoedu!: String;
-	logosave!: String;
-	logocancel!: String;
-	logodelete!: String;
-	logoskills!: String;
+export class ProyectosComponent  implements OnInit  {
+  	myProyectos: any;
+	  form: FormGroup;
+	  modeNewRecord:boolean=false;
+	  i!: number;
+	  editID!: number;
 
+<<<<<<< HEAD
 	constructor(private portfolioData: PortfolioService) {
 	
+=======
+>>>>>>> cadfd36998eef0bb8f990e4175f1c3a1cf496a27
 
+	constructor( private portfolioData: PortfolioService) {
 		this.form = new FormGroup({
 			descripcion: new FormControl(['', [Validators.required, Validators.minLength(2)]]),
 			imagen: new FormControl(['', [Validators.required, Validators.minLength(2)]]),
@@ -38,8 +37,9 @@ export class ProyectosComponent implements OnInit {
 			linksourcedemo: new FormControl(['', [Validators.required, Validators.minLength(2)]]),
 		})
 	}
-
+	
 	ngOnInit(): void {
+<<<<<<< HEAD
 		this.logopencil="https://drive.google.com/uc?export=download&id=1jA2K7nPYax0JVefFmgn8HvsYre_25zie";
 		this.logoadd= "https://drive.google.com/uc?export=download&id=11BKh21cSfuiTBDHbY26XH5Ux9TBVYdWm";
 		this.logoedu= "https://drive.google.com/uc?export=download&id=1_TzJ4uPlPA_qU9DaaARLKqlLoXVi5pWu";
@@ -195,3 +195,31 @@ export class ProyectosComponent implements OnInit {
 
 
 	
+=======
+		this.portfolioData.getdata().subscribe(data => {
+			this.myProyectos = data.proyectos;
+			
+			console.log("DATA-proyectos", this.myProyectos);
+		})}
+	
+		onCrear(event: Event) {
+			let objetoFormulario = this.form.controls;
+			let keysForms = Object.keys(objetoFormulario);
+			console.log("keysForm: ", keysForms);
+			let valueForms = Object.values(objetoFormulario);
+			console.log("valuesForm: ", valueForms);
+	
+			valueForms[0].setValue('');
+			valueForms[1].setValue('');
+			valueForms[2].setValue('');
+			
+	
+			console.log("valueFormDetalles: ", valueForms[0].value);
+			console.log("valueFormEstado: ", valueForms[1].value);
+			console.log("valueFormInstitucion: ", valueForms[2].value);
+	
+			this.modeNewRecord = true;
+	
+		}
+}
+>>>>>>> cadfd36998eef0bb8f990e4175f1c3a1cf496a27

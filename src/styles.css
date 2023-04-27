@@ -143,6 +143,7 @@ i {
 }
 .font2 {
 	font-family: "Arial";
+<<<<<<< HEAD
 }
 
   
@@ -230,3 +231,6 @@ i {
       transition: all 0.2s ease-in-out;
       line-height: 24px;
   }
+=======
+}
+>>>>>>> cadfd36998eef0bb8f990e4175f1c3a1cf496a27
