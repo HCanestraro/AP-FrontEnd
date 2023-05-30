@@ -3,9 +3,13 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "AP-FrontEnd": {
+    "AP-FrontEnd-ac93a": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -13,10 +17,14 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/ap-front-end",
+            "outputPath": "dist/AP-FrontEnd-ac93a",
             "index": "src/index.html",
             "main": "src/main.ts",
+            "allowedCommonJsDependencies": [
+              "sweetalert2"
+           ],
             "polyfills": [
+              
               "zone.js"
             ],
             "tsConfig": "tsconfig.app.json",
@@ -26,6 +34,7 @@
             ],
             "styles": [
               "src/styles.css",
+              "src/custom-theme.scss",
               "./node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "scripts": [
@@ -37,15 +46,21 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "2mb",
+                  "maximumError": "3mb"
                 },
                 {
                   "type": "anyComponentStyle",
                   "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumError": "94kb"
                 }
               ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environments.ts",
+                  "with": "src/environments/environments.prod.ts"
+                }
+              ], 
               "outputHashing": "all"
             },
             "development": {
@@ -63,10 +78,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "AP-FrontEnd:build:production"
+              "browserTarget": "AP-FrontEnd-ac93a:build:production"
             },
             "development": {
-              "browserTarget": "AP-FrontEnd:build:development"
+              "browserTarget": "AP-FrontEnd-ac93a:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -74,7 +89,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "AP-FrontEnd:build"
+            "browserTarget": "AP-FrontEnd-ac93a:build"
           }
         },
         "test": {

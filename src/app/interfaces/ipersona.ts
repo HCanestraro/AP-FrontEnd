@@ -10,4 +10,4 @@ export interface Ipersona {
     image_background_header: String;
     image_perfil: String;
     id_domicilio: String;
-}
+}[]

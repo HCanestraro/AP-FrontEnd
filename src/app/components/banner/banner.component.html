@@ -1,12 +1,65 @@
 <!-- Profile -->
+<div class="card mat-card mx-auto border">
+	<p>list</p>
+	<!-- <ul>
+		<li *ngFor="let dato of datos | async">
+			{{ dato | json }}
+		</li>
+	</ul> -->
+	<ul>
+		<li *ngFor="let dato of datosArray">
+			{{ dato | json }}
+			<p>Nombres: {{ dato.nombres}}</p><br>
+			<p>Apellido: {{ dato.apellido}}</p><br>
+			<p>Fecha de nacimiento: {{ dato.fecha_nacimiento}}</p><br>
+			<p>Nacionalidad: {{ dato.nacionalidad}}</p><br>
+			<p>mail: {{ dato.mail}}</p><br>
+			<p>Sobre mi: {{ dato.sobre_mi}}</p><br>
+			<p>Ocupación: {{ dato.ocupacion}}</p><br>
+			<p>Imagen background header: {{dato.imagen_background_header}}</p><br>
+			<img src={{dato.imagen_background_header}} alt="Imagen..." width="100px" heigth="100px">
+			<p>Imagen perfil: {{dato.imagen_perfil}}</p><br>
+			<img src={{dato.imagen_perfil}} alt="" width="100px" heigth="100px">
+			<p>id_domicilio: {{ dato.id_domicilio}}</p><br>
+		</li>
+	</ul>
+	<h1>Nro Reg: {{ numRegistros }}</h1>
+
+	<h2>datosarray2 aboutme</h2>
+	<ul>
+		<li *ngFor="let dato of datosArray2">
+			{{ dato | json }}
+			<p>bannerImage: {{ dato.bannerImage }}</p><br>
+			<img src={{dato.bannerImage}} alt="" width="100px" heigth="100px">
+
+			<p>profilePicture: {{ dato.profilePicture}}</p><br>
+			<img src={{dato.profilePicture}} alt="" width="100px" heigth="100px">
+
+			<p>ubication: {{ dato.ubication}}</p><br>
+			<p>institution: {{ dato.institution}}</p><br>
+			<p>institutionImage: {{ dato.institutionImage}}</p><br>
+			<img src={{dato.institutionImage}} alt="" width="100px" heigth="100px">
+
+			<p>posicion: {{ dato.posicion}}</p><br>
+			<p>descripcion: {{ dato.descripcion}}</p><br>
+			<p>bannerImage2: {{ dato.bannerImage2}}</p><br>
+			<img src={{dato.bannerImage2}} alt="" width="100px" heigth="100px">
+			<p>profilePicture2: {{dato.profilePicture2}}</p><br>
+			<img src={{dato.profilePicture2}} alt="Imagen..." width="100px" heigth="100px">
+			<p>about: {{dato.about}}</p><br>
+			<!-- <p>id_domicilio: {{ dato.id_domicilio}}</p><br> -->
+		</li>
+	</ul>
+	<h1>Nro Reg: {{ numRegistros2 }}</h1>
+</div>
 <div class="card mat-card mx-auto" id="card-about">
-	<h4>{{myPersona[0].nombres}}</h4>
-	<img class="card-img-top" src={{myAboutMe[0].bannerImage}} alt="Card image cap">
+	<h4>Nombres {{datosArray2[0].nombres}}</h4>
+	<img class="card-img-top" src={{datosArray2[0].bannerImage}} alt="Card image cap">
 	<div id="info">
 		<div class="info-about">
 			<div class="img-about mb-3">
 				<!-- <img src="https://i.pinimg.com/550x/d8/da/b3/d8dab349862cf5397b90379cc0bcb8b5.jpg" alt="ProfilePicture" id="img-about"> -->
-				<img src="{{myAboutMe[0].profilePicture}}" alt="ProfilePicture" id="img-about" width="50px"
+				<img src="{{datosArray2[0].profilePicture}}" alt="ProfilePicture" id="img-about" width="50px"
 					height="50px">
 				<a href="#" data-bs-toggle="modal" data-bs-target="#editmenu"><i
 						class="fa-solid fa-pen-to-square"></i></a>
@@ -67,18 +120,18 @@
 
 			<div class="mb-3" id="info-data">
 				<div class="font1">
-					<h2>{{myPersona[0].nombres}}</h2>
-					<div id="info-company">{{myPersona[0].ocupacion}}</div>
+					<h2>{{datosArray[0].nombres}}</h2>
+					<div id="info-company">{{datosArray[0].ocupacion}}</div>
 					<div id="info-contact">
-						<span>{{myAboutMe[0].ubication}}</span>
+						<span>{{datosArray2[0].ubication}}</span>
 					</div>
 				</div>
 				<ul id="info-details">
 					<li>
-						<a href="{{myAboutMe[0].company.url}}" style="text-decoration: none;">
-							<img src="{{myAboutMe[0].company.logo}}" alt="LogoInti" width="20px" height="20px">
+						<a href="{{datosArray2[0].company.url}}" style="text-decoration: none;">
+							<img src="{{datosArray2[0].company.logo}}" alt="LogoInti" width="20px" height="20px">
 							<!-- <img src="../../../assets/images/cheinti.png" alt="LogoInti" width="20px" height="20px"> -->
-							<h5>{{myAboutMe[0].company.name}}</h5>
+							<h5>{{datosArray2[0].company.name}}</h5>
 						</a>
 					</li>
 				</ul>

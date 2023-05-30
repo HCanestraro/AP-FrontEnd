@@ -1,3 +1,4 @@
+
 export interface Ieducacion {
     escuela: string;
     titulo: String;
@@ -5,5 +6,5 @@ export interface Ieducacion {
     carrera: String;
     puntaje: 100;
     inicio: String;
-    fin:String;
+    fin: String;
 }

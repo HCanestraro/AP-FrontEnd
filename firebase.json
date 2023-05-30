@@ -1,10 +1,22 @@
 {
   "hosting": {
-    "public": "dist/ap-front-end",
+    "public": "dist/AP-FrontEnd-ac93a",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
     ]
+  },
+  "emulators": {
+    "firestore": {
+      "port": 8080
+    },
+    "hosting": {
+      "port": 5000
+    },
+    "ui": {
+      "enabled": true
+    },
+    "singleProjectMode": true
   }
 }
