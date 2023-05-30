@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "ap-frontend-che"
-  }
+    "default": "AP-FrontEnd-ac93a",
+    "ap-frontend-ac93a": "ap-frontend-ac93a"
+  },
+  "targets": {},
+  "etags": {}
 }

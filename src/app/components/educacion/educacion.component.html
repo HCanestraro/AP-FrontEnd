@@ -1,16 +1,37 @@
-<!-- https://drive.google.com/uc?export=download&id=1jA2K7nPYax0JVefFmgn8HvsYre_25zie    logopencil-->
-<!-- https://drive.google.com/uc?export=download&id=11BKh21cSfuiTBDHbY26XH5Ux9TBVYdWm   logoadd -->
-<!-- https://drive.google.com/uc?export=download&id=1_TzJ4uPlPA_qU9DaaARLKqlLoXVi5pWu  logoedu -->
-<!-- https://drive.google.com/uc?export=download&id=1QjXoDP0V0L7EHnjlfAx5bMFH2T-NbYU7  logosave -->
-<!-- https://drive.google.com/uc?export=download&id=1DnHtyYLt7LgH7Nl6HsIOfSh2CDjNiYAE   logocancel -->
-<!-- https://drive.google.com/uc?export=download&id=1iW5i4HOltXKRwV0Q2qsJp6mrZvmFq0rw   logodelete -->
+<!--------------- EDUCACIÓN --------------->
+<div class="container shadow bg-info">
+	<div class="row mt-5">
+		<h5 class="text-center p-1 bg-dark text-light rounded border p-2">EDUCACION</h5>
+	</div>
+	<div class="border">
+		<p>list</p>
+		<ul>
+			<li *ngFor="let dato of datos | async">
+				{{ dato | json }}
+			</li>
+		</ul>
+		<ul>
+			<li *ngFor="let dato of datosArray">
+				{{ dato | json }}
+				<p>Escuela: {{ dato.escuela}}</p>
+				<p>Imagen: {{ dato.imagen}}</p>
+				<img src={{dato.imagen}} alt="">
+				<p>Carrera: {{ dato.carrera}}</p>
+				<p>Puntaje: {{ dato.puntaje}}</p>
+				<p>Inicio: {{ dato.inicio}}</p>
+				<p>Titulo: {{ dato.titulo}}</p>
+				<p>Fin: {{ dato.fin}}</p>
+			</li>
+		</ul>
+		<h1>Nro Reg: {{ numRegistros }}</h1>
+	</div>
 <div class="justify-content-center p-2">
 	<!-- NUEVO REGISTRO -->
 	<div *ngIf="modoNuevoRegistro === false">
 		<div class="d-flex justify-content-center mb-4 m-4">
 			<button class="btn btn-sm btn-green border shadow m-1 text-center text-light fw-bold"
 				(click)="onCrear($event)">
-				<span><img src="https://drive.google.com/uc?export=download&id=11BKh21cSfuiTBDHbY26XH5Ux9TBVYdWm"
+				<span><img src={{logoadd}}
 						alt="editar" class="logo-sm mt-1 bg-white rounded-circle" />AGREGAR EDUCACIÓN</span>
 			</button>
 		</div>
@@ -25,13 +46,13 @@
 						<div class="p-1">
 							<button class="btn p-0 m-1" (click)="onCancelNuevoRegistro()">
 								<span><img
-										src="https://drive.google.com/uc?export=download&id=1DnHtyYLt7LgH7Nl6HsIOfSh2CDjNiYAE"
+										src={{logocancel}}
 										alt="editar" class="logo-sm mt-1" /></span>
 							</button>
 
 							<button class="btn p-0 m-1" (click)="onSaveNewNuevoRegistro($event)">
 								<span><img
-										src="https://drive.google.com/uc?export=download&id=1QjXoDP0V0L7EHnjlfAx5bMFH2T-NbYU7"
+										src={{logosave}}
 										alt="editar" class="logo-sm mt-1" /></span>
 							</button>
 						</div>
@@ -39,7 +60,7 @@
 				</div>
 
 				<h3 class="text-center text-info m-3">
-					<img src="https://drive.google.com/uc?export=download&id=1_TzJ4uPlPA_qU9DaaARLKqlLoXVi5pWu"
+					<img src={{logoedu}}
 						class="logo-edu" alt="logo educación" /><span class="ms-3">Nueva Educación</span>
 				</h3>
 
@@ -99,12 +120,12 @@
 					<div class="d-flex justify-content-end">
 						<button class="btn p-0 m-1" (click)="onCancel($event)">
 							<span><img
-									src="https://drive.google.com/uc?export=download&id=1DnHtyYLt7LgH7Nl6HsIOfSh2CDjNiYAE"
+									src={{logocancel}}
 									alt="editar" class="logo-sm mt-1" /></span>
 						</button>
 						<button class="btn p-0 m-1" (click)="onSaveEdit($event)">
 							<span><img
-									src="https://drive.google.com/uc?export=download&id=1QjXoDP0V0L7EHnjlfAx5bMFH2T-NbYU7"
+									src={{logosave}}
 									alt="editar" class="logo-sm mt-1" /></span>
 						</button>
 					</div>
@@ -114,7 +135,7 @@
 
 			<div class="text-center p-2">
 				<h3 class="text-center text-info m-3">
-					<img src="https://drive.google.com/uc?export=download&id=1_TzJ4uPlPA_qU9DaaARLKqlLoXVi5pWu"
+					<img src={{logoedu}}
 						class="logo-edu" alt="logo educación" /><span class="ms-3">Editar Educación</span>
 				</h3>
 
@@ -171,7 +192,7 @@
 						<div class="p-1">
 							<button class="btn p-0 m-1" (click)="onEdit(myPortfolio.id, i, $event)">
 								<span><img
-										src="https://drive.google.com/uc?export=download&id=1jA2K7nPYax0JVefFmgn8HvsYre_25zie"
+										src={{logopencil}}
 										alt="editar" class="logo-sm mt-1" /></span>
 							</button>
 						</div>
@@ -179,7 +200,7 @@
 						<div class="p-1">
 							<button class="btn p-0 m-1" (click)="onDelete(i, $event)">
 								<span><img
-										src="https://drive.google.com/uc?export=download&id=1iW5i4HOltXKRwV0Q2qsJp6mrZvmFq0rw"
+										src={{logodelete}}
 										alt="editar" class="logo-sm mt-1" /></span>
 							</button>
 						</div>
@@ -189,7 +210,7 @@
 				<div class="m-4">
 					<div class="d-flex">
 						<div>
-							<img src="https://drive.google.com/uc?export=download&id=1_TzJ4uPlPA_qU9DaaARLKqlLoXVi5pWu"
+							<img src={{logoedu}}
 								class="logo-edu" alt="logo educación" />
 						</div>
 						<div>
@@ -232,4 +253,4 @@
 			</div>
 		</div>
 	</div>
-</div>
+</div></div>

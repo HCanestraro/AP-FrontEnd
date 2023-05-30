@@ -50,7 +50,7 @@ export class PortfolioService {
     console.log("OBTENERDATOSBANNERX");
     return this.http.get('./../../assets/data/data.json');
   }
-  obtenerDatosEducation(): Observable<Ieducacion> {
+  obtenerDatosEducacion(): Observable<Ieducacion> {
     // obtenerDatosEducation():Observable<any> {
       console.log('obtenerDatosEducation');
      return this.http.get<Ieducacion>('./../../assets/data/data.json');
@@ -88,9 +88,9 @@ export class PortfolioService {
     return this.http.get<any>(this.url + 'aboutme/' + id);
   }
 
-  obtenerOneDatosEducation(id: number): Observable<Ieducacion> {
+  obtenerOneDatosEducacion(id: number): Observable<Ieducacion> {
     console.log("OBTENERDATOSEDUCATION",this.http.get<Ieducacion>(this.url + 'Education/' + id));
-    return this.http.get<Ieducacion>(this.url + 'Education/' + id);
+    return this.http.get<Ieducacion>(this.url + 'Educacion/' + id);
   }
 
   obtenerOneDatosExperiencia(id: number): Observable<Iexperiencia> {
@@ -116,7 +116,7 @@ export class PortfolioService {
     });
   }
 
-  postEducation(Education: Ieducacion): Observable<Ieducacion> {
+  postEducacion(Education: Ieducacion): Observable<Ieducacion> {
     return this.http.post<Ieducacion>(this.url + 'Education', Education, {
       headers: this.headers,
     });
@@ -158,7 +158,7 @@ export class PortfolioService {
     );
   }
 
-  putEducation(Education: Ieducacion, id: Number): Observable<Ieducacion> {
+  putEducacion(Education: Ieducacion, id: Number): Observable<Ieducacion> {
     return this.http.put<Ieducacion>(this.url + 'Educacion/' + id, Education, {
       headers: this.headers,
     });
@@ -186,7 +186,7 @@ export class PortfolioService {
     });
   }
 
-  deleteEducation(id: Number): Observable<Ieducacion> {
+  deleteEducacion(id: Number): Observable<Ieducacion> {
     return this.http.delete<Ieducacion>(this.url + 'Educacion/' + id, {
       headers: this.headers,
     });
