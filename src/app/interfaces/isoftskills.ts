@@ -1,3 +1,3 @@
 export interface Isoftskills {
-description: String;
+descripcion: String;
 }

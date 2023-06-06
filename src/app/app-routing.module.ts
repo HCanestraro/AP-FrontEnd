@@ -8,15 +8,20 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { FooterComponent } from './components/footer/footer.component';
 import { BannerComponent } from './components/banner/banner.component';
 import { SkillsComponent } from './components/skills/skills.component';
+import { SoftskillsComponent } from './components/softskills/softskills.component';
+import { ProyectosComponent } from './components/proyectos/proyectos.component';
+import { IngresarComponent } from './components/ingresar/ingresar.component';
 const routes: Routes = [
-  { path: '', component: PortfolioComponent},
+  { path: '', component: IngresarComponent},
   { path: '**', component: Che404Component },
   { path: 'chelib', component: chelibComponent },
   { path: 'login', component: LoginComponent },
   { path: 'user-profile', component: UserProfileComponent},
   { path: 'footer', component: FooterComponent},
   { path: 'banner', component: BannerComponent},
-  { path: 'skills', component: SkillsComponent}
+  { path: 'skills', component: SkillsComponent},
+  { path: 'softskills', component: SoftskillsComponent },
+  { path: 'proyectos', component: ProyectosComponent }
 ];
 
 @NgModule({

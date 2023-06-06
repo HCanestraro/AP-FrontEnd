@@ -6,7 +6,7 @@ let chefooter = `
     </div>
 `
 
-var cheP = [];
+// var cheP = [];
 
 function cheCreateHtml(array) {
     fff=array;

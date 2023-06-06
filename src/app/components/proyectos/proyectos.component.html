@@ -1,52 +1,43 @@
-<!-- https://drive.google.com/uc?export=download&id=1jA2K7nPYax0JVefFmgn8HvsYre_25zie    logopencil-->
-<!-- https://drive.google.com/uc?export=download&id=11BKh21cSfuiTBDHbY26XH5Ux9TBVYdWm   logoadd -->
-<!-- https://drive.google.com/uc?export=download&id=1_TzJ4uPlPA_qU9DaaARLKqlLoXVi5pWu  logoedu -->
-<!-- https://drive.google.com/uc?export=download&id=1QjXoDP0V0L7EHnjlfAx5bMFH2T-NbYU7  logosave -->
-<!-- https://drive.google.com/uc?export=download&id=1DnHtyYLt7LgH7Nl6HsIOfSh2CDjNiYAE   logocancel -->
-<!-- https://drive.google.com/uc?export=download&id=1iW5i4HOltXKRwV0Q2qsJp6mrZvmFq0rw   logodelete -->
 <!--------------- PROYECTOS --------------->
 <div class="container shadow bg-info">
 	<div class="row mt-5">
 		<h5 class="text-center p-1 bg-dark text-light rounded border p-2">PROYECTOS</h5>
 	</div>
-<div class="justify-content-center p-2">
+	<div class="justify-content-center p-2">
 
-	<div *ngIf="modeNewRecord === false">
-		<div class="d-flex justify-content-center mb-4 m-4">
-			<button class="btn btn-sm btn-green border shadow m-1 text-center text-light fw-bold"
-				(click)="onCrear($event)">
-				<span><img src={{logoadd}}
-						alt="Editar..." class="logo-sm mt-1 bg-white rounded-circle">AGREGAR PROYECTOS</span>
-			</button>
+		<div *ngIf="modoNuevoRegistro=== false">
+			<div class="d-flex justify-content-center mb-4 m-4">
+				<button class="btn btn-sm btn-green border shadow m-1 text-center text-light fw-bold"
+					(click)="onCrear($event)">
+					<span><img src={{logoadd}} alt="Editar..." class="logo-sm mt-1 bg-white rounded-circle">AGREGAR
+						PROYECTOS</span>
+				</button>
+			</div>
 		</div>
-	</div>
 
-	<div *ngFor="let myProyectos of myProyectos  ; let i = index" [attr.data-index]="i">
-		<div class="d-flex justify-content-center mb-4 m-4">
-			<div
-				class="border rounded p-2 col-md-8 col-12 bg-white shadow-lg mb-4 align-items-center text-center justify-content-center">
-				<div class="d-flex justify-content-end">
+		<div *ngFor="let myProyectos of datosArray  ; let i = index" [attr.data-index]="i">
+			<div class="d-flex justify-content-center mb-4 m-4">
+				<div
+					class="border rounded p-2 col-md-8 col-12 bg-white shadow-lg mb-4 align-items-center text-center justify-content-center">
+					<div class="d-flex justify-content-end">
 
-					<div class="p-1">
-						<button class="btn p-0 m-1"> <!-- (click)="onCancelNuevoRegistro()" -->
-							<span><img
-									src={{logopencil}}
-									alt="editar" class="logo-sm mt-1" /></span>
-						</button>
+						<div class="p-1">
+							<button class="btn p-0 m-1"> <!-- (click)="onCancelNuevoRegistro()" -->
+								<span><img src={{logopencil}} alt="editar" class="logo-sm mt-1" /></span>
+							</button>
 
-						<button class="btn p-0 m-1"> <!-- (click)="onSaveNewNuevoRegistro($event)" -->
-							<span><img
-									src={{logodelete}}
-									alt="editar" class="logo-sm mt-1" /></span>
-						</button>
+							<button class="btn p-0 m-1"> <!-- (click)="onSaveNewNuevoRegistro($event)" -->
+								<span><img src={{logodelete}} alt="editar" class="logo-sm mt-1" /></span>
+							</button>
+						</div>
 					</div>
+					<h4><b>Titulo: </b>{{myProyectos.titulo}}</h4>
+					<img class="image-sm" src="{{myProyectos.imagen}}" alt="">
+					<h4><b>Descripción: </b>{{myProyectos.descripcion}}</h4>
 				</div>
-				<h4><b>Titulo: </b>{{myProyectos.titulo}}</h4>
-				<img class="image-sm" src="{{myProyectos.imagen}}" alt="">
-				<h4><b>Descripción: </b>{{myProyectos.descripcion}}</h4>
+
 			</div>
 
 		</div>
-
 	</div>
-</div></div>
+</div>

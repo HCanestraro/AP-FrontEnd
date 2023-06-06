@@ -1,5 +1,8 @@
-<div class="d-flex container"><!--  class="form-container mat-elevation-z5" -->
-	<div class="d-flex container-flex align-items-center justify-content-center border shadow">
+<!-- *********************** Ingresar ********************** -->
+<app-navbar></app-navbar>
+
+<div class="d-flex container form-container mat-elevation-z5">
+	<div class="d-flex container-flex flex-direction-row align-items-center justify-content-center border shadow">
 		<h1>Login</h1>
 		<!-- <script> console.log( personaemail()); </script> -->
 		<!-- <p>Auth! {{ (auth.user | async)?.uid | json }}			{{ (auth.credential | async)?.additionalUserInfo.isNewUser | json | undefined }}		</p> -->
@@ -13,14 +16,15 @@
 		<button (click)="logout()">Logout</button>
 	</div>
  -->
-<!-- 	<ng-template #showLogin>
+	<!-- 	<ng-template #showLogin>
 		<p>Please login.</p>
 		<button (click)="login()">Login with Google</button>
 	</ng-template>
  -->
-	<form [ formGroup ]="fb" (ngSubmit )="submit()">
+	<form>
 		<mat-form-field>
 			<input matInput placeholder="Email address" formControlName="email" id="email" />
+			<mat-icon></mat-icon>
 			<mat-error *ngIf="email?.errors?.['required']">
 				Email address is required
 			</mat-error>
@@ -34,9 +38,14 @@
 				Password is required
 			</mat-error>
 		</mat-form-field>
+		<button mat-raised-button color="primary">Login with this email and password</button>
+		<button mat-raised-button color="primary">Login with Google Popup</button>
+		<button mat-raised-button color="primary">Create a new user</button>
 		<div class="center margin-top">
 			<button type="submit" mat-raised-button color="primary">Login</button>
 		</div>
-		<span class="center margin-top">New to our platform? <!-- <a class="sign-up-link" routerLink="">Sign up!</a> --></span>
+		<!-- <span class="center margin-top">New to our platform? <a class="sign-up-link" routerLink="">Sign up!</a></span> -->
 	</form>
 </div>
+
+<app-footer></app-footer>
