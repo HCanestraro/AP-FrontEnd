@@ -1,6 +1,8 @@
 // npm
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { environment } from './../environments/environments';
@@ -36,11 +38,11 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
 // import { Datastore } from '@google-cloud/datastore';
 
 // Material
-import { MatToolbarModule } from '@angular/material/toolbar';
+// import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatDatepickerModule } from '@angular/material/datepicker';
+// import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -55,10 +57,10 @@ import { IngresarComponent } from './components/ingresar/ingresar.component';
 const materialModules = [
 	MatButtonModule,
 	MatCardModule,
-	MatDatepickerModule,
+	// MatDatepickerModule,
 	MatNativeDateModule,
 	MatSliderModule,
-	MatToolbarModule,
+	// MatToolbarModule,
 	MatIconModule,
 	MatFormFieldModule,
 	MatMenuModule

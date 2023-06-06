@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormsModule, ReactiveFormsModule,Form, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
+import { FormGroup, NgForm } from '@angular/forms';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { Observable, map, take } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import {NgIf} from '@angular/common';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
+
 @Component({
   selector: 'app-ingresar',
   templateUrl: './ingresar.component.html',
@@ -21,19 +20,18 @@ export class IngresarComponent implements OnInit {
   logocancel="https://drive.google.com/uc?export=download&id=1DnHtyYLt7LgH7Nl6HsIOfSh2CDjNiYAE";
   logodelete="https://drive.google.com/uc?export=download&id=1iW5i4HOltXKRwV0Q2qsJp6mrZvmFq0rw";
 
-	loginForm!: FormGroup;
-  	email!: any;
-  password!: any;
-
-  constructor(private fb: NonNullableFormBuilder) { 
- 	this.loginForm = this.fb.group ({
+	form: FormGroup;
+	usuario = { email: '', password: ''}
+  	
+  constructor(private formBuilder: FormBuilder,private fb: NonNullableFormBuilder) { 
+ 	this.form = this.formBuilder.group ({
 	email: ['', [Validators.required, Validators.email] ] ,
 	password: ['', Validators.required ],
 });
   }
  
 ngSubmit() {
-	console.log("email:", this.loginForm.value.email);
+	console.log("email:", this.form.value.email);
 }
 ngOnInit(): void {
 	
