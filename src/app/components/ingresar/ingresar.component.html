@@ -21,7 +21,35 @@
 		<button (click)="login()">Login with Google</button>
 	</ng-template>
  -->
-	<form>
+
+ 	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title" id="loginModalLabel">Accede a tu cuenta</h1>
+					<button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				</div>
+				<div class="modal-body">
+					<form #FormularioLogin="ngForm" (ngSubmit)="login(FormularioLogin)">
+						<div class="form-group">
+							<input type="email" name="email" class="form-control" placeholder="Introduzca email" ngModel>
+							<label for="Usuario" class="form-label">Usuario</label>
+						</div>
+						<div class="form-group">
+							<input type="password" name="password" class="form-control" placeholder="Introduzca contraseña" ngModel>
+							<label for="Password" class="form-label">Contraseña</label>
+						</div>
+						<button class="btn btn-primary btn-block mb-4" style="background: purple;">Iniciar sesión</button>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<!-- <form>
 		<mat-form-field>
 			<input matInput placeholder="Email address" formControlName="email" id="email" />
 			<mat-icon></mat-icon>
@@ -43,9 +71,9 @@
 		<button mat-raised-button color="primary">Create a new user</button>
 		<div class="center margin-top">
 			<button type="submit" mat-raised-button color="primary">Login</button>
-		</div>
+		</div> -->
 		<!-- <span class="center margin-top">New to our platform? <a class="sign-up-link" routerLink="">Sign up!</a></span> -->
-	</form>
+	<!-- </form> -->
 </div>
 
 <app-footer></app-footer>
