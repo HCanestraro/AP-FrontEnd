@@ -1,39 +1,78 @@
 <!--------------- SOFTSKILLS --------------->
-<div class="container shadow bg-info">
-	<div class="row mt-5">
-		<h5 class="text-center p-1 bg-dark text-light rounded border p-2">SOFTSKILLS</h5>
+<div class="container shadow mt-5 bg-warning">
+	<div class="row">
+		<h5 class="text-center p-2 rounded border bg-dark text-light">[SKILLS]</h5>
 	</div>
-	<div *ngIf="modeNewRecord === false">
-	<div class="d-flex justify-content-center mb-4 m-4">
-		<button
-			class="btn btn-sm btn-green border shadow m-1 text-center text-light fw-bold"><!-- (click)="onCrear($event)" -->
-			<span><img src={{logoadd}} alt="editar" class="logo-sm mt-1 bg-white rounded-circle" />AGREGAR SOFTSKILLS</span>
-		</button>
-	</div>
-</div>
-
-<div *ngFor="let mySoftskills of mySoftskills  ; let i = index" [attr.data-index]="i">
-	<div class="d-flex justify-content-center mb-4 m-4">
-		<div class="border rounded p-2 col-md-8 col-12 bg-white shadow-lg mb-4">
-
-			<div class="d-flex justify-content-end">
-				<div class="p-1">
-					<button class="btn p-0 m-1">  <!-- (click)="onCancelNuevoRegistro()" -->
-						<span><img
-								src={{logopencil}}
-								alt="editar" class="logo-sm mt-1" /></span>
-					</button>
-
-					<button class="btn p-0 m-1" > <!-- (click)="onSaveNewNuevoRegistro($event)" -->
-						<span><img
-								src={{logodelete}}
-								alt="editar" class="logo-sm mt-1" /></span>
-					</button>
-				</div>
-			</div>
-			<h4>{{mySoftskills.description}}</h4>
-
+	<div *ngIf="modoNuevoRegistro== false">
+		<div class="d-flex justify-content-center mb-4 m-4">
+			<button class="btn btn-sm btn-green border shadow m-1 text-center text-light fw-bold"
+				(click)="onCrear($event)"><!--  -->
+				<span><img src={{logoadd}} alt="editar" class="logo-sm mt-1 bg-white rounded-circle" />AGREGAR
+					SOFTSKILLS</span>
+			</button>
 		</div>
 	</div>
-</div>
+	<div *ngIf="modoNuevoRegistro== true" class="d-flex justify-content-center align-items-center border-1 shadow"
+		id="createNuevoSoftskills">
+		<!-- <div class="border rounded p-2 col-md-8 col-12 bg-white shadow-lg mb-4"> -->
+		<form (ngSubmit)="onSubmit()" class="col-md-8 col-12 mb-4">
+			<div class="text-center p-4 border shadow rounded bg-white mt-4">
+				<div>
+					<div class="d-flex justify-content-end">
+						<div class="p-1">
+							<button class="btn p-0 m-1" (click)="onCancelNuevoRegistro()"> <!--  -->
+								<span><img src={{logocancel}} alt="Cancelar..." class="logo-sm mt-1" /></span>
+							</button>
+
+							<!-- <button class="btn p-0 m-1" type="button" (click)="agregarRegistros([{descripcion: '${form.value.descripcion}'}]);"> -->
+								<button class="btn p-0 m-1" type="button" (click)="onSaveNewNuevoRegistro($event)">
+							<!-- <button class="btn p-0 m-1" type="button" (click)="agregarRegistro()"> -->
+								<span><img src={{logosave}} alt="Guardar..." class="logo-sm mt-1" /></span>
+							</button>
+						</div>
+					</div>
+				</div>
+				<h3 class="text-center text-info m-3"><img src={{logoSkill}} class="logoSkills mt-1"
+						alt="Logo Skill..."><span>Nuevo
+						Skill</span> </h3>
+				<div>
+					<div class="text-start">
+						<label for="descripcion">Descripción:</label>
+					</div>
+					<!-- <input type="text" placeholder="SoftSkill..." formControlName="descripcion" name="descripcion"
+					id="descripcion" required autofocus
+					class="col-md-10 col-12 p-2 mb-2 border rounded border-1 border-warning shadow"
+					ng-reflect-required ng-reflect-name="descripcion" spellcheck="false" data-ms-editor="true"> -->
+					<input type="text" placeholder="SoftSkill..." formControlName="descripcion" id="descripcion" required
+						class="col-md-10 col-12 p-2 mb-2 border rounded border-1 border-warning shadow">
+				</div>
+			</div>
+		</form>
+	</div>
+	<div *ngFor="let mySoftskills of datosArray  ; let i = index" [attr.data-index]="i">
+		<div class="d-flex justify-content-center mb-4 m-4">
+			<div class="border rounded p-2 col-md-8 col-12 bg-white shadow-lg mb-4">
+				<div class="d-flex justify-content-end">
+					<div class="p-1">
+						<button class="btn p-0 m-1"> <!-- (click)="onCancelNuevoRegistro()" -->
+							<span><img src={{logopencil}} alt="editar" class="logo-sm mt-1" /></span>
+						</button>
+
+						<!-- <button class="btn p-0 m-1" (click)="onDelete(i,mySoftskills.id, $event)"> -->
+						<button class="btn p-0 m-1" (click)="borrarRegistro(mySoftskills.id)">
+							<!-- (click)="onSaveNewNuevoRegistro($event)" -->
+							<span><img src={{logodelete}} alt="editar" class="logo-sm mt-1" /></span>
+						</button>
+					</div>
+				</div>
+				<!-- <h4>{$i}</h4> -->
+
+				<h4>{{mySoftskills.descripcion}}</h4>
+				<h4>{{mySoftskills.id}}</h4>
+
+			</div>
+		</div>
+	</div>
+
+
 </div>

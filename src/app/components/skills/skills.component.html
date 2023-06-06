@@ -1,57 +1,48 @@
-<!-- https://drive.google.com/uc?export=download&id=1jA2K7nPYax0JVefFmgn8HvsYre_25zie    logopencil-->
-<!-- https://drive.google.com/uc?export=download&id=11BKh21cSfuiTBDHbY26XH5Ux9TBVYdWm   logoadd -->
-<!-- https://drive.google.com/uc?export=download&id=1_TzJ4uPlPA_qU9DaaARLKqlLoXVi5pWu  logoedu -->
-<!-- https://drive.google.com/uc?export=download&id=1QjXoDP0V0L7EHnjlfAx5bMFH2T-NbYU7  logosave -->
-<!-- https://drive.google.com/uc?export=download&id=1DnHtyYLt7LgH7Nl6HsIOfSh2CDjNiYAE   logocancel -->
-<!-- https://drive.google.com/uc?export=download&id=1iW5i4HOltXKRwV0Q2qsJp6mrZvmFq0rw   logodelete -->
-<!-- https://drive.google.com/uc?export=download&id=1XApdWSnN7YZC0Y5B0IybEyefUZ10wTuu   logoskills -->
 <!--------------- SKILLS --------------->
 <div class="container shadow bg-info">
 	<div class="row mt-5">
 		<h5 class="text-center p-1 bg-dark text-light rounded border p-2">SKILLS</h5>
 	</div>
-<div class="justify-content-center p-2">
+	<div class="justify-content-center p-2">
 
-	<div *ngIf="modeNewRecord === false">
-		<div class="d-flex justify-content-center mb-4 m-4">
-			<button
-				class="btn btn-sm btn-green border shadow m-1 text-center text-light fw-bold"><!-- (click)="onCrear($event)" -->
-				<span><img src={{logoadd}}
-						alt="editar" class="logo-sm mt-1 bg-white rounded-circle" />AGREGAR SKILLS</span>
-			</button>
-		</div>
-	</div>
-	<div *ngFor="let mySkills of mySkills  ; let i = index" [attr.data-index]="i">
-		<div class="d-flex justify-content-center mb-4 m-4">
-			<div class="border rounded p-2 col-md-8 col-12 bg-white shadow-lg mb-4 align-items-center justify-content-center text-center">
-				<div class="d-flex justify-content-end">
-
-				<div class="p-1 justify-content-end">
-					
-					<button class="btn p-0 m-1">  <!-- (click)="onCancelNuevoRegistro()" -->
-						<span><img
-								src={{logopencil}}
-								alt="editar" class="logo-sm mt-1" /></span>
-					</button>
-
-					<button class="btn p-0 m-1" > <!-- (click)="onSaveNewNuevoRegistro($event)" -->
-						<span><img
-								src={{logodelete}}
-								alt="editar" class="logo-sm mt-1" /></span>
-					</button>
-				</div>
-				</div>
-				<h4><b>Nombre:</b>{{mySkills.name}}</h4>
-				<img class="image-sm" src="{{mySkills.urlImage}}" alt="Imagen asociada...">
-				<h4><b>Nivel:</b>{{mySkills.level}}</h4>
+		<div *ngIf="modoNuevoRegistro=== false">
+			<div class="d-flex justify-content-center mb-4 m-4">
+				<button
+					class="btn btn-sm btn-green border shadow m-1 text-center text-light fw-bold"><!-- (click)="onCrear($event)" -->
+					<span><img src={{logoadd}} alt="editar" class="logo-sm mt-1 bg-white rounded-circle" />AGREGAR
+						SKILLS</span>
+				</button>
 			</div>
+		</div>
+		<div *ngFor="let mySkills of datosArray  ; let i = index" [attr.data-index]="i">
+			<div class="d-flex justify-content-center mb-4 m-4">
+				<div
+					class="border rounded p-2 col-md-8 col-12 bg-white shadow-lg mb-4 align-items-center justify-content-center text-center">
+					<div class="d-flex justify-content-end">
+
+						<div class="p-1 justify-content-end">
+
+							<button class="btn p-0 m-1"> <!-- (click)="onCancelNuevoRegistro()" -->
+								<span><img src={{logopencil}} alt="editar" class="logo-sm mt-1" /></span>
+							</button>
+
+							<button class="btn p-0 m-1"> <!-- (click)="onSaveNewNuevoRegistro($event)" -->
+								<span><img src={{logodelete}} alt="editar" class="logo-sm mt-1" /></span>
+							</button>
+						</div>
+					</div>
+					<h4><b>Nombre:</b>{{mySkills.name}}</h4>
+					<img class="image-sm" src="{{mySkills.urlImage}}" alt="Imagen asociada...">
+					<h4><b>Nivel:</b>{{mySkills.level}}</h4>
+				</div>
 
 
+			</div>
 		</div>
 	</div>
-</div></div>
+</div>
 
-	<!-- <div class="justify-content-center p-2 w-100">
+<!-- <div class="justify-content-center p-2 w-100">
 		<div class="logo-bk"></div>
 		<div *ngIf="modeNewRecord === false">
 			<div class="d-flex justify-content-center mb-4 m-4">
@@ -63,8 +54,8 @@
 			</div>
 		</div>
  -->
-		<!-- FORMULARIO NEW -->
-		<!-- <div *ngIf="modeNewRecord=== true" class="d-flex justify-content-center">
+<!-- FORMULARIO NEW -->
+<!-- <div *ngIf="modeNewRecord=== true" class="d-flex justify-content-center">
 		<form class="col-md-8 col-12 mb-4" [formGroup] = "form" >
 			<div class="text-center p-4 border shadow rounded bg-white mt-4">
 				<div *ngIf="modeNewRecord === true">
@@ -109,10 +100,10 @@
 			</div>
 		</form>
 	</div> -->
-		<!-- FIN FORMULARIO NEW -->
+<!-- FIN FORMULARIO NEW -->
 
-		<!-- FORMULARIO EDIT -->
-		<!-- <div *ngIf="modeEdition === true" class="d-flex justify-content-center">
+<!-- FORMULARIO EDIT -->
+<!-- <div *ngIf="modeEdition === true" class="d-flex justify-content-center">
 		<form class="col-md-8 col-12 mb-4 bg-white p-3 rounded shadow" [formGroup]="form">
 			<div class="text-center p-3">
 				
@@ -157,12 +148,12 @@
 			</div>
 		</form>
 	</div> -->
-		<!-- FIN FORMULARIO EDIT -->
+<!-- FIN FORMULARIO EDIT -->
 
 <!-- 		<div class="row">
 			<div *ngFor="let mySkills of mySkills; let i = index" [attr.data-index]="i" class="col-md-3 col-sm-12">
 				<div class="text-center m-3 border rounded p-2 bg-white shadow-lg">
- -->					<!-- MÓDULO BOTONES EDIT -->
+ --> <!-- MÓDULO BOTONES EDIT -->
 
 <!-- 					<div *ngIf="modeEdition === false">
 						<div class="d-flex justify-content-end">
@@ -184,12 +175,12 @@
 						</div>
 					</div>
 
- -->					<!-- FIN MÓDULO BOTONES EDIT -->
+ --> <!-- FIN MÓDULO BOTONES EDIT -->
 
-					<!--ITEMS VISIBLES-->
+<!--ITEMS VISIBLES-->
 <!-- 					<h4 class="m-2 mb-2">Descripcion: {{ mySkills.description }}</h4>
- -->					<!-- <img src={{myPortfolio.imagen}} alt="logoskills" class="logoSkills mb-4 mt-2"> -->
-					<!-- FIN ITEMS VISIBLES-->
+ --> <!-- <img src={{myPortfolio.imagen}} alt="logoskills" class="logoSkills mb-4 mt-2"> -->
+<!-- FIN ITEMS VISIBLES-->
 <!-- 				</div>
 			</div>
 		</div>

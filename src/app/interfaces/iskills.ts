@@ -1,6 +1,6 @@
 export interface Iskills {
     name:String;
-    irlImage:String;
+    urlImage:String;
     level:String;
     
 }

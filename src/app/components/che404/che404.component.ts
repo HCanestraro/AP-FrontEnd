@@ -12,6 +12,7 @@ cheerror:any;
 	constructor( private route: ActivatedRoute) {}
 
 	ngOnInit(): void {
-		this.cheerror=`${this.route.snapshot.url.join('/')}`;		
+		// this.cheerror=`${this.route.snapshot.url.join('/')}`;
+		// alert(this.cheerror);		
 	}
 }

@@ -1,20 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { AngularFirestoreCollection,  CollectionReference } from '@angular/fire/compat/firestore';
-import { doc, collection} from '@angular/fire/firestore';
+import { AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { finalize } from 'rxjs/operators';
 import { DataService } from '../../services/data.service';
 import { IProfile } from '../../interfaces/profile.interface';
 import { IFormFields } from '../../interfaces/form-fields.interface';
 import {IFormModal} from '../../interfaces/form-modal.interface';
 import { ImageUploadService } from 'src/app/services/image-upload.service';
-import {
-  getDownloadURL,
-  ref,
-  Storage,
-  uploadBytes,
-} from '@angular/fire/storage';
 
 @Component({
   selector: 'app-about-me',
@@ -76,7 +69,7 @@ export class AboutMeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.$profile = this.dataService.getData(this.profileCollectionRef);
+    this.$profile = this.dataService.ggetData(this.profileCollectionRef);
   }
 
   public uploadImage(event: { target: { files: any[]; }; }, id: string) {

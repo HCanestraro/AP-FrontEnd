@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-// import { AngularFireAuthModule } from '@angular/fire/auth';
+// import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 import { Router } from '@angular/router';
@@ -17,10 +17,10 @@ export class AuthService {
   async login(email: string, password: string) {
       await this.afAuth.signInWithEmailAndPassword(email, password)
       .then((userCredential) => {
+        this.router.navigate(['portfolio']);
     })
-      // this.router.navigate(['dashboard']);
    .catch ((error) => {
-      alert('Error!' + error.message);
+      console.log('Error!' + error.message);
     });
   }
 
@@ -29,7 +29,7 @@ export class AuthService {
       .then((userCredential) => {
       })
      .catch ((error) => {
-      alert('Error!' + error.message);
+      console.log('Error!' + error.message);
     });
   }
 
