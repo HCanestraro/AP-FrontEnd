@@ -1,3 +1,5 @@
 export interface Isoftskills {
-descripcion: String;
+    name:String;
+    urlImage:String;
+    level:String;
 }

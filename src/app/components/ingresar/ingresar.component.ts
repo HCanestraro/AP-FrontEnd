@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, NgForm } from '@angular/forms';
+import { FormGroup, NgForm, FormBuilder, Validators, NonNullableFormBuilder } from '@angular/forms';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
