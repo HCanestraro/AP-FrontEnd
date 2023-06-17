@@ -10,39 +10,44 @@ import { Observable, map } from 'rxjs';
 
 export class FirebaseService {
 	datosCollection!: AngularFirestoreCollection<any>;
-	camposAboutme = ([{ bannerImage: ''}, {profilePicture: ''},{ubication: ''}, {institution: ''},
-	 	{institutionImage: ''}, {posicion: ''}, {descripcion: ''}, {bannerImage2: ''}, {profilePicture2: ''},
-		{about: ''}, {company:<any>[]([{name:''},{url:''},{logo:''}])} ]);
-	camposPersona = ([{ nombres: 'Hernan'},{ apellido: 'Canestraro'},{fecha_nacimiento: '09/27/76'},{nacionalidad: 'Argentino'},{mail:'hernancanestraro.dev@gmail.com'},{sobre_mi:'Autodidacta'},{ocupacion:'FullStack Developer Jr.'},{image_background_header:''},{image_perfil:''},{id_domicilio:'La Matanza, Buenos Aires, Argentina'}]);
-	camposEducacion = ([{escuela:'E.E.M.Nº 24'},{titulo:'Bachiller contable'},{imagen:''},{carrera:'Bachiller'},{puntaje: 70},{inicio:'05/03/90'},{fin: '05/12/95'}]);
-	camposExperiencia = ([{ubicacion:'Buenos Aires'},{puesto:'Data entry'},{periodo:''},{empresa:''},{actividades:''}]);
-	camposSkills = ([{descripcion:'Descripción'}]);
-	camposSoftskills = ([{name:''},{urlImage:''},{level:''}]);
+	che_nombreColeccion = [ 'aboutme','persona','educacion','experiencia','skills','softskills'];
+	nombreColeccion: string | undefined;
+
+	// camposAboutme = ([{ bannerImage: ''}, {profilePicture: ''},{ubication: ''}, {institution: ''},
+	 	// {institutionImage: ''}, {posicion: ''}, {descripcion: ''}, {bannerImage2: ''}, {profilePicture2: ''},
+		// {about: ''}, {company:<any>[]([{name:''},{url:''},{logo:''}])} ]);
+	// camposPersona = ([{ nombres: 'Hernan'},{ apellido: 'Canestraro'},{fecha_nacimiento: '09/27/76'},{nacionalidad: 'Argentino'},{mail:'hernancanestraro.dev@gmail.com'},{sobre_mi:'Autodidacta'},{ocupacion:'FullStack Developer Jr.'},{image_background_header:''},{image_perfil:''},{id_domicilio:'La Matanza, Buenos Aires, Argentina'}]);
+	// camposEducacion = ([{escuela:'E.E.M.Nº 24'},{titulo:'Bachiller contable'},{imagen:''},{carrera:'Bachiller'},{puntaje: 70},{inicio:'05/03/90'},{fin: '05/12/95'}]);
+	// camposExperiencia = ([{ubicacion:'Buenos Aires'},{puesto:'Data entry'},{periodo:''},{empresa:''},{actividades:''}]);
+	// camposSkills = ([{descripcion:'Descripción'}]);
+	camposSoftskills = [ {name: ''} , {urlImage:''},{level:''}];
 
 	constructor(private firestore: AngularFirestore) { }
-	verificarYCrearColeccion(nombreColeccion: string, campos: Array<any>[]): void {
+
+	verificarYCrearColeccion(nroCollection: number, campos: string[]): void {
+		this.nombreColeccion = this.che_nombreColeccion[nroCollection];
 		this.firestore
-			.collection(nombreColeccion)
+			.collection(this.nombreColeccion)
 			.get()
 			.pipe(take(1))
-			.subscribe((snapshot) => {
+			.subscribe((snapshot: { empty: any; }) => {
 				if (snapshot.empty) {
 					// La colección no existe, crearla
 					this.firestore
-						.collection(nombreColeccion)
+						.collection(this.nombreColeccion)
 						// .add({ dummyData: 'valor_dummy' })
-						.add(campos)
+						.add(`campos`)
 						.then(() => {
-							console.log('Colección creada exitosamente: ',nombreColeccion);
+							console.log('Colección creada exitosamente: ',this.nombreColeccion);
 						})
 						.catch((error) => {
-							console.error('Error al crear la colección:',nombreColeccion,' - ', error);
+							console.error('Error al crear la colección:', this.nombreColeccion,' - ', error);
 						});
 				} else {
-					console.log('La colección ya existe:',nombreColeccion);
+					console.log('La colección ya existe:', this.nombreColeccion);
 				}
 			},
-				(error) => {
+				(error: any) => {
 					console.error('Error al verificar la existencia de la colección:', error);
 				});
 	}
@@ -51,13 +56,13 @@ export class FirebaseService {
 		// datosCollection!: AngularFirestoreCollection<any>;
 		this.datosCollection.snapshotChanges().pipe(
 			map((snapshots) => {
-				return snapshots.map((snapshot) => {
+				return snapshots.map((snapshot: { payload: { doc: { data: () => any; id: any; }; }; }) => {
 					const data = snapshot.payload.doc.data();
 					const id = snapshot.payload.doc.id;
 					return { id, ...data };
 				});
 			})
-		).subscribe((array) => {
+		).subscribe((array: any) => {
 			return array;
 			// this.datosArray = array;
 			// console.log('DEBUG: getDatosArray', this.datosArray);
@@ -65,7 +70,7 @@ export class FirebaseService {
 	}
 
 	getNumRegistros(nombreColeccion: string): void {
-		this.datosCollection?.get().subscribe((snapshot) => {
+		this.datosCollection?.get().subscribe((snapshot: { size: any; }) => {
 			return snapshot.size;
 			// this.numRegistros = snapshot.size;
 			// console.log("REG:", this.numRegistros);

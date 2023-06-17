@@ -8,7 +8,6 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { environment } from './../environments/environments';
-// import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { HotToastModule } from '@ngneat/hot-toast';
@@ -29,9 +28,9 @@ import { SoftskillsComponent } from './components/softskills/softskills.componen
 import { ProyectosComponent } from './components/proyectos/proyectos.component';
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
 import { chelibComponent } from './components/chelib/chelib.component';
-// import { AboutMeComponent } from './components/about-me/about-me.component';
+import { AboutMeComponent } from './components/about-me/about-me.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
-// import { ContactFormComponent } from './components/contact-form/contact-form.component';
+import { ContactFormComponent } from './components/contact-form/contact-form.component';
 
 // firebase
 import { AngularFireModule } from '@angular/fire/compat';
@@ -40,29 +39,30 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
 // import { Datastore } from '@google-cloud/datastore';
 
 // Material
-// import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-// import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatMenuModule } from '@angular/material/menu';
 import { AppRoutingModule } from './app-routing.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+// import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { IngresarComponent } from './components/ingresar/ingresar.component';
 // import { CloudinaryConfig } from '@cloudinary/url-gen';
-// import { getStorage, provideStorage } from '@angular/fire/storage';
+import { getStorage, provideStorage } from '@angular/fire/storage';
 
 
 const materialModules = [
 	MatButtonModule,
 	MatCardModule,
-	// MatDatepickerModule,
+	MatDatepickerModule,
 	MatNativeDateModule,
 	MatSliderModule,
-	// MatToolbarModule,
+	MatToolbarModule,
 	MatIconModule,
 	MatFormFieldModule,
 	MatMenuModule
@@ -85,8 +85,8 @@ const materialModules = [
 		chelibComponent,
 		UserProfileComponent,
   IngresarComponent,
-		//   AboutMeComponent,
-		//   ContactFormComponent
+		  AboutMeComponent,
+		  ContactFormComponent
 	],
 
 	imports: [
@@ -100,7 +100,7 @@ const materialModules = [
 		provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
 		provideAuth(() => getAuth()),
 		provideFirestore(() => getFirestore()),
-		// provideStorage(() => getStorage()), 
+		provideStorage(() => getStorage()), 
 		HotToastModule.forRoot(),
 		FontAwesomeModule,
 	],
