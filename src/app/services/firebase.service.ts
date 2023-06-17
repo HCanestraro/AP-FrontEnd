@@ -4,23 +4,24 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/comp
 import { take } from 'rxjs/operators';
 import { Observable, map } from 'rxjs';
 
-@Injectable({
-	providedIn: 'root'
-})
+	@Injectable({
+		providedIn: 'root'
+	})
 
 export class FirebaseService {
 	datosCollection!: AngularFirestoreCollection<any>;
 	che_nombreColeccion = [ 'aboutme','persona','educacion','experiencia','skills','softskills'];
 	nombreColeccion: string | undefined;
-
-	// camposAboutme = ([{ bannerImage: ''}, {profilePicture: ''},{ubication: ''}, {institution: ''},
+	campos = [
+	// camposAboutme = [{ bannerImage: ''}, {profilePicture: ''},{ubication: ''}, {institution: ''},
 	 	// {institutionImage: ''}, {posicion: ''}, {descripcion: ''}, {bannerImage2: ''}, {profilePicture2: ''},
 		// {about: ''}, {company:<any>[]([{name:''},{url:''},{logo:''}])} ]);
-	// camposPersona = ([{ nombres: 'Hernan'},{ apellido: 'Canestraro'},{fecha_nacimiento: '09/27/76'},{nacionalidad: 'Argentino'},{mail:'hernancanestraro.dev@gmail.com'},{sobre_mi:'Autodidacta'},{ocupacion:'FullStack Developer Jr.'},{image_background_header:''},{image_perfil:''},{id_domicilio:'La Matanza, Buenos Aires, Argentina'}]);
+	{'camposPersona': `[ { nombres: 'Hernan'} , { apellido: 'Canestraro'},{fecha_nacimiento: '09/27/76'},{nacionalidad: 'Argentino'},{mail:'hernancanestraro.dev@gmail.com'},{sobre_mi:'Autodidacta'},{ocupacion:'FullStack Developer Jr.'},{image_background_header:''},{image_perfil:''},{id_domicilio:'La Matanza, Buenos Aires, Argentina'}]`},
 	// camposEducacion = ([{escuela:'E.E.M.Nº 24'},{titulo:'Bachiller contable'},{imagen:''},{carrera:'Bachiller'},{puntaje: 70},{inicio:'05/03/90'},{fin: '05/12/95'}]);
 	// camposExperiencia = ([{ubicacion:'Buenos Aires'},{puesto:'Data entry'},{periodo:''},{empresa:''},{actividades:''}]);
-	// camposSkills = ([{descripcion:'Descripción'}]);
-	camposSoftskills = [ {name: ''} , {urlImage:''},{level:''}];
+	{ 'camposSkills':  `[{descripcion:'Descripción'}]`},
+	{ 'camposSoftskills': `[ {name: ''} , {urlImage:''},{level:''}]`}
+	];
 
 	constructor(private firestore: AngularFirestore) { }
 

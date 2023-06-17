@@ -82,7 +82,7 @@ export class BannerComponent implements OnInit {
 					return { id, ...data };
 				});
 			})
-		).subscribe((array) => {
+		).subscribe((array: any[] | { [s: string]: unknown; } | ArrayLike<unknown>) => {
 			this.datosArray = array;
 			// console.log(this.datosArray[0].valueChanges);
 			this.nombres = this.datosArray[0].nombres;
