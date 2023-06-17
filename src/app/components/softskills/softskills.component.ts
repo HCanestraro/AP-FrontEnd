@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormBuilder, NonNullableFormBuilder } from '@angular/forms';
 import { PortfolioService } from './../../services/portfolio.service';
 import { FirebaseService } from 'src/app/services/firebase.service';
-// import Swal from 'sweetalert2';
+import Swal from 'sweetalert2';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { Observable, map, take } from 'rxjs';
 import { Isoftskills } from 'src/app/interfaces/isoftskills';

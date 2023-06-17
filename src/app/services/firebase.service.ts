@@ -10,42 +10,35 @@ import { Observable, map } from 'rxjs';
 
 export class FirebaseService {
 	datosCollection!: AngularFirestoreCollection<any>;
-	che_nombreColeccion = [ 'aboutme','persona','educacion','experiencia','skills','softskills'];
-	nombreColeccion: string | undefined;
-	campos = [
-	// camposAboutme = [{ bannerImage: ''}, {profilePicture: ''},{ubication: ''}, {institution: ''},
-	 	// {institutionImage: ''}, {posicion: ''}, {descripcion: ''}, {bannerImage2: ''}, {profilePicture2: ''},
-		// {about: ''}, {company:<any>[]([{name:''},{url:''},{logo:''}])} ]);
-	{'camposPersona': `[ { nombres: 'Hernan'} , { apellido: 'Canestraro'},{fecha_nacimiento: '09/27/76'},{nacionalidad: 'Argentino'},{mail:'hernancanestraro.dev@gmail.com'},{sobre_mi:'Autodidacta'},{ocupacion:'FullStack Developer Jr.'},{image_background_header:''},{image_perfil:''},{id_domicilio:'La Matanza, Buenos Aires, Argentina'}]`},
+	// che_nombreColeccion = [ 'aboutme','persona','educacion','experiencia','skills','softskills'];
+	// che_nombreCampos = [ 'camposAboutme', 'camposPersona', 'camposEducacion', 'camposExperiencia', 'camposSkills', 'camposSoftskills']
+	// nombreColeccion!: string ;
 	// camposEducacion = ([{escuela:'E.E.M.Nº 24'},{titulo:'Bachiller contable'},{imagen:''},{carrera:'Bachiller'},{puntaje: 70},{inicio:'05/03/90'},{fin: '05/12/95'}]);
 	// camposExperiencia = ([{ubicacion:'Buenos Aires'},{puesto:'Data entry'},{periodo:''},{empresa:''},{actividades:''}]);
-	{ 'camposSkills':  `[{descripcion:'Descripción'}]`},
-	{ 'camposSoftskills': `[ {name: ''} , {urlImage:''},{level:''}]`}
-	];
-
+	// camposSkills = [{descripcion:'Descripción'}];
+	// camposSoftskills = [ {name: ''} , {urlImage:''},{level:''}];
+	
 	constructor(private firestore: AngularFirestore) { }
 
-	verificarYCrearColeccion(nroCollection: number, campos: string[]): void {
-		this.nombreColeccion = this.che_nombreColeccion[nroCollection];
-		this.firestore
-			.collection(this.nombreColeccion)
+	verificarYCrearColeccion(nombreColeccion: string, camposColeccion: object): void {
+			this.firestore
+			.collection(nombreColeccion)
 			.get()
 			.pipe(take(1))
 			.subscribe((snapshot: { empty: any; }) => {
 				if (snapshot.empty) {
 					// La colección no existe, crearla
 					this.firestore
-						.collection(this.nombreColeccion)
-						// .add({ dummyData: 'valor_dummy' })
-						.add(`campos`)
+						.collection(nombreColeccion) 
+						.add(camposColeccion)
 						.then(() => {
-							console.log('Colección creada exitosamente: ',this.nombreColeccion);
+							console.log('Colección creada exitosamente: ',nombreColeccion);
 						})
 						.catch((error) => {
-							console.error('Error al crear la colección:', this.nombreColeccion,' - ', error);
+							console.error('Error al crear la colección:', nombreColeccion,' - ', error);
 						});
 				} else {
-					console.log('La colección ya existe:', this.nombreColeccion);
+					console.log('La colección ya existe:', nombreColeccion);
 				}
 			},
 				(error: any) => {
@@ -55,9 +48,8 @@ export class FirebaseService {
 	
 	getDatosArray(nombreColeccion: string): void {
 		// datosCollection!: AngularFirestoreCollection<any>;
-		this.datosCollection.snapshotChanges().pipe(
-			map((snapshots) => {
-				return snapshots.map((snapshot: { payload: { doc: { data: () => any; id: any; }; }; }) => {
+		this.datosCollection.snapshotChanges().pipe( map( ( snapshots ) => {
+				return snapshots.map ((snapshot: { payload: { doc: { data: () => any; id: any; }; }; }) => {
 					const data = snapshot.payload.doc.data();
 					const id = snapshot.payload.doc.id;
 					return { id, ...data };

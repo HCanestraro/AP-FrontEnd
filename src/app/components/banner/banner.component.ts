@@ -76,14 +76,13 @@ export class BannerComponent implements OnInit {
 	getDatosArray(): void {
 		this.datosCollection.snapshotChanges().pipe(
 			map((snapshots) => {
-				return snapshots.map((snapshot<any>) => {
+				return snapshots.map((snapshot) => {
 					const data = snapshot.payload.doc.data();
 					const id = snapshot.payload.doc.id;
 					return { id, ...data };
 				});
 			})
 		).subscribe((array: any[] | { [s: string]: unknown; } | ArrayLike<unknown>) => {
-			this.datosArray = array;
 			// console.log(this.datosArray[0].valueChanges);
 			this.nombres = this.datosArray[0].nombres;
 			this.apellido = this.datosArray[0].apellido;
@@ -114,11 +113,13 @@ export class BannerComponent implements OnInit {
 			console.log('DEBUG: getDatosArray2', this.datosArray2);
 		})
 	}
+
 	getNumRegistros(): void {
 		this.datosCollection?.get().subscribe((snapshot) => {
 			this.numRegistros = snapshot.size;
 		});
 	}
+
 	getNumRegistros2(): void {
 		this.datosCollection2?.get().subscribe((snapshot) => {
 			this.numRegistros2 = snapshot.size;
@@ -126,12 +127,51 @@ export class BannerComponent implements OnInit {
 	}
 
 	verificarYCrearMiColeccion(): void {
-		this.firebaseService.verificarYCrearColeccion(this.nombreColeccion);
+		// this.camposPersona = {
+		// 	nombres: 'Hernan',
+		// 	apellido: 'Canestraro',
+		// 	fecha_nacimiento: '09/27/76',
+		// 	nacionalidad: 'Argentino',
+		// 	mail:'hernancanestraro.dev@gmail.com',
+		// 	sobre_mi:'Autodidacta',
+		// 	ocupacion:'FullStack Developer Jr.',
+		// 	image_background_header:'',
+		// 	image_perfil:'',
+		// 	id_domicilio:'La Matanza, Buenos Aires, Argentina'
+		// };
+		this.firebaseService.verificarYCrearColeccion('persona',
+		{
+			nombres: 'Hernan',
+			apellido: 'Canestraro',
+			fecha_nacimiento: '09/27/76',
+			nacionalidad: 'Argentino',
+			mail:'hernancanestraro.dev@gmail.com',
+			sobre_mi:'Autodidacta',
+			ocupacion:'FullStack Developer Jr.',
+			image_background_header:'',
+			image_perfil:'',
+			id_domicilio:'La Matanza, Buenos Aires, Argentina'
+		});
 	}
 	
 	verificarYCrearMiColeccion2(): void {
-		this.firebaseService.verificarYCrearColeccion(this.nombreColeccion2);
+		this.firebaseService.verificarYCrearColeccion('aboutme',
+		{
+			bannerImage: '',
+			profilePicture: '',
+			ubication: '',
+			institution: '',
+			institutionImage: '',		
+			posicion: '',
+			descripcion: '',
+			bannerImage2: '',
+			profilePicture2: '',
+			about: ''
+		});
 	}
+// 	camposAboutme = [{ bannerImage: ''}, {profilePicture: ''},{ubication: ''}, {institution: ''},
+// 	{institutionImage: ''}, {posicion: ''}, {descripcion: ''}, {bannerImage2: ''}, {profilePicture2: ''},
+//    {about: ''}]; /* , {company:<any>[]([{name:''},{url:''},{logo:''}])} ; */
 
 	verErr(): void {
 		let objetoFormulario = this.form.controls;
