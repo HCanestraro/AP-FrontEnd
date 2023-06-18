@@ -1,12 +1,19 @@
 {
-  "hosting": {
-    "public": "dist/AP-FrontEnd-ac93a",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ]
-  },
+  "hosting": [
+    {
+      "public": "dist/AP-FrontEnd-ac93a",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ]
+    },
+    {
+      "target": "AP-FrontEnd-ac93a",
+      "source": ".",
+      "frameworksBackend": {}
+    }
+  ],
   "emulators": {
     "firestore": {
       "port": 8080

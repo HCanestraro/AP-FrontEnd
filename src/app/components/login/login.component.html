@@ -1,42 +1,25 @@
-<div class="d-flex container"><!--  class="form-container mat-elevation-z5" -->
-	<div class="d-flex container-flex align-items-center justify-content-center border shadow">
-		<h1>Login</h1>
-		<!-- <script> console.log( personaemail()); </script> -->
-		<!-- <p>Auth! {{ (auth.user | async)?.uid | json }}			{{ (auth.credential | async)?.additionalUserInfo.isNewUser | json | undefined }}		</p> -->
-		<!-- <button (click)="login()" *ngIf="showLoginButton">Log in with Google</button> -->
-		<!-- <button (click)="loginAnonymously()" *ngIf="showLoginButton">Log in anonymously</button> -->
-		<!-- <button (click)="logout()" *ngIf="showLogoutButton">Log out</button> -->
-	</div>
-
-	<!-- <div *ngIf="auth.user | async as user; else showLogin">
-		<h1>Hello {{ user.displayName }}!</h1>
-		<button (click)="logout()">Logout</button>
-	</div>
- -->
-<!-- 	<ng-template #showLogin>
-		<p>Please login.</p>
-		<button (click)="login()">Login with Google</button>
-	</ng-template>
- -->
-	<form [ formGroup ]="fb" (ngSubmit )="submit()">
-		<mat-form-field>
-			<input matInput placeholder="Email address" formControlName="email" id="email" />
-			<mat-error *ngIf="email?.errors?.['required']">
-				Email address is required
-			</mat-error>
-			<mat-error *ngIf="email?.errors?.['email']">
-				Please enter a valid email address
-			</mat-error>
-		</mat-form-field>
-		<mat-form-field>
-			<input matInput type="password" placeholder="Password" formControlName="password" id="password" />
-			<mat-error *ngIf="password?.errors?.['required']">
-				Password is required
-			</mat-error>
-		</mat-form-field>
-		<div class="center margin-top">
-			<button type="submit" mat-raised-button color="primary">Login</button>
+<div *ngFor="!user">
+	<h2>Iniciar sesión</h2>
+	<form (ngSubmit)="login()">
+		<div>
+			<label for="email">Correo electrónico:</label>
+			<input type="email" id="email" name="email" [(ngModel)]="email" required>
 		</div>
-		<span class="center margin-top">New to our platform? <!-- <a class="sign-up-link" routerLink="">Sign up!</a> --></span>
+		<div>
+			<label for="password">Contraseña:</label>
+			<input type="password" id="password" name="password" [(ngModel)]="password" required>
+		</div>
+		<button type="submit">Iniciar sesión</button>
 	</form>
+	<div>
+		<button (click)="loginWithGoogle()">Iniciar sesión con Google</button>
+		<button (click)="loginWithGitHub()">Iniciar sesión con GitHub</button>
+	</div>
+	<div>
+		<a (click)="resetPassword()">¿Olvidaste tu contraseña?</a>
+	</div>
+</div>
+<div *ngIf="user">
+	<h2>Bienvenido, {{ user.email }}</h2>
+	<button (click)="logout()">Cerrar sesión</button>
 </div>

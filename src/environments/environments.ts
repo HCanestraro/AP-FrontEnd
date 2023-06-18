@@ -8,7 +8,7 @@ import { getAnalytics } from "firebase/analytics";
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 export const environment = {
   production: false,
- firebaseConfig : {
+ firebase: {
   apiKey: "AIzaSyAZeErFQSWBH_VvVA5gJBuf8PV7HyPHEsU",
   authDomain: "ap-frontend-ac93a.firebaseapp.com",
   projectId: "ap-frontend-ac93a",

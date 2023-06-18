@@ -1,8 +1,15 @@
 {
   "projects": {
-    "default": "AP-FrontEnd-ac93a",
-    "ap-frontend-ac93a": "ap-frontend-ac93a"
+    "default": "ap-frontend-ac93a"
   },
-  "targets": {},
+  "targets": {
+    "ap-frontend-ac93a": {
+      "hosting": {
+        "AP-FrontEnd-ac93a": [
+          "ap-frontend-ac93a"
+        ]
+      }
+    }
+  },
   "etags": {}
 }

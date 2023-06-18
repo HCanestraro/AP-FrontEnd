@@ -34,8 +34,10 @@ import { ContactFormComponent } from './components/contact-form/contact-form.com
 
 // firebase
 import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 // import { Datastore } from '@google-cloud/datastore';
 
 // Material
@@ -91,13 +93,15 @@ const materialModules = [
 
 	imports: [
 		BrowserModule,
+		BrowserAnimationsModule,
 		AppRoutingModule,
 		HttpClientModule,
-		BrowserAnimationsModule,
 		// CloudinaryModule,
 		materialModules,
-		AngularFireModule.initializeApp(environment.firebaseConfig),
-		provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+		AngularFireModule.initializeApp(environment.firebase),
+		AngularFirestoreModule,
+		AngularFireAuthModule,
+		// provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
 		provideAuth(() => getAuth()),
 		provideFirestore(() => getFirestore()),
 		provideStorage(() => getStorage()), 

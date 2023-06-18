@@ -1,5 +1,4 @@
 {
-  
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
@@ -22,9 +21,8 @@
             "main": "src/main.ts",
             "allowedCommonJsDependencies": [
               "sweetalert2"
-           ],
+            ],
             "polyfills": [
-              
               "zone.js"
             ],
             "tsConfig": "tsconfig.app.json",
@@ -60,7 +58,7 @@
                   "replace": "src/environments/environments.ts",
                   "with": "src/environments/environments.prod.ts"
                 }
-              ], 
+              ],
               "outputHashing": "all"
             },
             "development": {
@@ -108,6 +106,13 @@
               "src/styles.css"
             ],
             "scripts": []
+          }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "version": 2,
+            "browserTarget": "AP-FrontEnd-ac93a:build:production"
           }
         }
       }
