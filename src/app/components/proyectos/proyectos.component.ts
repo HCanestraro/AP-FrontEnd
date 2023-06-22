@@ -42,7 +42,12 @@ export class ProyectosComponent  implements OnInit  {
 	}
 	verificarYCrearMiColeccion(): void {
 		const nombreColeccion = 'proyecto';
-		this.firebaseService.verificarYCrearColeccion(nombreColeccion);
+		this.firebaseService.verificarYCrearColeccion(nombreColeccion,
+		{
+			titulo: '',
+			imagen: '',
+			descripcion: ''
+		});
 	  }
 
 	getDatosArray(): void {

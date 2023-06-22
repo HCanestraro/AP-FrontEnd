@@ -43,7 +43,14 @@ export class ExperienciaComponent implements OnInit {
 
 		verificarYCrearMiColeccion(): void {
 			const nombreColeccion = 'experiencia';
-			this.firebaseService.verificarYCrearColeccion(nombreColeccion);
+			this.firebaseService.verificarYCrearColeccion(nombreColeccion,
+			{
+				ubicacion: '',
+				puesto: '',
+				periodo: '',
+				empresa: '',
+				actividades: ''
+			});
 		}
 		  
 		getNumRegistros(): void {

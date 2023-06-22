@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PortfolioService } from 'src/app/services/portfolio.service';
-import { FirestoreService } from 'src/app/services/firestore.service';
+// import { FirestoreService } from 'src/app/services/firestore.service';
 import { Ipersona } from 'src/app/interfaces/ipersona';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { Observable, map, take } from 'rxjs';

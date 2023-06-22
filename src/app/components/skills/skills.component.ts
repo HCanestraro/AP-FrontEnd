@@ -41,7 +41,10 @@ export class SkillsComponent implements OnInit {
 
 	verificarYCrearMiColeccion(): void {
 		const nombreColeccion = 'skills';
-		this.firebaseService.verificarYCrearColeccion(nombreColeccion);
+		this.firebaseService.verificarYCrearColeccion(nombreColeccion,
+		{
+			descripcion: ''
+		});
 	  }
 
 	getDatosArray(): void {

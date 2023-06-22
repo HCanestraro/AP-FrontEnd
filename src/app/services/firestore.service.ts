@@ -30,9 +30,9 @@ export class FirestoreService<T> {
 		return this.collection.valueChanges();
 	  }
 	
-	  getById(id: string): Observable<T> {
-		return this.collection.doc<T>(id).valueChanges();
-	  }
+	//   getById(id: string): Observable<T> {
+	// 	return this.collection.doc<T>(id).valueChanges();
+	//   }
 	
 	  add(item: T): Promise<DocumentReference<T>> {
 		return this.collection.add(item);

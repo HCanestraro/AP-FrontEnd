@@ -50,7 +50,16 @@ export class EducacionComponent implements OnInit {
 
 	verificarYCrearMiColeccion(): void {
 		const nombreColeccion = 'educacion';
-		this.firebaseService.verificarYCrearColeccion(nombreColeccion);
+		this.firebaseService.verificarYCrearColeccion('educacion',
+		{
+			escuela: '',
+			titulo: '',
+			imagen: '',
+			carrera: '',
+			puntaje: 100,
+			inicio: '',
+			fin:''
+		});
 	}
 
 	getDatosArray(): void {
