@@ -1,78 +1,102 @@
-import { Component} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+// import { User, GoogleAuthProvider, GithubAuthProvider, createUserWithEmailAndPassword } from 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-// import firebase from 'firebase/compat/app';
-import { User , GoogleAuthProvider, GithubAuthProvider } from 'firebase/auth';
-import   auth  from 'firebase/compat/app';
-import * as firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
-
+// import auth from 'firebase/compat/app';
+import { Router } from '@angular/router';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AutenticacionService } from 'src/app/services/autenticacion.service';
+import { AuthService } from 'src/app/services/auth.service';
 @Component({
 	selector: 'app-login',
 	templateUrl: './login.component.html',
-	styleUrls: ['./login.component.css'],
+	styleUrls: ['./login.component.css']
 })
 
-export class LoginComponent {
-	email!: string;
-	password!: string;
-	user: firebase.default.User | null = null;
-	
-	logopencil="https://drive.google.com/uc?export=download&id=1jA2K7nPYax0JVefFmgn8HvsYre_25zie";
-	logoadd="https://drive.google.com/uc?export=download&id=11BKh21cSfuiTBDHbY26XH5Ux9TBVYdWm";
-	logoedu="https://drive.google.com/uc?export=download&id=1_TzJ4uPlPA_qU9DaaARLKqlLoXVi5pWu   ";
-	logosave="https://drive.google.com/uc?export=download&id=1QjXoDP0V0L7EHnjlfAx5bMFH2T-NbYU7";
-	logocancel="https://drive.google.com/uc?export=download&id=1DnHtyYLt7LgH7Nl6HsIOfSh2CDjNiYAE";
-	logodelete="https://drive.google.com/uc?export=download&id=1iW5i4HOltXKRwV0Q2qsJp6mrZvmFq0rw";
-		
+export class LoginComponent implements OnInit {
+	// email: string = '';
+	// password: string = '';
+	// emailFormControl = new FormControl(",[Validators.required,Validators.email,])");
+	form: FormGroup;
 
+	constructor(private authService: AuthService, private autenticacionService: AutenticacionService, private afAuth: AngularFireAuth, private router: Router, private formBuilder: FormBuilder) {
+		this.form = this.formBuilder.group({
+			//email: ['', [Validators.required, Validators.email]],
+			email: ['', [Validators.required, Validators.minLength(2)]],
+			password: ['', [Validators.required, Validators.minLength(8)]]
 
-	constructor(private afAuth: AngularFireAuth) {
-		this.afAuth.authState.subscribe(user => {
-			this.user = user;
-		});
+		})
 	}
-	
-	login() {
-		this.afAuth.signInWithEmailAndPassword(this.email, this.password)
-			.then(() => {
-				console.log('Inicio de sesión exitoso');
-				this.email = '';
-				this.password = '';
-			})
-			.catch(error => console.error('Error al iniciar sesión', error));
+	ngOnInit() {
+		console.log('DEBUG: Login');
 	}
-
-	logout() {
-		this.afAuth.signOut()
-			.then(() => {
-				console.log('Cierre de sesión exitoso');
-			})
-			.catch(error => console.error('Error al cerrar sesión',error));
+	get email(): any {
+		return this.form.get('email');
 	}
-
+	get password(): any {
+		return this.form.get('password');
+	}
 	loginWithGoogle() {
-		const provider = new GoogleAuthProvider();
-		this.afAuth.signInWithPopup(provider)
-			.then(() => {
-				console.log('Inicio de seción con Google exitoso');
-			})
-			.catch(error => console.error('Error al iniciar con Google',error));
+		this.authService.loginWithGoogle();
 	}
-
 	loginWithGitHub() {
-		const provider = new GithubAuthProvider();
-		this.afAuth.signInWithPopup(provider)
-			.then(() => {
-				console.log('Inicio de sesión con Google exitoso');
+		this.authService.loginWithGitHub();
+	}
+	async login(email: string, password: string) {
+		await this.afAuth.signInWithEmailAndPassword(email, password)
+			.then((userCredential) => {
+				this.router.navigate(['/portfolio']);
+				console.log('Inicio de sesión exitoso, puedes redirigir al usuario a otra página');
 			})
-			.catch(error => console.error('Error al iniciar con GitHub',error));
+			.catch((error) => {
+				console.log('Error de inicio');
+				console.error('Error de inicio de sesión:', error);
+				// Error en el inicio de sesión, muestra el mensaje de error al usuario
+			});
 	}
 
-	resetPassword() {
-		this.afAuth.sendPasswordResetEmail(this.email)
-			.then(() => {
-				console.log('Se ha enviado un correo electrónico para restablecer la contraseña');
-			})
-			.catch(error => console.error('Error al enviar el correo electrónico'));
+	// forgotPassword() {
+	// this.afAuth.sendPasswordResetEmail(this.email)
+	// .then(() => {
+	// Email de recuperación de contraseña enviado
+	// })
+	// .catch(error => {
+	// Error al enviar el email de recuperación de contraseña, muestra el mensaje de error al usuario
+	// });
+	// }
+
+	deleteAccount() {
+		const user = this.afAuth.currentUser;
+		if (user) {
+			user.then(currentUser => {
+				if (currentUser) {
+					currentUser.delete()
+						.then(() => {
+							// Cuenta eliminada correctamente
+						})
+						.catch(error => {
+							// Error al eliminar la cuenta, muestra el mensaje de error al usuario
+						});
+				}
+			});
+		}
+	}
+
+	onLogin(event: Event) {
+		event.preventDefault;
+		// let email1 = document.getElementById("email");
+		this.autenticacionService.login(this.form.value).subscribe(data => {
+			sessionStorage.setItem('token', data.token);
+			this.autenticacionService.setToken(data.token);
+			console.log("Archivo Login Component , seteo del token: ", data.token);
+		});
+		// var email11 = this.email1.trim().toLowerCase();
+		// var password1 = document.getElementById("password");
+		const { email, password } = this.form.value;
+		console.log('DEBUG: Login - onLogin', this.form.value);
+		console.log('Email:', this.email, ' Password:', this.password);
+		this.login(this.email, this.password);
+		// this.authService.login((this.email1) , this.password);
+		// this.authService.login(this.email, this.password);
+		// this.router.navigate(['/portfolio']);
 	}
 }

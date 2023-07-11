@@ -23,7 +23,6 @@ export class SoftskillsComponent implements OnInit {
 	logosave = "https://drive.google.com/uc?export=download&id=1QjXoDP0V0L7EHnjlfAx5bMFH2T-NbYU7";
 	logocancel = "https://drive.google.com/uc?export=download&id=1DnHtyYLt7LgH7Nl6HsIOfSh2CDjNiYAE";
 	logodelete = "https://drive.google.com/uc?export=download&id=1iW5i4HOltXKRwV0Q2qsJp6mrZvmFq0rw";
-	logoSkill = "https://drive.google.com/uc?export=download&id=1XApdWSnN7YZC0Y5B0IybEyefUZ10wTuu";
 	mySoftskills: any;
 	modoEdicion: boolean = false;
 	modoNuevoRegistro: boolean = false;
@@ -50,17 +49,24 @@ export class SoftskillsComponent implements OnInit {
 
 constructor(public portfolioData: PortfolioService, public firestore: AngularFirestore,
 	private firebaseService: FirebaseService, fb: FormBuilder) {
-	this.form = new FormGroup({
-		descripcion: new FormControl(['']),
-	});
+		this.form = new FormGroup ({
+			name: new FormControl (['', [Validators.required, Validators.minLength(2)]]),
+			urlImage: new FormControl ([''], [Validators.required, Validators.minLength(2)]),
+			level: new FormControl (['', [Validators.required, Validators.minLength(2)]])
+		});
 	this.registroDoc = this.firestore.collection(this.nombreColeccion).doc(this.id);
 	this.registro = this.registroDoc.valueChanges();
 }
 
 onSubmit() {
-	console.log('DEBUG: onSubmit', this.form.value.descripcion);
-	const fdes = this.form.value.descripcion;
-	this.agregarRegistros([{ descripcion: `'${fdes}'` }]);
+	console.log('DEBUG: onSubmit', this.form.value);
+	// const fdes = this.form.value;
+	this.agregarRegistros([
+		{ 
+			name: this.form.value.name,
+			urlImage: this.form.value.urlImage,
+			level: this.form.value.level
+		}]);
 	this.form.reset;
 	this.modoNuevoRegistro = false;
 }
@@ -85,7 +91,10 @@ onCrear(event: Event) {
 
 verificarYCrearMiColeccion(): void {
 	const nombreColeccion = 'softskills';
-	this.firebaseService.verificarYCrearColeccion(nombreColeccion, this.camposSoftskills);
+	this.firebaseService.verificarYCrearColeccion(nombreColeccion,
+		{
+			descripcion: 'url'
+		});
 }
 
 /* **************************************************************************************************** */
@@ -111,7 +120,6 @@ getDatosArray(): void {
 	})
 }
 /* **************************************************************************************************** */
-
 agregarRegistro(): void {
 	console.log('DEBUG: agregarRegistro');
 	// let objetoFormulario = this.form.controls;
@@ -143,7 +151,7 @@ agregarRegistro(): void {
 	alert(des);
 	// this.agregarRegistros([{ descripcion: des }]);
 }
-/* **************************************************************************************************** */
+
 
 agregarRegistros(registros: any[]): void {
 	console.log('DEBUG: agregarRegistros', registros);
@@ -171,6 +179,10 @@ borrarRegistro(documentId: string) {
 			console.error('Error al eliminar el registro:', error);
 		});
 }
+
+
+/* **************************************************************************************************** */
+
 /* **************************************************************************************************** */
 
 saveForm(): void {

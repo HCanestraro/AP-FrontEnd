@@ -81,7 +81,7 @@ export class chelibComponent implements OnInit {
       });
       // [END auth_sign_out]
     }
-    
+     
     function authStateListener() {
       														// [START auth_state_listener]
       firebase.auth().onAuthStateChanged((user) => {

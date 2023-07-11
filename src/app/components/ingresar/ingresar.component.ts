@@ -1,42 +1,42 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, NgForm, FormBuilder, Validators, NonNullableFormBuilder } from '@angular/forms';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FirebaseService } from 'src/app/services/firebase.service';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
-import { Observable, map, take } from 'rxjs';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
+// import { Component, OnInit } from '@angular/core';
+// import { FormGroup, NgForm, FormBuilder, Validators, NonNullableFormBuilder } from '@angular/forms';
+// import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+// import { FirebaseService } from 'src/app/services/firebase.service';
+// import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
+// import { Observable, map, take } from 'rxjs';
+// import { AngularFireAuth } from '@angular/fire/compat/auth';
 
-@Component({
-  selector: 'app-ingresar',
-  templateUrl: './ingresar.component.html',
-  styleUrls: ['./ingresar.component.css']
-})
+// @Component({
+//   selector: 'app-ingresar',
+//   templateUrl: './ingresar.component.html',
+//   styleUrls: ['./ingresar.component.css']
+// })
 
-export class IngresarComponent implements OnInit {
-  logopencil="https://drive.google.com/uc?export=download&id=1jA2K7nPYax0JVefFmgn8HvsYre_25zie";
-  logoadd="https://drive.google.com/uc?export=download&id=11BKh21cSfuiTBDHbY26XH5Ux9TBVYdWm";
-  logoedu="https://drive.google.com/uc?export=download&id=1_TzJ4uPlPA_qU9DaaARLKqlLoXVi5pWu   ";
-  logosave="https://drive.google.com/uc?export=download&id=1QjXoDP0V0L7EHnjlfAx5bMFH2T-NbYU7";
-  logocancel="https://drive.google.com/uc?export=download&id=1DnHtyYLt7LgH7Nl6HsIOfSh2CDjNiYAE";
-  logodelete="https://drive.google.com/uc?export=download&id=1iW5i4HOltXKRwV0Q2qsJp6mrZvmFq0rw";
+// export class IngresarComponent implements OnInit {
+//   logopencil="https://drive.google.com/uc?export=download&id=1jA2K7nPYax0JVefFmgn8HvsYre_25zie";
+//   logoadd="https://drive.google.com/uc?export=download&id=11BKh21cSfuiTBDHbY26XH5Ux9TBVYdWm";
+//   logoedu="https://drive.google.com/uc?export=download&id=1_TzJ4uPlPA_qU9DaaARLKqlLoXVi5pWu   ";
+//   logosave="https://drive.google.com/uc?export=download&id=1QjXoDP0V0L7EHnjlfAx5bMFH2T-NbYU7";
+//   logocancel="https://drive.google.com/uc?export=download&id=1DnHtyYLt7LgH7Nl6HsIOfSh2CDjNiYAE";
+//   logodelete="https://drive.google.com/uc?export=download&id=1iW5i4HOltXKRwV0Q2qsJp6mrZvmFq0rw";
 
-	form: FormGroup;
-	usuario = { email: '', password: ''}
+// 	form: FormGroup;
+// 	usuario = { email: '', password: ''}
   	
-  constructor(private formBuilder: FormBuilder,private fb: NonNullableFormBuilder) { 
- 	this.form = this.formBuilder.group ({
-	email: ['', [Validators.required, Validators.email] ] ,
-	password: ['', Validators.required ],
-});
-  }
+//   constructor(private formBuilder: FormBuilder,private fb: NonNullableFormBuilder) { 
+//  	this.form = this.formBuilder.group ({
+// 	email: ['', [Validators.required, Validators.email] ] ,
+// 	password: ['', Validators.required ],
+// });
+//   }
  
-ngSubmit() {
-	console.log("email:", this.form.value.email);
-}
-ngOnInit(): void {
+// ngSubmit() {
+// 	console.log("email:", this.form.value.email);
+// }
+// ngOnInit(): void {
 	
-}
-}
+// }
+// }
 // import { AngularFireDatabase } from '@angular/fire/compat/database';
 // import { getAuth, GoogleAuthProvider, getAdditionalUserInfo, signInWithPopup } from 'firebase/auth';
 // import { environment } from 'src/environments/environments';

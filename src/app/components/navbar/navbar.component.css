@@ -1,3 +1,6 @@
+.navbar {
+    flex-wrap: nowrap;
+}
 .logointi{
     width: 150px;
     height: 40px;

@@ -14,3 +14,8 @@ function cheCreateHtml(array) {
     document.write(fff);
     document.close();
 }
+// Usa esta clave de sitio web en el código HTML que tu sitio web sirve a los usuarios.
+// 6LdOWvsmAAAAANWhuMR_Y8Cx7_mRyZ2PN6UfbZfy
+
+// Usa esta clave de sitio web en el código HTML que tu sitio web sirve a los usuarios.
+// 6LdOWvsmAAAAABUnBYNibZCZ8QDJz0WlmJO9fWWq

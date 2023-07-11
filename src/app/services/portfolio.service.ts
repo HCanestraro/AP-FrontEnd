@@ -40,7 +40,7 @@ export class PortfolioService {
 		// alert('obtenerDatosAboutMe');
 		//return this.http.get('./../../assets/data/data.json');
 		// return this.http.get<Iaboutme>('./../../assets/data/data.json');
-		return this.firebaseService.getDatosArray('AboutMe');
+		// return this.firebaseService.getDatosArray('AboutMe');
 	}
 
 	obtenerDatosBanner(): Observable<any> {
@@ -52,19 +52,19 @@ export class PortfolioService {
 		console.log('obtenerDatosEducation');
 		//  return this.http.get<Ieducacion>('./../../assets/data/data.json');
 		//return this.http.get<Ieducacion>(this.url + 'education');
-		return this.firebaseService.getDatosArray('educacion');
+		// return this.firebaseService.getDatosArray('educacion');
 	}
 
 	obtenerDatosExperience(): void {
 		console.log('obtenerDatosExperience');
 		//return this.http.get<Iexperiencia>(this.url + 'Experience');
-		return this.firebaseService.getDatosArray('experiencia');
+		// return this.firebaseService.getDatosArray('experiencia');
 	}
 
 	obtenerDatosProject(): void {
 		console.log('obtenerDatosProject');
 		//    return this.http.get<Iproyecto>(this.url + 'Projects');
-		return this.firebaseService.getDatosArray('proyectos');
+		// return this.firebaseService.getDatosArray('proyectos');
 	}
 
 	obtenerDatosSkills(): Observable <Iskills>{
@@ -76,7 +76,7 @@ export class PortfolioService {
 	obtenerDatosSoftSkills(): void {
 		console.log("obtenerDatosSoftSkills");
 		//return this.http.get<Iskills>(this.url + 'skills');
-		return this.firebaseService.getDatosArray('softskills');
+		// return this.firebaseService.getDatosArray('softskills');
 	}
 
 	// *********************************************************************

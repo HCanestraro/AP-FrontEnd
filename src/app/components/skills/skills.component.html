@@ -1,187 +1,72 @@
 <!--------------- SKILLS --------------->
-<div class="container shadow bg-info">
-	<div class="row mt-5">
-		<h5 class="text-center p-1 bg-dark text-light rounded border p-2">SKILLS</h5>
+<div class="container shadow mt-5 bg-warning">
+	<div class="row">
+		<h5 class="text-center p-2 rounded border bg-dark text-light">SKILLS</h5>
 	</div>
-	<div class="justify-content-center p-2">
-
-		<div *ngIf="modoNuevoRegistro=== false">
-			<div class="d-flex justify-content-center mb-4 m-4">
-				<button
-					class="btn btn-sm btn-green border shadow m-1 text-center text-light fw-bold"><!-- (click)="onCrear($event)" -->
-					<span><img src={{logoadd}} alt="editar" class="logo-sm mt-1 bg-white rounded-circle" />AGREGAR
-						SKILLS</span>
-				</button>
-			</div>
-		</div>
-		<div *ngFor="let mySkills of datosArray  ; let i = index" [attr.data-index]="i">
-			<div class="d-flex justify-content-center mb-4 m-4">
-				<div
-					class="border rounded p-2 col-md-8 col-12 bg-white shadow-lg mb-4 align-items-center justify-content-center text-center">
-					<div class="d-flex justify-content-end">
-
-						<div class="p-1 justify-content-end">
-
-							<button class="btn p-0 m-1"> <!-- (click)="onCancelNuevoRegistro()" -->
-								<span><img src={{logopencil}} alt="editar" class="logo-sm mt-1" /></span>
-							</button>
-
-							<button class="btn p-0 m-1"> <!-- (click)="onSaveNewNuevoRegistro($event)" -->
-								<span><img src={{logodelete}} alt="editar" class="logo-sm mt-1" /></span>
-							</button>
-						</div>
-					</div>
-					<h4><b>Nombre:</b>{{mySkills.name}}</h4>
-					<img class="image-sm" src="{{mySkills.urlImage}}" alt="Imagen asociada...">
-					<h4><b>Nivel:</b>{{mySkills.level}}</h4>
-				</div>
-
-
-			</div>
+	<!-- <div *ngIf="modoNuevoRegistro== false">
+		<div class="d-flex justify-content-center mb-4 m-4">
+			<button class="btn btn-sm btn-green border shadow m-1 text-center text-light fw-bold" (click)="onCrear()">
+				<span><img src={{logoadd}} alt="editar" class="logo-sm mt-1 bg-white rounded-circle" />AGREGAR SKILLS</span>
+			</button>
 		</div>
 	</div>
-</div>
-
-<!-- <div class="justify-content-center p-2 w-100">
-		<div class="logo-bk"></div>
-		<div *ngIf="modeNewRecord === false">
-			<div class="d-flex justify-content-center mb-4 m-4">
-				<button class="btn btn-sm btn-green border shadow m-1 text-center text-light fw-bold"
-					(click)="onCrear($event)">
-					<span><img src={{logoadd}}
-							alt="editar" class="logo-sm mt-1 bg-white rounded-circle" />AGREGAR SKILL</span>
-				</button>
+	<div *ngIf="modoNuevoRegistro== true" class="d-flex justify-content-center align-items-center border-1 shadow" id="createNuevoSoftskills"> -->
+		<!-- <div class="border rounded p-2 col-md-8 col-12 bg-white shadow-lg mb-4"> -->
+		<!-- <form (ngSubmit)="onSubmit()" class="col-md-8 col-12 mb-4" [formGroup ] = "form"> -->
+		<form [formGroup ]="itemForm" (ngSubmit)="isEditing ? editItem() : addItem()" class="col-md-8 col-12 mb-4">
+			<div class="form-group">
+				<label for="descripcion">Descripción:</label>
+				<input type="text" id="descripcion" class="form-control col-md-10 col-12 p-2 mb-2 border rounded border-1 border-warning shadow" formControlName="descripcion">
+				<!-- <div *ngIf = "formControls.descripcion.touched && formControls.descripcion.invalid" class="text-danger"> -->
+					<!-- La descripción es requerida. -->
+				<!-- </div> -->
 			</div>
-		</div>
- -->
-<!-- FORMULARIO NEW -->
-<!-- <div *ngIf="modeNewRecord=== true" class="d-flex justify-content-center">
-		<form class="col-md-8 col-12 mb-4" [formGroup] = "form" >
-			<div class="text-center p-4 border shadow rounded bg-white mt-4">
-				<div *ngIf="modeNewRecord === true">
-					<div class="d-flex justify-content-end">
-						<div class="p-1">
-							<button class="btn p-0 m-1" (click)="onCancelNuevoRegistro()">
-								<span><img
-										src="https://drive.google.com/uc?export=download&id=1DnHtyYLt7LgH7Nl6HsIOfSh2CDjNiYAE "
-										alt="editar" class="logo-sm mt-1" /></span>
-							</button>
-
-							<button class="btn p-0 m-1" (click)="onSaveNewNuevoRegistro($event)">
-								<span><img
-										src={{logosave}}
-										alt="editar" class="logo-sm mt-1" /></span>
-							</button>
-						</div>
-					</div>
-				</div>
-
-				<h3 class="text-center text-info m-3">
-					<img src="https://drive.google.com/uc?export=download&id=1XApdWSnN7YZC0Y5B0IybEyefUZ10wTuu"
-						class="logo-skill" alt="logo-skill" /><span class="ms-3">Nuevo Skill</span>
-				</h3>
-
-				<div class=" ">
-					<div class="text-start">
-						<label for="tecnologia" class="form-label fw-bold">Tecnología:</label>
-					</div>
-					<input type="text" class="col-md-10 col-12 p-2 mb-2 border rounded border-1 border-warning shadow"
-						placeholder=" 💎 Tecnología" formControlName="tecnologia" id="tecnologia" required autofocus />
-				</div>
-
-				<div class="">
-					<div class="text-start">
-						<label for="imagen" class="form-label fw-bold">Link Imagen:</label>
-					</div>
-					<input type="text"
-						class="col-md-10 col-12 p-2 mb-2 border rounded border-1 border-warning shadow mb-4"
-						placeholder=" 🖼 Link Imagen" formControlName="imagen" id="imagen" required />
-				</div>
+			<div class="form-group">
+				<label for="urlImagen">URL Imagen:</label>
+				<input type="text" id="urlImagen" class="form-control col-md-10 col-12 p-2 mb-2 border rounded border-1 border-warning shadow" formControlName="descripcion">
+				<!-- <div *ngIf="formControls.urlImagen?.touched && formControls.urlImagen?.invalid" class="text-danger"> -->
+					<!-- La URL de la imagen es requerida. -->
+				<!-- </div> -->
 			</div>
-		</form>
-	</div> -->
-<!-- FIN FORMULARIO NEW -->
-
-<!-- FORMULARIO EDIT -->
-<!-- <div *ngIf="modeEdition === true" class="d-flex justify-content-center">
-		<form class="col-md-8 col-12 mb-4 bg-white p-3 rounded shadow" [formGroup]="form">
-			<div class="text-center p-3">
+			<button type="submit" class="btn btn-primary" [disabled]="itemForm.invalid">
+				{{ isEditing ? 'Modificar' : 'Nuevo' }}
+			</button>
+			<button type="button" class="btn btn-secondary" *ngIf="isEditing" (click)="cancelEdit()">Cancelar</button>
+			<button type="button" class="btn btn-secondary" *ngIf="!isEditing" (click)="startEdit()">Editar</button>
+			
+								<!-- <span><img src={{logocancel}} alt="Cancelar..." class="logo-sm mt-1" /></span> -->
+							<!-- <button class="btn p-0 m-1" type="button" (click)="onSaveNewNuevoRegistro()"> -->
+								<!-- <button class="btn p-0 m-1" type="button" (click)="agregarRegistro()"> -->
+								<!-- <span><img src={{logosave}} alt="Guardar..." class="logo-sm mt-1" /></span> -->
+							<!-- </button> -->
+						<!-- </div> -->
+					<!-- </div> -->
+				<!-- </div> -->
+				<!-- <h3 class="text-center text-info m-3"><img src={{logoSkill}} class="logoSkills mt-1" alt="Logo Skill..."><span>Nuevo Skill</span> -->
+				<!-- </h3> -->
 				
+		</form>
+	</div>
+	
+	<div *ngFor="let mySkills of datosArray  ; let i = index" [attr.data-index]="i">
+		<div class="d-flex justify-content-center mb-4 m-4">
+			<div class="border rounded p-2 col-md-8 col-12 bg-white shadow-lg mb-4">
 				<div class="d-flex justify-content-end">
 					<div class="p-1">
-						<button class="btn p-0 m-1" (click)="onCancel($event)">
-							<span><img
-									src="https://drive.google.com/uc?export=download&id=1DnHtyYLt7LgH7Nl6HsIOfSh2CDjNiYAE "
-									alt="editar" class="logo-sm mt-1" /></span>
+						<button class="btn p-0 m-1"> <!-- (click)="onCancelNuevoRegistro()" -->
+							<span><img src={{logopencil}} alt="editar" class="logo-sm mt-1" /></span>
 						</button>
-
-						<button class="btn p-0 m-1" (click)="onSaveEdit($event)">
-							<span><img
-									src={{logosave}}
-									alt="editar" class="logo-sm mt-1" /></span>
+						<button class="btn p-0 m-1" ><!-- (click)="onDelete(i,mySkills.id, $event)" -->
+						<!-- <button class="btn p-0 m-1" (click)="borrarRegistro(mySkills.id)"> -->
+						<!-- (click)="onSaveNewNuevoRegistro($event)" -->
+							<span><img src={{logodelete}} alt="editar" class="logo-sm mt-1" /></span>
 						</button>
 					</div>
 				</div>
-				
-
-				<h3 class="text-center text-info m-3">
-					<img src="https://drive.google.com/uc?export=download&id=1XApdWSnN7YZC0Y5B0IybEyefUZ10wTuu"
-						class="logo-skill" alt="logo-skill" /><span class="ms-3">Editar Skill</span>
-				</h3>
-
-				<div class=" ">
-					<div class="text-start">
-						<label for="tecnologia" class="form-label fw-bold">Tecnología</label>
-					</div>
-					<input type="text" class="col-md-10 col-12 p-2 mb-2 border rounded border-1 border-warning shadow"
-						placeholder=" 💎 Tecnología" formControlName="tecnologia" id="tecnologia" required autofocus />
-				</div>
-
-				<div class="">
-					<div class="text-start">
-						<label for="imagen" class="form-label fw-bold">Link Imagen:</label>
-					</div>
-					<input type="text"
-						class="col-md-10 col-12 p-2 mb-2 border rounded border-1 border-warning shadow mb-4"
-						placeholder=" 🖼 Link Imagen" formControlName="imagen" id="imagen" required />
-				</div>
-			</div>
-		</form>
-	</div> -->
-<!-- FIN FORMULARIO EDIT -->
-
-<!-- 		<div class="row">
-			<div *ngFor="let mySkills of mySkills; let i = index" [attr.data-index]="i" class="col-md-3 col-sm-12">
-				<div class="text-center m-3 border rounded p-2 bg-white shadow-lg">
- --> <!-- MÓDULO BOTONES EDIT -->
-
-<!-- 					<div *ngIf="modeEdition === false">
-						<div class="d-flex justify-content-end">
-							<div class="p-1">
-								<button class="btn p-0 m-1" (click)="onEdit(mySkills.id, i, $event)">
-									<span><img
-											src={{logopencil}}
-											alt="editar" class="logo-sm mt-1" /></span>
-								</button>
-							</div>
-
-							<div class="p-1">
-								<button class="btn p-0 m-1" (click)="onDelete(i, $event)">
-									<span><img
-											src={{logodelete}}
-											alt="editar" class="logo-sm mt-1" /></span>
-								</button>
-							</div>
-						</div>
-					</div>
-
- --> <!-- FIN MÓDULO BOTONES EDIT -->
-
-<!--ITEMS VISIBLES-->
-<!-- 					<h4 class="m-2 mb-2">Descripcion: {{ mySkills.description }}</h4>
- --> <!-- <img src={{myPortfolio.imagen}} alt="logoskills" class="logoSkills mb-4 mt-2"> -->
-<!-- FIN ITEMS VISIBLES-->
-<!-- 				</div>
+				<!-- <h4>{$i}</h4> -->
+				<h4>{{mySkills.name}}</h4>
+				<h4>{{mySkills.urlImagen}}</h4>
+				<h4>{{mySkills.id}}</h4>
 			</div>
 		</div>
-	</div> -->
+	</div>

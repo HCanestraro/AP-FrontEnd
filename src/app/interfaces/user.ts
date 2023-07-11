@@ -1,4 +1,4 @@
-export interface ProfileUser {
+export interface Users {
     uid: string;
     email?: string;
     firstName?: string;
