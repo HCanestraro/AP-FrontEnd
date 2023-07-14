@@ -11,6 +11,7 @@ import { Observable, map } from 'rxjs';
 
 export class NavbarComponent implements OnInit {
 	usuarioLogueado!: boolean;
+	userAlias!: any;
 	imagenPerfil: Observable<string | null> | undefined;
   	logopencil="https://drive.google.com/uc?export=download&id=1jA2K7nPYax0JVefFmgn8HvsYre_25zie";
 	logoadd="https://drive.google.com/uc?export=download&id=11BKh21cSfuiTBDHbY26XH5Ux9TBVYdWm";
@@ -25,15 +26,21 @@ export class NavbarComponent implements OnInit {
 	ngOnInit(): void {
 		console.log("DEBUG: NATBAR, ruta activa:", this.router.url);
 		this.afAuth.authState.subscribe((user) => {
-			this.usuarioLogueado = !user;
-			alert('USUARIO LOGUEADO:'+this.usuarioLogueado);
+			
 			if (user) {
 			  this.imagenPerfil = this.firestore
 				.doc<any>(`users/${user.uid}`)
 				.valueChanges()
 				// .pipe( map( (userData) => userData?.profileImage));
 				.pipe( map( (userData) => userData?.photoURL));
-			} else {
+				this.userAlias = this.firestore
+				.doc<any>(`users/${user.uid}`)
+				.valueChanges()
+				// .pipe( map( (userData) => userData?.profileImage));
+				.pipe( map( (userData) => userData?.displayName));
+				this.usuarioLogueado = true;
+				alert('USUARIO LOGUEADO:'+this.usuarioLogueado+' Alias: '+this.userAlias);
+		} else {
 			  this.imagenPerfil = undefined;
 			}
 		  });
@@ -49,7 +56,10 @@ export class NavbarComponent implements OnInit {
 			this.afAuth.signOut()
 				.then(() => {
 					console.log('Cierre de sesión exitoso');
+					this.usuarioLogueado = false;
+					this.userAlias = '';
 				})
 				.catch(error => console.error('Error al cerrar sesión',error));
+				this.router.navigate(['/login']);
 		}
 }

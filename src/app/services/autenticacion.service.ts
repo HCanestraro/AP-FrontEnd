@@ -24,7 +24,7 @@ export class AutenticacionService {
 		}));
 	}
 	registro(credenciales:any):Observable<any> {
-		return this.http.post(this.urlNuevo, credenciales)
+		return this.http.post(this.urlNuevo, credenciales);
 	}
 	token() {
 		console.log('Auth Service token:', sessionStorage.getItem('token') );

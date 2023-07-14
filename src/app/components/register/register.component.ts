@@ -14,26 +14,10 @@ import { AutenticacionService } from 'src/app/services/autenticacion.service';
 })
 export class RegisterComponent implements OnInit {
 	form: FormGroup;
-	// firstName: string;
-	// lastName: any;
-	// displayName: any;
-	// phone: any;
-	// address: any;
-	// photoURL: any;
-	// email: string = '';
-	// password: string = '';
-	// firstName: string = '';
-	// lastName: string = '';
-	// displayName: string = '';
-	// phone: string = '';
-	// address: string = '';
-	// photoURL: string = '';
 	// user = FirebaseService.auth().currentUser;
 	constructor(private formBuilder: FormBuilder, private autenticacionService: AutenticacionService, private firestore: AngularFirestore, private afAuth: AngularFireAuth, private router: Router) { 
 		this.form=this.formBuilder.group({
-			// email: [any[]='', [Validators.required, Validators.minLength(8), Validators.email]],
-			// email: [any[]='', [Validators.required, Validators.minLength(8), Validators.email]],
-			email: ['', [Validators.required,Validators.minLength(8), Validators.email]],
+			email: ['', [Validators.required,Validators.minLength(8)]],/* , Validators.email */
 			firstName: ['', [Validators.required, Validators.minLength(2)]],
 			lastName: ['', [Validators.required, Validators.minLength(2)]],
 			displayName: ['', [Validators.required, Validators.minLength(2)]],
@@ -46,7 +30,6 @@ export class RegisterComponent implements OnInit {
 
 	ngOnInit(): void {
 		console.log('DEBUG: REGISTER');
-		
 	}
 	register() {
 		console.log('DEBUG: REGISTER');
@@ -57,9 +40,9 @@ export class RegisterComponent implements OnInit {
 					const userId = userCredential.user?.uid;
 					if (userId) {
 						// const userId = firebase.auth().user.uid;
-						const id = this.firestore.createId();
+						const id1 = this.firestore.createId();
 						this.firestore.collection('users').doc(userId).set({
-							uid: id,
+							id: userId,
 							email: this.email,
 							firstName: this.firstName,
 							lastName: this.lastName,
@@ -70,7 +53,9 @@ export class RegisterComponent implements OnInit {
 						})
 							.then(() => {
 								// Registro exitoso, puedes redirigir al usuario a otra página
-								this.router.navigate(['/login']);
+								console.log('Registro exitoso, puedes redirigir al usuario a otra página');
+								
+								// this.router.navigate(['/login']);
 							})
 							.catch(error => {
 								// Error al guardar los datos del usuario, muestra el mensaje de error al usuario
@@ -80,6 +65,7 @@ export class RegisterComponent implements OnInit {
 				}
 			})
       .catch (error => {
+		console.error('Error en el registro, muestra el mensaje de error al usuario',error);
 						// Error en el registro, muestra el mensaje de error al usuario
 					});
 	}
@@ -113,10 +99,10 @@ export class RegisterComponent implements OnInit {
 	onRegister(event:Event ){
 		event.preventDefault;
 		this.autenticacionService.registro(this.form.value).subscribe(data => {
-		console.log("Archivo Register Component: ", data);
-		sessionStorage.setItem('token', data.token);
-		this.autenticacionService.setToken(data.token);
-		this.register();
+			sessionStorage.setItem('token', data.token);
+			this.autenticacionService.setToken(data.token);
+			console.log("Archivo Register Component: ", data);
+			this.register();
 		this.router.navigate(['/login']);
 		});
 	   } 

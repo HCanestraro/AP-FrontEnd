@@ -32,10 +32,14 @@ export class UserProfileComponent implements OnInit {
 		// });
 	}
 	ngOnInit() {
+		console.log('DEBUG: User-Profile');
+		
 		this.authService.getCurrentUser().subscribe(user => {
 			if (user) {
 				this.authService.getUserFromFirestore(user.uid).subscribe(userData => {
 					this.user = userData;
+					console.log('USER Data:',userData);
+					
 				});
 			}
 		});
