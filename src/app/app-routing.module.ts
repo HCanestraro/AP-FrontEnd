@@ -12,10 +12,10 @@ import { SoftskillsComponent } from './components/softskills/softskills.componen
 import { ProyectosComponent } from './components/proyectos/proyectos.component';
 import { RegisterComponent } from './components/register/register.component';
 // import { IngresarComponent } from './components/ingresar/ingresar.component';
-import { GuardGuard } from './services/guard.guard';
+// import { GuardGuard } from './services/guard.guard';
 
 const routes: Routes = [
-	{ path: 'portfolio', canActivate:[GuardGuard], component: PortfolioComponent },
+	{ path: 'portfolio', /* canActivate:[GuardGuard], */ component: PortfolioComponent },
 	{ path: '', redirectTo: 'login', pathMatch: 'full' },
 	{ path: 'register', component: RegisterComponent },
 	// { path: 'chelib', component: chelibComponent },

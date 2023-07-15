@@ -1,10 +1,7 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatInputModule } from '@angular/material/input'; 
-// import { MatButtonModule } from '@angular/material/button';
-// import { EducacionService } from './../../services/educacion.service';
+import { MatInputModule } from '@angular/material/input';
 import { FirebaseService } from './../../services/firebase.service';
-// import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { Observable, map } from 'rxjs';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -16,41 +13,31 @@ import { Ieducacion } from './../../interfaces/ieducacion';
 	styleUrls: ['./educacion.component.css']
 })
 export class EducacionComponent implements OnInit {
-	
-	logopencil="https://drive.google.com/uc?export=download&id=1jA2K7nPYax0JVefFmgn8HvsYre_25zie";
-	logoadd="https://drive.google.com/uc?export=download&id=11BKh21cSfuiTBDHbY26XH5Ux9TBVYdWm";
-	logoedu="https://drive.google.com/uc?export=download&id=1_TzJ4uPlPA_qU9DaaARLKqlLoXVi5pWu   ";
-	logosave="https://drive.google.com/uc?export=download&id=1QjXoDP0V0L7EHnjlfAx5bMFH2T-NbYU7";
-	logocancel="https://drive.google.com/uc?export=download&id=1DnHtyYLt7LgH7Nl6HsIOfSh2CDjNiYAE";
-	logodelete="https://drive.google.com/uc?export=download&id=1iW5i4HOltXKRwV0Q2qsJp6mrZvmFq0rw";
-	esc24="https://drive.google.com/uc?export=download&id=1KlTxw0mNNOAG03NfRlrwiisaoDUcuuIQ";
+
+	logopencil = "https://drive.google.com/uc?export=download&id=1jA2K7nPYax0JVefFmgn8HvsYre_25zie";
+	logoadd = "https://drive.google.com/uc?export=download&id=11BKh21cSfuiTBDHbY26XH5Ux9TBVYdWm";
+	logoedu = "https://drive.google.com/uc?export=download&id=1_TzJ4uPlPA_qU9DaaARLKqlLoXVi5pWu   ";
+	logosave = "https://drive.google.com/uc?export=download&id=1QjXoDP0V0L7EHnjlfAx5bMFH2T-NbYU7";
+	logocancel = "https://drive.google.com/uc?export=download&id=1DnHtyYLt7LgH7Nl6HsIOfSh2CDjNiYAE";
+	logodelete = "https://drive.google.com/uc?export=download&id=1iW5i4HOltXKRwV0Q2qsJp6mrZvmFq0rw";
+	esc24 = "https://drive.google.com/uc?export=download&id=1KlTxw0mNNOAG03NfRlrwiisaoDUcuuIQ";
 	nombreColeccion = 'educacion';
 	datosCollection: AngularFirestoreCollection<any>;
 	datosArray!: any[];
 	educacionList!: any[];
 	datos: Observable<Ieducacion[]>;
 	numRegistros!: number;
-	// escuela: any;
-	// titulo: any;
-	// imagen: any;
-	// carrera: any;
-	// puntaje: number = 100;
-	// inicio: any;
-	// fin: any;
 
 	editMode = false;
 	dialogForm: FormGroup;
 	educacionCollection: AngularFirestoreCollection<Ieducacion>;
-	// educacionItems: Observable<Ieducacion[]>;
 
 	@ViewChild('dialogTemplate', { static: true }) dialogTemplate!: TemplateRef<any>;
 
 	educacionItems: Observable<Ieducacion[]>;
-	/*  = [
-		this.firestore.collection('educacion').valueChanges().subscribe(data => { this.Ieducacion = data; })
-	]; */
-	
+
 	dialogData: Ieducacion = {
+		id: '',
 		escuela: '',
 		titulo: '',
 		imagen: '',
@@ -58,23 +45,26 @@ export class EducacionComponent implements OnInit {
 		puntaje: 100,
 		inicio: '',
 		fin: ''
-  	};
+	};
 
-	
+
 	modoNuevoRegistro: boolean = false;
 	//elementos: Ieducacion[] = []; // Cambio de "elemento" a "elementos"
-	
+
 	//elementoSeleccionado: Ieducacion | null = null;
 
-	constructor( private firebaseService: FirebaseService, 
-		public firestore: AngularFirestore, private dialog: MatDialog) {
+	constructor(private firebaseService: FirebaseService,
+		public firestore: AngularFirestore,
+		private dialog: MatDialog) {
 		this.educacionCollection = this.firestore.collection<Ieducacion>('educacion');
 		this.educacionItems = this.educacionCollection.valueChanges();
 		this.dialogForm = new FormGroup({
+			id: new FormControl('', Validators.required),
 			escuela: new FormControl('', Validators.required),
 			titulo: new FormControl('', Validators.required),
 			imagen: new FormControl('', Validators.required),
 			carrera: new FormControl('', Validators.required),
+			puntaje: new FormControl('', Validators.required),
 			inicio: new FormControl('', Validators.required),
 			fin: new FormControl('', Validators.required)
 		});
@@ -84,13 +74,24 @@ export class EducacionComponent implements OnInit {
 		this.getNumRegistros();
 		this.verificarYCrearMiColeccion();
 		console.log('DEBUG: Educacion');
-		
-	 }
-// private storage: AngularFireStorage,
 
-	 openAddDialog(): void {
+	}
+	readDocument(documentId: string) {
+		this.firestore.collection('educacion').doc(documentId).snapshotChanges().subscribe(snapshot => {
+		  const data = snapshot.payload.data();
+		  const id = snapshot.payload.id;
+	  
+		  // Utiliza el ID y los datos del documento como desees
+		  console.log('ID:', id);
+		  console.log('Datos:', data);
+		});
+	  }
+	// private storage: AngularFireStorage,
+
+	openAddDialog(): void {
 		this.editMode = false;
 		this.dialogData = {
+			id:'',
 			escuela: '',
 			titulo: '',
 			imagen: '',
@@ -100,19 +101,19 @@ export class EducacionComponent implements OnInit {
 			fin: ''
 		};
 		this.openDialog();
-	 }
-	 openEditDialog(item: Ieducacion): void {
+	}
+	openEditDialog(item: Ieducacion): void {
 		this.editMode = true;
 		this.dialogData = { ...item };
 		this.openDialog();
-	 }
-	 openDialog(): void {
+	}
+	openDialog(): void {
 		const dialogRef = this.dialog.open(this.dialogTemplate);
 		dialogRef.afterClosed().subscribe(() => {
 
 		});
-	 }
-	 saveItem(): void {
+	}
+	saveItem(): void {
 		if (this.editMode) {
 			// Guardar cambios
 			this.educacionCollection.doc().update(this.dialogData);
@@ -122,18 +123,18 @@ export class EducacionComponent implements OnInit {
 		}
 		// Cerrar el diálogo después de guardar
 		this.dialog.closeAll();
-	 }
-	 deleteItem(item: any): void {
+	}
+	deleteItem(item: any): void {
 		// Eliminar el elemento de la colección en Firebase
-		this.firebaseService.deleteRecord('educacion',item);/* .delete(); */
-	 }
+		this.firebaseService.deleteRecord('educacion', item);/* .delete(); */
+	}
 
-ngOnInit(): void {
+	ngOnInit(): void {
 		// this.firebaseService.cargarDatosEnFirebase('educacion',this.educacionList);
 		this.verificarYCrearMiColeccion();
 		// this.getDatosArray();
 		console.log('DEBUG: Educacion', this.nombreColeccion);
-		
+
 
 		// this.experienciaList=this.firebase.getDatosArray('experiencia');
 		// this.educacionService.getElementos().subscribe(elementos => {
@@ -161,8 +162,10 @@ ngOnInit(): void {
 	// }
 
 	verificarYCrearMiColeccion(): void {
+		const id1 = this.firestore.createId();
 		const nombreColeccion = 'educacion';
-		this.firebaseService.verificarYCrearColeccion(nombreColeccion,{
+		this.firebaseService.verificarYCrearColeccion(nombreColeccion, {
+			id: id1,
 			escuela: 'Escuela',
 			titulo: 'Titulo',
 			imagen: '',
@@ -174,19 +177,19 @@ ngOnInit(): void {
 	}
 
 	getDatosArray(): void {
-        this.datosCollection.snapshotChanges().pipe(
-            map((snapshots) => {
-                return snapshots.map((snapshot) => {
-                    const data = snapshot.payload.doc.data();
-                    const id = snapshot.payload.doc.id;
-                    return { id, ...data };
-                });
-            })
-        // ).subscribe((array: any[] | { [s: string]: unknown; } | ArrayLike<unknown>) => {
-			).subscribe((array) => {
+		this.datosCollection.snapshotChanges().pipe(
+			map((snapshots) => {
+				return snapshots.map((snapshot) => {
+					const data = snapshot.payload.doc.data();
+					const id = snapshot.payload.doc.id;
+					return { id, ...data };
+				});
+			})
+			// ).subscribe((array: any[] | { [s: string]: unknown; } | ArrayLike<unknown>) => {
+		).subscribe((array) => {
 
-            this.datosArray = array;
-            // console.log('DEBUG: getDatosArray', this.datosArray);
+			this.datosArray = array;
+			// console.log('DEBUG: getDatosArray', this.datosArray);
 			// this.escuela = this.datosArray[0].escuela;
 			// this.titulo = this.datosArray[0].titulo;
 			// this.imagen = this.datosArray[0].imagen;
@@ -196,15 +199,15 @@ ngOnInit(): void {
 			// this.fin = this.datosArray[0].fin;
 			console.log('DEBUG EDUCACIÓN datosArray tipo:', typeof (this.datosArray), Object.entries(array));
 			console.log('DEBUG EDUCACIÓN: getDatosArray', this.datosArray, ' length: ', this.datosArray.length);
-        })
-    }
+		})
+	}
 	getNumRegistros(): void {
 		this.datosCollection?.get().subscribe((snapshot) => {
 			this.numRegistros = snapshot.size;
 		});
 	}
 	modoReg(estado: boolean) {
-		this.modoNuevoRegistro=estado;
+		this.modoNuevoRegistro = estado;
 	}
 	// obtenerElementos(): void {
 	// 	this.educacionService.getElementos().subscribe(elementos => {
@@ -253,32 +256,32 @@ ngOnInit(): void {
 		}
 		this.cerrarFormulario();
 	  } */
-	
-	 /*  cerrarFormulario(): void {
-		this.elemento = {
-		  escuela: '',
-		  titulo: '',
-		  imagen: '',
-		  carrera: '',
-		  puntaje: 100,
-		  inicio: '',
-		  fin: ''
-		};
-	  } */
+
+	/*  cerrarFormulario(): void {
+	   this.elemento = {
+		 escuela: '',
+		 titulo: '',
+		 imagen: '',
+		 carrera: '',
+		 puntaje: 100,
+		 inicio: '',
+		 fin: ''
+	   };
+	 } */
 
 
-/* 	cancelarEdicion(): void {
-		this.elementoSeleccionado = null;
-		this.formulario = {
-			escuela: '',
-			titulo: '',
-			imagen: '',
-			carrera: '',
-			puntaje: 100,
-			inicio: '',
-			fin: ''
-		};
-	} */
+	/* 	cancelarEdicion(): void {
+			this.elementoSeleccionado = null;
+			this.formulario = {
+				escuela: '',
+				titulo: '',
+				imagen: '',
+				carrera: '',
+				puntaje: 100,
+				inicio: '',
+				fin: ''
+			};
+		} */
 
 	/* eliminarElemento(id?: string): void {
 		if (id) {

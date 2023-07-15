@@ -27,12 +27,11 @@ export class AutenticacionService {
 		return this.http.post(this.urlNuevo, credenciales);
 	}
 	token() {
-		console.log('Auth Service token:', sessionStorage.getItem('token') );
+		// console.log('Auth Service token:', sessionStorage.getItem('token') );
 		return sessionStorage.getItem('token');
 	}
 	setToken(token:string): void {
-		console.log('SetToken');
-		
+		// console.log('SetToken');
 		sessionStorage.setItem('token', token);
 	}
 	removeToken(): void {

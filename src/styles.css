@@ -37,13 +37,56 @@ i {
     justify-content: center;
 
 }
-  .mat-card {
+  mat-card {
     border-radius: 10px 10px 10px 10px;
-    margin: 10px 10px;
+    margin: 10px 10px 10px 10px;
     padding: 3px;
     width: 90%;
 }
-
+.mdc-card__actions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    box-sizing: border-box;
+    min-height: 52px;
+    padding: 8px;
+    justify-content: flex-end;
+}
+.mat-mdc-card-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    box-sizing: border-box;
+    min-height: 52px;
+    padding: 8px;
+    justify-content: center;
+}.mat-mdc-card-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    box-sizing: border-box;
+    min-height: 52px;
+    padding: 8px;
+    justify-content: center;
+}
+.mat-mdc-card-footer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    box-sizing: border-box;
+    min-height: 52px;
+    padding: 8px;
+    justify-content: center;
+}
+.mdc-card__media  {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    box-sizing: border-box;
+    min-height: 52px;
+    padding: 8px;
+    justify-content: center;
+}
 /*  .mat-card {
     display: flex;
     justify-content: center;
@@ -160,9 +203,9 @@ i {
       
   }
   .cheimg {
-      height: 280px;
-      width: 200px;
-      position: absolute;
+      height: 150px;
+      width: 150px;
+      /* position: absolute; */
   }
   
 

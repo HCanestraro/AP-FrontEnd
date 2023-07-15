@@ -60,7 +60,7 @@
 	<div class="container-fluid imagen-fondo d-flex justify-content-center">
 		<div class="row justify-content-center col-10 mt-3">
 			<form class="m-3 col-md-4 col-sm-10 bg-white p-2 rounded shadow" [formGroup]="form"
-				(ngSubmit)="onRegister($event)">
+				(ngSubmit)="onRegister($event)" id="form">
 				<h3 class="text-center text-info mt-2">¡CREAR TU PORTAFOLIO!</h3>
 
 				<div class="mb-1 mt-1">
@@ -175,9 +175,9 @@
 						</p>
 					</div>
 				</div>
-				<button type="submit"
+				<button type="submit" id="enviarBtn" 
 					class="btn btn-primary btn-sm w-100 fw-bold text-light border border-light mt-3">CREAR CUENTA</button>
-					<button type="text" class="btn btn-warning btn-sm w-100 fw-bold border mt-3" routerLink="/login">CANCELAR</button>
+					<button type="text" class="btn btn-warning btn-sm w-100 fw-bold border mt-3" id="boton-cerrar" (click)="cerrarFormulario()">CANCELAR</button>
 			</form>
 		</div>
 	</div>

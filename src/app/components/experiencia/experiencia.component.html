@@ -1,43 +1,116 @@
 <!--------------- EXPERIENCIA --------------->
-<div class="container shadow bg-info">
-	<div class="row mt-5">
+<div class="container shadow bg-info col-12">
+	<div class="row mt-5 col-10">
 		<h5 class="text-center p-1 bg-dark text-light rounded border p-2">EXPERIENCIA</h5>
 	</div>
 	<div class="justify-content-center p-2">
 
 		<div *ngIf="modoNuevoRegistro === false">
 			<div class="d-flex justify-content-center mb-4 m-4">
-				<button
-					class="btn btn-sm btn-green border shadow m-1 text-center text-light fw-bold"><!-- (click)="onCrear($event)" -->
+				<button mat-raised-button (click)="openAddDialog()"
+					class="btn btn-sm btn-green border shadow m-1 text-center text-light fw-bold">
 					<span><img src={{logoadd}} alt="editar" class="logo-sm mt-1 bg-white rounded-circle" />AGREGAR
 						EXPERIENCIA</span>
 				</button>
 			</div>
 		</div>
 
-		<div *ngFor="let myExperiencia of datosArray  ; let i = index" [attr.data-index]="i">
+		<div *ngFor="let item of datosArray  ; let i = index" [attr.data-index]="i">
 			<div class="d-flex justify-content-center mb-4 m-4">
 				<div class="border rounded p-2 col-md-8 col-12 bg-white shadow-lg mb-4">
 
 					<div class="d-flex justify-content-end">
 						<div class="p-1">
-							<button class="btn p-0 m-1"> <!-- (click)="onCancelNuevoRegistro()" -->
-								<span><img src={{logopencil}} alt="editar" class="logo-sm mt-1" /></span>
+							<button class="btn p-0 m-1" mat-icon-button (click)="openEditDialog(item)">
+								<mat-icon>edit</mat-icon>
 							</button>
-
-							<button class="btn p-0 m-1"> <!-- (click)="onSaveNewNuevoRegistro($event)" -->
-								<span><img src={{logodelete}} alt="editar" class="logo-sm mt-1" /></span>
+							<button class="btn p-0 m-1" mat-icon-button (click)="deleteItem(item.id)">
+								<mat-icon>delete</mat-icon>
 							</button>
 						</div>
 					</div>
 					<!-- <div class="row justify-content-center box1 align-items-center p-1"> -->
-					<h4>Ubicación: {{myExperiencia.ubicacion}}</h4>
-					<h4>Puesto: {{myExperiencia.puesto}}</h4>
-					<h4>Periodo: {{myExperiencia.periodo}}</h4>
-					<h4>Empresa: {{myExperiencia.empresa}}</h4>
-					<h4>Actividades: {{myExperiencia.actividades}}</h4>
+					<h4>Ubicación: {{item.ubicacion}}</h4>
+					<h4>Puesto: {{item.puesto}}</h4>
+					<h4>Periodo: {{item.periodo}}</h4>
+					<h4>Empresa: {{item.empresa}}</h4>
+					<h4>Actividades: {{item.actividades}}</h4>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
+<section class="card mat-card mx-auto" id="experiencia">
+	<div class="container shadow bg-info col-12">
+		<div class="row mt-5">
+			<h5 class="text-center p-1 bg-dark text-light rounded border p-2">EXPERIENCIA MAT-CARD</h5>
+		</div>
+		<div class="d-flex justify-content-center mb-4 m-4">
+			<button mat-raised-button (click)="openAddDialog()"
+				class="btn btn-sm btn-green border shadow m-1 text-center text-light fw-bold">
+				<span><img src={{logoadd}} alt="editar" class="logo-sm mt-1 bg-white rounded-circle" />AGREGAR
+					EXPERIENCIA</span>
+			</button>
+		</div>
+		<!-- <button mat-raised-button (click)="openAddDialog()">Añadir</button> -->
+		<div class="justify-content-center p-2">
+			<!-- <table mat-table class="d-flex container-fluid flex-direction-column nowrap justify-content-center align-items-center"> -->
+			<div *ngFor="let item of datosArray  ; let i = index" [attr.data-index]="i">
+				<!-- <div class="d-flex justify-content-center mb-4 m-4"> -->
+					<!-- <div class="border rounded p-2 col-md-8 col-12 bg-white shadow-lg mb-4"> -->
+						<!-- <div class="d-flex justify-content-end border shadow"> -->
+				<mat-card>
+					<mat-card-actions>
+							<button mat-icon-button (click)="openEditDialog(item)">
+								<mat-icon>edit</mat-icon>
+							</button>
+							<button mat-icon-button (click)="deleteItem(item.id)">
+								<mat-icon>delete</mat-icon>
+							</button>
+						</mat-card-actions>
+						<!-- </div> -->
+						<mat-card-content>
+						<h4>#:{{ item.id }}</h4>
+						<h4>Ubicación: {{item.ubicacion}}</h4>
+						<h4>Puesto: {{item.puesto}}</h4>
+						<h4>Periodo: {{item.periodo}}</h4>
+						<h4>Empresa: {{item.empresa}}</h4>
+						<h4>Actividades: {{item.actividades}}</h4>
+					</mat-card-content>
+					</mat-card>
+					<!-- </div> -->
+				<!-- </div> -->
+			</div>
+		</div>
+	</div>
+
+	<ng-template #dialogTemplate let-dialogRef="dialogRef">
+		<h2 mat-dialog-title>{{ editMode ? 'Editar Experiencia' : 'Añadir Experiencia' }}</h2>
+		<mat-dialog-content>
+			<mat-form-field>
+				<mat-label>Ubicación</mat-label>
+				<input matInput [(ngModel)]="dialogData.ubicacion" placeholder="Ubicación" required>
+			</mat-form-field>
+			<mat-form-field>
+				<mat-label>Puesto</mat-label>
+				<input matInput [(ngModel)]="dialogData.puesto" placeholder="Puesto" required>
+			</mat-form-field>
+			<mat-form-field>
+				<mat-label>Periodo</mat-label>
+				<input matInput [(ngModel)]="dialogData.periodo" placeholder="Periodo" required>
+			</mat-form-field>
+			<mat-form-field>
+				<mat-label>Empresa</mat-label>
+				<input matInput [(ngModel)]="dialogData.empresa" placeholder="Empresa" required>
+			</mat-form-field>
+			<mat-form-field>
+				<mat-label>Actividades</mat-label>
+				<input matInput [(ngModel)]="dialogData.actividades" placeholder="Actividades" required>
+			</mat-form-field>
+		</mat-dialog-content>
+		<mat-dialog-actions>
+			<button mat-button (click)="dialogRef.close()">Cancelar</button>
+			<button mat-button (click)="saveItem()">Guardar</button> <!-- [disabled]="!dialogForm.valid" -->
+		</mat-dialog-actions>
+	</ng-template>
+</section>

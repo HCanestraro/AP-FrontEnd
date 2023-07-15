@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-// import { User, GoogleAuthProvider, GithubAuthProvider, createUserWithEmailAndPassword } from 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-// import auth from 'firebase/compat/app';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { AutenticacionService } from 'src/app/services/autenticacion.service';
+// import { AutenticacionService } from 'src/app/services/autenticacion.service';
 import { AuthService } from 'src/app/services/auth.service';
 @Component({
 	selector: 'app-login',
@@ -14,7 +12,7 @@ import { AuthService } from 'src/app/services/auth.service';
 
 export class LoginComponent implements OnInit {
 	form: FormGroup;
-	constructor(private authService: AuthService, private autenticacionService: AutenticacionService, private afAuth: AngularFireAuth, private router: Router, private formBuilder: FormBuilder) {
+	constructor(private authService: AuthService,/*  private autenticacionService: AutenticacionService, */ private afAuth: AngularFireAuth, private router: Router, private formBuilder: FormBuilder) {
 		this.form = this.formBuilder.group({
 			//email: ['', [Validators.required, Validators.email]],
 			email: ['', [Validators.required, Validators.minLength(2)]],
@@ -65,9 +63,14 @@ export class LoginComponent implements OnInit {
 					currentUser.delete()
 						.then(() => {
 							// Cuenta eliminada correctamente
+							console.log('Cuenta eliminada correctamente');
+							
 						})
 						.catch(error => {
 							// Error al eliminar la cuenta, muestra el mensaje de error al usuario
+							console.log('Error al eliminar la cuenta, muestra el mensaje de error al usuario');
+							console.error('Error:',error);
+							
 						});
 				}
 			});
@@ -77,18 +80,15 @@ export class LoginComponent implements OnInit {
 	onLogin(event: Event) {
 		event.preventDefault;
 		// let email1 = document.getElementById("email");
-		this.autenticacionService.login(this.form.value).subscribe(data => {
+		/* this.autenticacionService.login(this.form.value).subscribe(data => {
 			sessionStorage.setItem('token', data.token);
 			this.autenticacionService.setToken(data.token);
 			console.log("Archivo Login Component , seteo del token: ", data.token);
-		});
+		}); */
 		const { email, password } = this.form.value;
 		console.log('DEBUG: Login - onLogin', this.form.value);
 		console.log('Email:', this.email, ' Password:', this.password);
-		// this.login(this.email, this.password);
-		// this.authService.login((this.email1) , this.password);
-		// this.authService.login(this.email, this.password);
-		// this.router.navigate(['/portfolio']);
+
 		this.afAuth.signInWithEmailAndPassword(email, password)
 				.then((userCredential) => {
 					console.log('Inicio de sesión exitoso, puedes redirigir al usuario a otra página');

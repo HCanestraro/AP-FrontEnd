@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { FormBuilder, FormControl,  FormGroup, Validators } from '@angular/forms';
-// import { PortfolioService } from './../../services/portfolio.service';
 import { FirebaseService } from 'src/app/services/firebase.service';
-import { FirestoreService } from 'src/app/services/firestore.service';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { Observable, map, take } from 'rxjs';
 import { Iskills } from 'src/app/interfaces/iskills';
+import { user } from '@angular/fire/auth';
 
 @Component({
 	selector: 'app-skills',
@@ -20,133 +20,127 @@ export class SkillsComponent implements OnInit {
 	logocancel="https://drive.google.com/uc?export=download&id=1DnHtyYLt7LgH7Nl6HsIOfSh2CDjNiYAE";
 	logodelete="https://drive.google.com/uc?export=download&id=1iW5i4HOltXKRwV0Q2qsJp6mrZvmFq0rw";
 	logoSkill = "https://drive.google.com/uc?export=download&id=1XApdWSnN7YZC0Y5B0IybEyefUZ10wTuu";
+	nombreColeccion = 'skills';
+	datosCollection!: AngularFirestoreCollection<any>;
+	datosArray!: any[];
+	datos: Observable<Iskills[]>;
+	numRegistros!: number;
 	// GPT
-	itemForm!: FormGroup;
+	editMode = false;
+	dialogForm: FormGroup;
+	skillsCollection: AngularFirestoreCollection<Iskills>;
+	@ViewChild('dialogTemplate', { static: true }) dialogTemplate!: TemplateRef<any>;
+	skillsItems: Observable<Iskills[]>;
+
+	dialogData: Iskills = {
+		id: '',
+		descripcion: '',
+		urlImagen: ''
+	};
+
 	isEditing: boolean = false;
 	// miColeccionService = new FirestoreService(COLLECTION_NAME,'skills');
 	items!: any[];
-
 	mySkills: any;
 	modoEdicion: boolean = false;
 	modoNuevoRegistro: boolean = false;
 	i!: number;
 	editID!: number;
-	// form: FormGroup;
-	nombreColeccion = 'skills';
-	datosCollection!: AngularFirestoreCollection<any>;
-	datosArray!: any[];
-	datos!: Observable<Iskills[]>;
-	numRegistros!: number;
 
-	constructor(private formBuilder: FormBuilder, private firebaseService: FirebaseService, public firestore: AngularFirestore,
-		private firestoreService: FirestoreService) { }
-
-	ngOnInit():void {
-		console.log('SKILLS COMPONENTS');
-		this.verificarYCrearMiColeccion();
-		this.datosCollection = this.firestore.collection(this.nombreColeccion);
+	constructor(private firebaseService: FirebaseService, 
+		private firestore: AngularFirestore, 
+		private dialog: MatDialog) {
+			this.skillsCollection = this.firestore.collection<Iskills>('skills');
+			this.skillsItems = this.skillsCollection.valueChanges();
+			this.dialogForm = new FormGroup({
+				id: new FormControl('', Validators.required),
+				descripcion: new FormControl('', Validators.required),
+				urlImagen: new FormControl('', Validators.required)
+			});
+			this.datosCollection = this.firestore.collection(this.nombreColeccion);
 		this.datos = this.datosCollection.valueChanges();
 		this.getDatosArray();
 		this.getNumRegistros();
-		// this.firestoreService.initCollectionIfNotExists()
-		// 	.then(() => {
-		// 		console.log('Colección inicializada');;
-		// 		// Puedes realizar otras operaciones aquí
-		// 	})
-		// 	.catch(error => {
-		// 		console.error('Error al inicilizar la colección:',error);
-		// 	});
+		this.verificarYCrearMiColeccion();
+		console.log('DEBUG: Skills');
 
-		// this.firebaseService.getItems().subscribe(data => {
-		// 	this.items = data.map(item => {
-		// 		return {
-		// 			id: item.payload.doc.id,
-		// 			...item.payload.doc.data()
-		// 		};
-		// 	});
-		// });
-		this.itemForm = this.formBuilder.group({
-			descripcion: new FormControl('', Validators.required),
-			urlImagen: new FormControl('', Validators.required)
+		 }
+
+	ngOnInit():void {
+		console.log('DEBUG: SKILLS COMPONENTS');
+		this.verificarYCrearMiColeccion();
+		this.datosCollection = this.firestore.collection(this.nombreColeccion);
+		this.datos = this.datosCollection.valueChanges();
+	}
+
+	readDocument(documentId: string) {
+		this.firestore.collection('skills').doc(documentId).snapshotChanges().subscribe(snapshot => {
+		  const data = snapshot.payload.data();
+		  const id = snapshot.payload.id;
+	  
+		  // Utiliza el ID y los datos del documento como desees
+		  console.log('ID:', id);
+		  console.log('Datos:', data);
 		});
+	  }
 
-		
-	}
-
-	get formControls() {
-		return this.itemForm.controls;
-	}
-	
-	addItem() {
-		if (this.itemForm.invalid) {
-			return;
-		}
-	}
-
-	// 	const newItem = {
-	// 		descripcion: this.formControls['descripcion'].value,
-	// 		urlImagen: this.formControls['urlImagen'].value
-	// 	};
-
-	// 	this.firestoreService.addItem(newItem)
-	// 		.then(() => {
-	// 			console.log('Elemento creado correctamente');
-	// 			this.itemForm.reset();
-	// 		})
-	// 		.catch(error => {
-	// 			console.error('Error al crear el elemento:',error);
-	// 		});
-	// }
-
-	editItem() {
-		if (this.itemForm.invalid) {
-			return;
-		}
-
-		const updatedItem = {
-			descripcion: this.formControls['descripcion'].value,
-			urlImagen: this.formControls['urlImagen'].value
+	  openAddDialog(): void {
+		this.editMode = false;
+		this.dialogData = {
+			id:'',
+			descripcion: '',
+			urlImagen: ''
 		};
-		// Lógica para actualizar el elemento en Firestore utilizando el servicio
+		this.openDialog();
+	}
+	openEditDialog(item: Iskills): void {
+		this.editMode = true;
+		this.dialogData = { ...item };
+		this.openDialog();
+	}
+	openDialog(): void {
+		const dialogRef = this.dialog.open(this.dialogTemplate);
+		dialogRef.afterClosed().subscribe(() => {
+
+		});
+	}
+	saveItem(): void {
+		if (this.editMode) {
+			// Guardar cambios
+			this.skillsCollection.doc().update(this.dialogData);
+		} else {
+			// Añadir nuevo elemento
+			this.skillsCollection.add(this.dialogData);
+		}
+		// Cerrar el diálogo después de guardar
+		this.dialog.closeAll();
+	}
+	deleteItem(item: any): void {
+		// Eliminar el elemento de la colección en Firebase
+		this.firebaseService.deleteRecord('skills', item);/* .delete(); */
+	}
+	/* cancelEdit() {
 		this.isEditing = false;
 		this.itemForm.reset();
-	}
+	} */
 
-	cancelEdit() {
-		this.isEditing = false;
-		this.itemForm.reset();
-	}
-
-	startEdit() {
-		this.isEditing = true;
+	// startEdit() {
+		// this.isEditing = true;
 		// Asignar los valores actuales del elemento al formulario
 		// Asignar los valores actuales del elemento al formulario
-		this.formControls['descripcion'].setValue('Valor actual de la descripción');
-		this.formControls['urlImagen'].setValue('Valor actual de la URL de la imagen');
-	}
-
-	deleteItem(itemId: string) {
-		this.firestoreService.deleteItem(itemId)
-			.then(() => {
-				console.log('Elemento eliminado correctamente');
-			})
-			.catch(error => {
-				console.error('Error al eliminar el elemento:',error);
-			});
-	}
-
-	// onSubmit() {
-	// 	console.log('DEBUG: onSubmit', this.form.value.descripcion);
-	// 	const fdes = this.form.value.descripcion;
-	// 	this.agregarRegistros([{ descripcion: `'${fdes}'` }]);
-	// 	this.form.reset;
-	// 	this.modoNuevoRegistro = false;
+		// this.formControls['descripcion'].setValue('Valor actual de la descripción');
+		// this.formControls['urlImagen'].setValue('Valor actual de la URL de la imagen');
 	// }
 
+	
 	verificarYCrearMiColeccion(): void {
-		const nombreColeccion = 'skills';
-		this.firebaseService.verificarYCrearColeccion(nombreColeccion,
+		const id1 = this.firestore.createId();
+		/* const userId = this.firestore.collection(this.nombreColeccion).doc().get({
+			id: user?.uid;
+		}; */
+		this.firebaseService.verificarYCrearColeccion(this.nombreColeccion,
 		{
+			id: id1,
 			descripcion: '',
 			urlImagen: ''
 		});
@@ -176,40 +170,6 @@ export class SkillsComponent implements OnInit {
 
 	
 	
-	// 	const nuevoRegistro = this.form.value;
-	// 	this.firestore.collection(this.nombreColeccion).add(nuevoRegistro)
-	// 		.then(() => {
-	// 			console.log('Registro agregado correctamente');
-	// 			this.form.reset();
-	// 		})
-	// 		.catch((error) => {
-	// 			console.error('Error al agregar el registro:', error);
-	// 		});
-		// let des = this.form.value.descripcion;
-		// console.log('add', des);
-		// alert(des);
-		// console.log('des',[{ descripcion: des }]);
-		
-		// this.agregarRegistros([{ descripcion: des }]);
-	// }
-
-
-	// agregarRegistros(registros: any[]): void {
-	// 	console.log('DEBUG: agregarRegistros', registros, 'Cantidad:', registros.length);
-	// 	const batch = this.firestore.firestore.batch();
-	// 	registros.forEach((registro) => {
-	// 		const nuevoDocumentoRef = this.datosCollection.ref.doc();
-	// 		batch.set(nuevoDocumentoRef, registro);
-	// 	});
-	// 	batch.commit()
-	// 		.then(() => {
-	// 			console.log('Registros agregados correctamente');
-	// 		})
-	// 		.catch((error) => {
-	// 			console.error('Error al agregar los registros:', error);
-	// 		});
-	// }
-	/* **************************************************************************************************** */
 	// borrarRegistro(documentId: string) {
 	// 	console.log('DEBUG: borrarRegistro:', documentId);
 	// 	this.firestore.collection(this.nombreColeccion).doc(documentId).delete()
@@ -221,10 +181,10 @@ export class SkillsComponent implements OnInit {
 	// 		});
 	// }
 
-	onCrear() {
+	// onCrear() {
 	
-		this.modoNuevoRegistro = true;
-	}
+	// 	this.modoNuevoRegistro = true;
+	// }
 
 	// onEdit(id: number, i: number, event: Event) {
 	// 	this.editID = id;
@@ -242,85 +202,5 @@ export class SkillsComponent implements OnInit {
 	// 	this.modoEdicion = true;
 	// }
 
-	// onSaveEdit(event: Event) {
-	// 	event.preventDefault;
-	// 	this.portfolioData.putSkill(this.form.value, this.editID).subscribe(data => {
-	// 		console.log("this.form.value: ", this.form.value);
-	// 		console.log("id: ", this.editID);
-	// 		console.log("SKILL method PUT Data Editada", data);
 
-	// 		this.portfolioData.obtenerOneDatosSkill(this.editID).subscribe(data => {
-	// 			console.log("Dato: " + JSON.stringify(data));
-	// 			this.mySkills[this.i] = data;
-	// 			console.log("mySkills[i : ", this.mySkills[this.i]);
-	// 		});
-
-	// 	});
-	// 	this.modoEdicion = false;
-	// }
-
-	// onSaveNewNuevoRegistro() {
-		// event.preventDefault;
-		// this.portfolioData.postSkill(this.form.value).subscribe(data => {
-		// 	console.log("this.form.value: ", this.form.value);
-		// 	console.log("SKILL method POST Data Enviada", data);
-
-		// 	this.portfolioData.obtenerDatosSkills().subscribe(data => {
-		// 		this.mySkills = data;
-		// 	});
-		// });
-	// 	this.agregarRegistro();
-	// 	this.modoNuevoRegistro = false;
-	// }
-
-	// onCancelNuevoRegistro() {
-	// 	this.modoNuevoRegistro = false;
-	// }
-
-	// onCancel(event: Event) {
-	// 	let objetoFormulario = this.form.controls;
-	// 	let keysForms = Object.keys(objetoFormulario);
-	// 	console.log("keysForm: ", keysForms);
-	// 	let valueForms = Object.values(objetoFormulario);
-	// 	console.log("valuesForm: ", valueForms);
-	// 	valueForms[0].setValue('');
-	// 	valueForms[1].setValue('');
-	// 	console.log("valueFormDetalles: ", valueForms[0].value);
-	// 	console.log("valueFormEstado: ", valueForms[1].value);
-	// 	this.modoEdicion = false;
-	// }
-
-	// onDelete(i: any,id: string, event: Event) {
-	// 	this.i = i;
-	// 	this.modoEdicion = false;
-	// 	event.preventDefault;
-	// 	Swal.fire({
-	// 		title: `¿ELIMINAR SKILL ${(this.mySkills[i].descripcion).toUpperCase()}?`,
-	// 		text: "No podrá revertir los cambios.",
-	// 		icon: 'warning',
-	// 		showCancelButton: true,
-	// 		confirmButtonColor: '#d33',
-	// 		cancelButtonColor: '#00b5ff',
-	// 		confirmButtonText: 'Si, Eliminar.',
-	// 		cancelButtonText: 'Cancelar'
-	// 	}).then((result) => {
-	// 		if (result.isConfirmed) {
-	// 			this.portfolioData.deleteSkill(this.mySkills[i].id).subscribe(data => {
-	// 				console.log("Borrando registro", data);
-
-	// 				this.portfolioData.obtenerDatosSkills().subscribe(data => {
-	// 					this.mySkills = data;
-	// 				});
-
-	// 			});
-
-	// 			Swal.fire({
-	// 				title: 'ITEM ELIMINADO',
-	// 				icon: 'success',
-	// 				showConfirmButton: false,
-	// 				timer: 1000
-	// 			})
-	// 		}
-	// 	})
-	// }
 }
