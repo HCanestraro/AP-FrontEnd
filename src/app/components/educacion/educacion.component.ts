@@ -24,7 +24,6 @@ export class EducacionComponent implements OnInit {
 	nombreColeccion = 'educacion';
 	datosCollection: AngularFirestoreCollection<any>;
 	datosArray!: any[];
-	educacionList!: any[];
 	datos: Observable<Ieducacion[]>;
 	numRegistros!: number;
 
@@ -33,7 +32,6 @@ export class EducacionComponent implements OnInit {
 	educacionCollection: AngularFirestoreCollection<Ieducacion>;
 
 	@ViewChild('dialogTemplate', { static: true }) dialogTemplate!: TemplateRef<any>;
-
 	educacionItems: Observable<Ieducacion[]>;
 
 	dialogData: Ieducacion = {
@@ -49,6 +47,13 @@ export class EducacionComponent implements OnInit {
 
 
 	modoNuevoRegistro: boolean = false;
+	isEditing: boolean = false;
+	// miColeccionService = new FirestoreService(COLLECTION_NAME,'skills');
+	items!: any[];
+	modoEdicion: boolean = false;
+	editID!: number;
+	selectedEducacion: any = {};
+	educacion!: Observable<any[]>;
 	//elementos: Ieducacion[] = []; // Cambio de "elemento" a "elementos"
 
 	//elementoSeleccionado: Ieducacion | null = null;
@@ -74,8 +79,8 @@ export class EducacionComponent implements OnInit {
 		this.getNumRegistros();
 		this.verificarYCrearMiColeccion();
 		console.log('DEBUG: Educacion');
-
 	}
+
 	readDocument(documentId: string) {
 		this.firestore.collection('educacion').doc(documentId).snapshotChanges().subscribe(snapshot => {
 		  const data = snapshot.payload.data();
@@ -90,8 +95,10 @@ export class EducacionComponent implements OnInit {
 
 	openAddDialog(): void {
 		this.editMode = false;
+		const id1 = this.firestore.createId();
+
 		this.dialogData = {
-			id:'',
+			id: id1,
 			escuela: '',
 			titulo: '',
 			imagen: '',
@@ -124,18 +131,21 @@ export class EducacionComponent implements OnInit {
 		// Cerrar el diálogo después de guardar
 		this.dialog.closeAll();
 	}
-	deleteItem(item: any): void {
+	deleteItem(id: string): Promise<void> {
 		// Eliminar el elemento de la colección en Firebase
-		this.firebaseService.deleteRecord('educacion', item);/* .delete(); */
+		// const idd = this.educacionCollection.doc().get();
+		return this.educacionCollection.doc(id).delete();
 	}
 
 	ngOnInit(): void {
-		// this.firebaseService.cargarDatosEnFirebase('educacion',this.educacionList);
-		this.verificarYCrearMiColeccion();
-		// this.getDatosArray();
 		console.log('DEBUG: Educacion', this.nombreColeccion);
-
-
+		this.verificarYCrearMiColeccion();
+		this.datosCollection = this.firestore.collection(this.nombreColeccion);
+		this.datos = this.datosCollection.valueChanges();
+		this.educacionCollection = this.firestore.collection<any>(this.nombreColeccion);
+		this.educacion = this.educacionCollection.snapshotChanges().pipe(map(actions => actions.map(a => ({ id: a.payload.doc.id, ...a.payload.doc.data() }))));
+		// this.firebaseService.cargarDatosEnFirebase('educacion',this.educacionList);
+		// this.getDatosArray();
 		// this.experienciaList=this.firebase.getDatosArray('experiencia');
 		// this.educacionService.getElementos().subscribe(elementos => {
 		// 	this.elementos = elementos;
@@ -163,8 +173,7 @@ export class EducacionComponent implements OnInit {
 
 	verificarYCrearMiColeccion(): void {
 		const id1 = this.firestore.createId();
-		const nombreColeccion = 'educacion';
-		this.firebaseService.verificarYCrearColeccion(nombreColeccion, {
+		this.firebaseService.verificarYCrearColeccion(this.nombreColeccion, {
 			id: id1,
 			escuela: 'Escuela',
 			titulo: 'Titulo',

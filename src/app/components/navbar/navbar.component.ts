@@ -92,9 +92,15 @@ export class NavbarComponent implements OnInit {
 		this.afAuth.signOut()
 			.then(() => {
 				console.log('Cierre de sesión exitoso');
+				this.loginActive = true;
+				this.registerActive = false;
+				this.portfolioActive = false;
+				this.pageNotFoundActive = false;
+				this.router.navigate(['/login']);
+				console.log('Ruta activa:',this.router.url);
+				
 				this.usuarioLogueado = false;
 				// this.userAlias = '';
-				this.router.navigate(['/login']);
 			})
 			.catch(error => console.error('Error al cerrar sesión', error));
 	}

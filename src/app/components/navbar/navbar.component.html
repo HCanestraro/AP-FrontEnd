@@ -44,17 +44,14 @@
 		<!-- <div *ngIf="usuarioLogueado"> -->
 			<!-- <p>{{userAlias}}</p>
 			<img *ngIf="imagenPerfil | async" [src]="imagenPerfil | async" alt="Imagen de perfil" class="logos"> -->
-			<button (click)="logout()" class=" btn btn-dark rounded  btn-md w-100 text-white fw-bold shadow-lg" routerLink="/portfolio">TERMINAR
+			<button (click)="logout()" class=" btn btn-dark rounded  btn-md w-100 text-white fw-bold shadow-lg" routerLink="/login">TERMINAR
 			EDICIÓN</button>
 		<!-- </div> -->
 	</div>
 		<div *ngIf="portfolioActive===false">
-		<!-- <div *ngIf="!usuarioLogueado"> -->
-			<button class="btn btn-info border border-info btn-md w-100 text-white fw-bold fw-bold shadow-lg ms-3"
+			<button class="btn btn-info border border-info text-white fw-bold fw-bold shadow ms-3"
 				routerLink="/register">Registrarse</button> <!-- (click)="registrarse()" -->
-			<button class="btn btn-info btn-md w-100 text-white fw-bold shadow-lg" routerLink="/login">Login</button>
-			<!-- (click)="login()"  -->
-		<!-- </div> -->
+			<button class="btn btn-info text-white fw-bold shadow-lg" routerLink="/login">Login</button>
 	</div>
 	</div>
 </div>

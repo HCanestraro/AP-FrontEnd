@@ -1,40 +1,5 @@
-<!--------------- SKILLS --------------->
-<!-- <div class="container shadow mt-5 bg-warning">
-	<div class="row">
-		<h5 class="text-center p-2 rounded border bg-dark text-light">SKILLS</h5>
-	</div>
-	<div class="justify-content-center p-2">
-		<div *ngIf="modoNuevoRegistro== false">
-		<div class="d-flex justify-content-center mb-4 m-4">
-			<button mat-raised-button (click)="openAddDialog()"
-					class="btn btn-sm btn-green border shadow m-1 text-center text-light fw-bold">
-					<span><img src={{logoadd}} alt="editar" class="logo-sm mt-1 bg-white rounded-circle" />AGREGAR
-						SKILLS</span>
-				</button>
-		</div>
-	</div>
-	
-	<div *ngFor="let item of datosArray  ; let i = index" [attr.data-index]="i">
-		<mat-card>
-			<mat-card-actions>
-						<button class="btn p-0 m-1">
-							<span><img src={{logopencil}} alt="editar" class="logo-sm mt-1" /></span>
-						</button>
-						<button class="btn p-0 m-1" >
-							<span><img src={{logodelete}} alt="editar" class="logo-sm mt-1" /></span>
-						</button>
-					</mat-card-actions>
-			<mat-card-content>
-				<h4>{{item.name}}</h4>
-				<h4>{{item.urlImagen}}</h4>
-				<img class="image-sm" src={{item.urlImagen}} alt="">
-				<h4>{{item.id}}</h4>
-			</mat-card-content>>
-		</mat-card>>
-	</div>
-</div> -->
 <!--------------- SKILLS MAT-CARD --------------->
-<section class="card mat-card mx-auto" id="skills">
+<!-- <section class="card mat-card mx-auto" id="skills">
 	<div class="container shadow bg-info">
 		<div class="row mt-5">
 			<h5 class="text-center p-1 bg-dark text-light rounded border p-2">SKILLS MAT-CARD</h5>
@@ -46,9 +11,9 @@
 					<span><img src={{logoadd}} alt="editar" class="chelogo mt-1 bg-white rounded-circle" />AGREGAR
 						SKILLS</span>
 				</button>
-			</div>
-			<!-- <table mat-table class="d-flex container-fluid flex-direction-column nowrap justify-content-center align-items-center"> -->
-			<div *ngFor="let item of datosArray  ; let i = index" [attr.data-index]="i">
+			</div> -->
+<!-- <table mat-table class="d-flex container-fluid flex-direction-column nowrap justify-content-center align-items-center"> -->
+<!-- <div *ngFor="let item of datosArray  ; let i = index" [attr.data-index]="i">
 				<mat-card>
 					<mat-card-actions>
 						<button mat-icon-button (click)="openEditDialog(item)">
@@ -92,8 +57,79 @@
 			</mat-dialog-content>
 			<mat-dialog-actions>
 				<button mat-button (click)="dialogRef.close()">Cancelar</button>
-				<button mat-button (click)="saveItem()">Guardar</button> <!-- [disabled]="!dialogForm.valid" -->
+				<button mat-button (click)="saveItem()">Guardar</button> 
 			</mat-dialog-actions>
 		</ng-template>
 	</div>
+</section> --><!-- [disabled]="!dialogForm.valid" -->
+
+<section class="card mat-card mx-auto" id="skills">
+<div class="container shadow bg-info">
+	<div class="row mt-5">
+		<h5 class="text-center p-1 bg-dark text-light rounded border p-2">SKILLS MAT-CARD</h5>
+		<img src="https://drive.google.com/uc?export=download&id=1Si1FbfZhrQk32SmR-ZLWJCyFVeqWRf26" alt="" width="100px"
+			height="100px">
+	</div>
+	<div class="d-flex justify-content-center mb-4 m-4">
+		<button mat-raised-button (click)="openAddDialog()"
+			class="btn btn-sm btn-green border shadow m-1 text-center text-light fw-bold">
+			<span><img src={{logoadd}} alt="editar" class="chelogo mt-1 bg-white rounded-circle" />AGREGAR
+				SKILLS</span>
+		</button>
+	</div>
+	<div *ngFor="let item of skills | async">
+		<mat-card (click)="selectSkill(item)">
+			<mat-card-actions>
+				<button mat-icon-button (click)="openEditDialog(item)">
+					<mat-icon>edit</mat-icon>
+				</button>
+				<!-- <button mat-icon-button (click)="deleteItem(item.id)"> -->
+					<button mat-icon-button (click)="borrarRegistro(item.id)">
+
+					<mat-icon>delete</mat-icon>
+				</button>
+			</mat-card-actions>
+			<mat-card-header>
+				<mat-card-title>{{ item.descripcion }}</mat-card-title>
+			</mat-card-header>
+			<mat-card-content>
+				<img src={{item.urlImagen}} alt="Skill Image" class="card-image">
+			</mat-card-content>
+		</mat-card>
+	</div>
+	<ng-template #dialogTemplate let-dialogRef="dialogRef">
+		<h2 mat-dialog-title>{{ editMode ? 'Editar Skills' : 'Añadir Skills' }}</h2>
+		<mat-dialog-content>
+			<!-- <mat-form-field>
+				<mat-label>Id</mat-label>
+				<input matInput placeholder="UID de Firebase" [(ngModel)]="dialogData.id" disabled>
+			</mat-form-field> -->
+			<mat-form-field>
+				<mat-label>Titulo</mat-label>
+				<input matInput [(ngModel)]="dialogData.descripcion" placeholder="Descripción" required>
+			</mat-form-field>
+				<mat-label>URL de la imagen</mat-label>
+				<input type="file" [(ngModel)]="dialogData.urlImagen" (change)="onFileSelected($event)" placeholder="Imagen" required>
+				<ng-container *ngIf="downloadURL">
+					<img [src]="downloadURL" alt="Preview" class="preview-image">
+				</ng-container>
+		</mat-dialog-content>
+		<mat-dialog-actions>
+			<button mat-button (click)="dialogRef.close()">Cancelar</button>
+			<button mat-button (click)="saveItem()">Guardar</button> 
+		</mat-dialog-actions>
+	</ng-template>
+</div>
+	<!-- <form (submit)="saveSkill()">
+		<mat-form-field>
+			<input matInput placeholder="Skill Descripción" [(ngModel)]="selectedSkill.descripcion" name="descripcion"
+				required>
+		</mat-form-field>
+
+		<input type="file" (change)="onFileSelected($event)">
+		<ng-container *ngIf="downloadURL">
+			<img [src]="downloadURL" alt="Preview" class="preview-image">
+		</ng-container>
+		<button mat-raised-button color="primary" type="submit">Guardar</button>
+	</form> -->
 </section>

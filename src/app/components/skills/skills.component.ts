@@ -3,10 +3,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { FormBuilder, FormControl,  FormGroup, Validators } from '@angular/forms';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Observable, map, take } from 'rxjs';
 import { Iskills } from 'src/app/interfaces/iskills';
 import { user } from '@angular/fire/auth';
-
+import { finalize } from 'rxjs/operators';
 @Component({
 	selector: 'app-skills',
 	templateUrl: './skills.component.html',
@@ -28,7 +29,7 @@ export class SkillsComponent implements OnInit {
 	// GPT
 	editMode = false;
 	dialogForm: FormGroup;
-	skillsCollection: AngularFirestoreCollection<Iskills>;
+	// skillsCollection: AngularFirestoreCollection<Iskills>;
 	@ViewChild('dialogTemplate', { static: true }) dialogTemplate!: TemplateRef<any>;
 	skillsItems: Observable<Iskills[]>;
 
@@ -46,9 +47,16 @@ export class SkillsComponent implements OnInit {
 	modoNuevoRegistro: boolean = false;
 	i!: number;
 	editID!: number;
+//------------------------------
+skillsCollection: AngularFirestoreCollection<any>;
+skills!: Observable<any[]>;
+selectedSkill: any = {};
+selectedImage: File | null = null;
+downloadURL: string | null = null;
 
 	constructor(private firebaseService: FirebaseService, 
-		private firestore: AngularFirestore, 
+		private firestore: AngularFirestore,
+		private storage: AngularFireStorage, 
 		private dialog: MatDialog) {
 			this.skillsCollection = this.firestore.collection<Iskills>('skills');
 			this.skillsItems = this.skillsCollection.valueChanges();
@@ -71,6 +79,67 @@ export class SkillsComponent implements OnInit {
 		this.verificarYCrearMiColeccion();
 		this.datosCollection = this.firestore.collection(this.nombreColeccion);
 		this.datos = this.datosCollection.valueChanges();
+		this.skillsCollection = this.firestore.collection<any>('skills');
+		this.skills = this.skillsCollection.snapshotChanges().pipe(
+			map(actions => actions.map(a => 
+				({ id: a.payload.doc.id, ...a.payload.doc.data() })))
+		);
+	}
+
+	selectSkill(skill: any) {
+		console.log('DEBUG: SELECTSKILL');
+		this.selectedSkill = { ...skill };
+		console.log('DEBUG: selectedSkill:',this.selectedSkill.id);
+		console.log('DEBUG: selectedSkill:',this.selectedSkill.descripcion);
+		console.log('DEBUG: selectedSkill:',this.selectedSkill.urlImagen);
+		this.selectedImage = null;
+	}
+
+	onFileSelected(event: any) {
+		const file: File = event.target.files[0];
+		if (file) {
+			this.selectedImage = file;
+				const filePath = `softskills/${this.selectedImage.name}`;
+				const fileRef = this.storage.ref(filePath);
+				const task = this.storage.upload(filePath, file);
+
+				task.snapshotChanges()
+					.pipe(
+						finalize(() => {
+							fileRef.getDownloadURL().subscribe(url => {
+								this.downloadURL = url;
+							});
+						})
+					)
+					.subscribe();
+		}
+		this.selectedImage = file;
+	}
+
+	saveSkill() {
+		if (this.selectedSkill.id) {
+			this.skillsCollection.doc(this.selectedSkill.id).update(this.selectedSkill);
+		} else {
+			const skillData = { ...this.selectedSkill };
+
+			if (this.selectedImage) {
+				const filePath = 'skills/';
+				const fileRef = this.storage.ref(filePath);
+				const task = this.storage.upload(filePath, this.selectedImage);
+
+				task.snapshotChanges().subscribe(() => {
+					fileRef.getDownloadURL().subscribe(url => {
+						skillData.urlImagen = url;
+						this.skillsCollection.add(skillData);
+						this.selectedSkill = {};
+						this.selectedImage = null;
+					});
+				});
+			} else {
+				this.skillsCollection.add(skillData);
+				this.selectedSkill = {};
+			}
+		}
 	}
 
 	readDocument(documentId: string) {
@@ -86,8 +155,10 @@ export class SkillsComponent implements OnInit {
 
 	  openAddDialog(): void {
 		this.editMode = false;
+		const id1 = this.firestore.createId();
+
 		this.dialogData = {
-			id:'',
+			id: id1,
 			descripcion: '',
 			urlImagen: ''
 		};
@@ -115,22 +186,11 @@ export class SkillsComponent implements OnInit {
 		// Cerrar el diálogo después de guardar
 		this.dialog.closeAll();
 	}
-	deleteItem(item: any): void {
+	deleteItem(id: string): Promise<void> {
 		// Eliminar el elemento de la colección en Firebase
-		this.firebaseService.deleteRecord('skills', item);/* .delete(); */
+		return this.skillsCollection.doc(id).delete();
 	}
-	/* cancelEdit() {
-		this.isEditing = false;
-		this.itemForm.reset();
-	} */
 
-	// startEdit() {
-		// this.isEditing = true;
-		// Asignar los valores actuales del elemento al formulario
-		// Asignar los valores actuales del elemento al formulario
-		// this.formControls['descripcion'].setValue('Valor actual de la descripción');
-		// this.formControls['urlImagen'].setValue('Valor actual de la URL de la imagen');
-	// }
 
 	
 	verificarYCrearMiColeccion(): void {
@@ -168,39 +228,15 @@ export class SkillsComponent implements OnInit {
 		});
 	}
 
-	
-	
-	// borrarRegistro(documentId: string) {
-	// 	console.log('DEBUG: borrarRegistro:', documentId);
-	// 	this.firestore.collection(this.nombreColeccion).doc(documentId).delete()
-	// 		.then(() => {
-	// 			console.log('Registro eliminado correctamente');
-	// 		})
-	// 		.catch((error) => {
-	// 			console.error('Error al eliminar el registro:', error);
-	// 		});
-	// }
-
-	// onCrear() {
-	
-	// 	this.modoNuevoRegistro = true;
-	// }
-
-	// onEdit(id: number, i: number, event: Event) {
-	// 	this.editID = id;
-	// 	this.i = i;
-	// 	console.log("i", i);
-	// 	console.log("editID", this.editID);
-	// 	console.log("this.form.value: ", this.form.value);
-	// 	console.log("id: ", id);
-
-	// 	this.form.setValue({
-	// 		descripcion: this.mySkills[i].descripcion,
-	// 		urlImagen: this.mySkills[i].urlImagen
-	// 	})
-	// 	console.log("this.form.value: ", this.form.value);
-	// 	this.modoEdicion = true;
-	// }
-
+	borrarRegistro(documentId: string) {
+		console.log('DEBUG: borrarRegistro:', documentId);
+		this.firestore.collection(this.nombreColeccion).doc(documentId).delete()
+			.then(() => {
+				console.log('Registro eliminado correctamente');
+			})
+			.catch((error) => {
+				console.error('Error al eliminar el registro:', error);
+			});
+	}
 
 }

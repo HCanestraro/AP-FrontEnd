@@ -67,6 +67,7 @@
 							<img mat-card-image class="cheimg" src={{item.urlImage}} alt="">
 						</div>
 						<h4><b>Nivel: {{item.level}}</b></h4>
+						<!-- <mat-slider thumLabel tickInterval="1" min="0" max="100">{{item.level}}</mat-slider> -->
 					</mat-card-content>
 				</mat-card>
 			</div>
@@ -89,6 +90,7 @@
 				<mat-form-field>
 					<mat-label>Nivel</mat-label>
 					<input matInput [(ngModel)]="dialogData.level" type="number" placeholder="Nivel" required>
+					<!-- <mat-slider thumLabel tickInterval="1" min="0" max="100" [(ngModel)]="dialogData.level" name="level"></mat-slider> -->
 				</mat-form-field>
 			</mat-dialog-content>
 			<mat-dialog-actions>

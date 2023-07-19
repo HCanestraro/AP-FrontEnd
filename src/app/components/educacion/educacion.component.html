@@ -58,7 +58,7 @@
 			<!-- <table mat-table class="d-flex container-fluid flex-direction-column nowrap justify-content-center align-items-center"> -->
 			<div *ngFor="let item of datosArray  ; let i = index" [attr.data-index]="i">
 				<mat-card>
-					<mat-card-actions>
+					<mat-card-actions class="box1">
 						<button mat-icon-button (click)="openEditDialog(item)">
 							<mat-icon>edit</mat-icon>
 						</button>
@@ -71,7 +71,7 @@
 						<h4><b>Escuela: </b>{{item.escuela}}</h4>
 						<h4><b>Titulo: </b>{{item.titulo}}</h4>
 						<div class="d-flex container-fluid flex-direction-row justify-content-center align-items-center">
-							<h6>Imagen URL: {{item.imagen}}</h6>
+							<h4><b>Imagen URL: </b></h4><span>{{item.imagen}}</span>
 						</div>
 						<div class="d-flex justify-content-center align-items-center">
 							<img class="cheimg" src={{item.imagen}} alt="">

@@ -88,6 +88,20 @@
 			],
 			"skills": [
 				{
+					"description": "SoftSkills... Description..."
+				},
+				{
+					"description": "SoftSkills... Description..."
+				},
+				{
+					"description": "SoftSkills... Description..."
+				},
+				{
+					"description": "SoftSkills... Description..."
+				}
+			],
+			"softskills": [
+				{
 					"name": "HTML",
 					"urlImage": "https://drive.google.com/uc?export=download&id=1VvV5Ii5CwNs0E-GMHy0jjTcWiFFUODpM",
 					"level": "75"
@@ -116,20 +130,6 @@
 					"name": "Node.JS",
 					"urlImage": "https://drive.google.com/uc?export=download&id=16K-Sj2SNUbP81JGFl5EE20fJ6esGtD3t",
 					"level": "60"
-				}
-			],
-			"softskills": [
-				{
-					"description": "SoftSkills... Description..."
-				},
-				{
-					"description": "SoftSkills... Description..."
-				},
-				{
-					"description": "SoftSkills... Description..."
-				},
-				{
-					"description": "SoftSkills... Description..."
 				}
 			],
 			"proyectos": [
