@@ -1,7 +1,10 @@
 .navbar {
     flex-wrap: nowrap;
+    background-color: cornflowerblue;
+    height: fit-content;
 }
 .logointi{
+    justify-content: start;
     width: 150px;
     height: 40px;
 }

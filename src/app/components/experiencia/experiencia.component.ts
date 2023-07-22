@@ -1,12 +1,13 @@
+// -------------------------------- EXPERIENCIA.COMPONENT.TS --------------------------------------	
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { PortfolioService } from './../../services/portfolio.service';
+import { MatInputModule } from '@angular/material/input';
 import { FirebaseService } from 'src/app/services/firebase.service';
-import Swal from 'sweetalert2';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { Observable, map, take } from 'rxjs';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Iexperiencia } from 'src/app/interfaces/iexperiencia';
+
 @Component({
 	selector: 'app-experiencia',
 	templateUrl: './experiencia.component.html',
@@ -20,11 +21,6 @@ export class ExperienciaComponent implements OnInit {
 	logosave = "https://drive.google.com/uc?export=download&id=1QjXoDP0V0L7EHnjlfAx5bMFH2T-NbYU7";
 	logocancel = "https://drive.google.com/uc?export=download&id=1DnHtyYLt7LgH7Nl6HsIOfSh2CDjNiYAE";
 	logodelete = "https://drive.google.com/uc?export=download&id=1iW5i4HOltXKRwV0Q2qsJp6mrZvmFq0rw";
-	modoEdicion: boolean = false;
-	modoNuevoRegistro: boolean = false;
-	i!: number;
-	editID!: number;
-	dialogForm: FormGroup;
 	nombreColeccion = 'experiencia';
 	datosCollection!: AngularFirestoreCollection<any>;
 	datosArray!: any[];
@@ -32,17 +28,13 @@ export class ExperienciaComponent implements OnInit {
 	numRegistros!: number;
 
 	editMode = false;
+	dialogForm: FormGroup;
 	experienciaCollection: AngularFirestoreCollection<Iexperiencia>;
 
 	@ViewChild('dialogTemplate', { static: true }) dialogTemplate!: TemplateRef<any>;
-
 	experienciaItems: Observable<Iexperiencia[]>;
-	/*  = [
-		this.firestore.collection('educacion').valueChanges().subscribe(data => { this.Ieducacion = data; })
-	]; */
-
+	selectedExperiencia: any = {};
 	dialogData: Iexperiencia = {
-		id: '',
 		ubicacion: '',
 		puesto: '',
 		periodo: '',
@@ -56,18 +48,31 @@ export class ExperienciaComponent implements OnInit {
 		this.experienciaCollection = this.firestore.collection<Iexperiencia>('experiencia');
 		this.experienciaItems = this.experienciaCollection.valueChanges();
 		this.dialogForm = new FormGroup({
-			id: new FormControl('', Validators.required),
 			ubicacion: new FormControl(['', [Validators.required, Validators.minLength(2)]]),
 			puesto: new FormControl(['', [Validators.required, Validators.minLength(2)]]),
 			periodo: new FormControl(['', [Validators.required, Validators.minLength(2)]]),
 			empresa: new FormControl(['', [Validators.required, Validators.minLength(2)]]),
 			actividades: new FormControl(['', [Validators.required, Validators.minLength(2)]]),
-		})
+		});
+		this.datosCollection = this.firestore.collection(this.nombreColeccion);
+		this.datos = this.datosCollection.valueChanges();
+		this.getDatosArray();
+		this.getNumRegistros();
+		this.verificarYCrearMiColeccion();
+		console.log('DEBUG: EXPERIENCIA');
+	}
+	selectExperiencia(experiencia: any) {
+		console.log('DEBUG SELECTEXPERIENCIA LN65');
+		this.selectExperiencia = { ...experiencia };
+		console.log(this.selectedExperiencia.ubicacion);
+		console.log(this.selectedExperiencia.puesto);
+		console.log(this.selectedExperiencia.periodo);
+		console.log(this.selectedExperiencia.empresa);
+		console.log(this.selectedExperiencia.actividades);
 	}
 	openAddDialog(): void {
 		this.editMode = false;
 		this.dialogData = {
-			id: '',
 			ubicacion: '',
 			puesto: '',
 			periodo: '',
@@ -87,6 +92,7 @@ export class ExperienciaComponent implements OnInit {
 
 		});
 	}
+	
 	saveItem(): void {
 		if (this.editMode) {
 			// Guardar cambios
@@ -103,11 +109,8 @@ export class ExperienciaComponent implements OnInit {
 		this.firebaseService.deleteRecord('experiencia', item);/* .delete(); */
 	}
 	verificarYCrearMiColeccion(): void {
-		const id1 = this.firestore.createId();
-		const nombreColeccion = 'experiencia';
-		this.firebaseService.verificarYCrearColeccion(nombreColeccion,
+		this.firebaseService.verificarYCrearColeccion(this.nombreColeccion,
 			{
-				id: id1,
 				ubicacion: '',
 				puesto: '',
 				periodo: '',

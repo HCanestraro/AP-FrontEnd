@@ -29,7 +29,7 @@ export class NavbarComponent implements OnInit {
 		private firestore: AngularFirestore) { }
 
 	ngOnInit(): void {
-		console.log("DEBUG: NATBAR, ruta activa:", this.router.url);
+		console.log("DEBUG: NATBAR, ruta activa -ln32-:", this.router.url);
 		this.afAuth.onAuthStateChanged((user) => {
 
 			if (user) {
@@ -44,6 +44,7 @@ export class NavbarComponent implements OnInit {
 					// .pipe( map( (userData) => userData?.profileImage));
 					.pipe(map((userData) => userData?.displayName));
 				this.usuarioLogueado = true;
+				this.router.navigate(['/portfolio']);
 				// alert('USUARIO LOGUEADO:' + this.usuarioLogueado + ' Alias: ' + this.userAlias);
 			} else {
 				this.usuarioLogueado=false;
@@ -84,20 +85,23 @@ export class NavbarComponent implements OnInit {
 
 	login() {
 		this.router.navigate(['/login']);
+		console.log('DEBUG: NATBAR -ln88-');
+		
 	}
 	registrarse() {
 		this.router.navigate(['/register']);
+		console.log('DEBUG: NATBAR -ln93-');
 	}
 	logout() {
 		this.afAuth.signOut()
 			.then(() => {
-				console.log('Cierre de sesión exitoso');
+				console.log('Cierre de sesión exitoso -ln95-');
 				this.loginActive = true;
 				this.registerActive = false;
 				this.portfolioActive = false;
 				this.pageNotFoundActive = false;
 				this.router.navigate(['/login']);
-				console.log('Ruta activa:',this.router.url);
+				console.log('Ruta activa -ln100-:',this.router.url);
 				
 				this.usuarioLogueado = false;
 				// this.userAlias = '';

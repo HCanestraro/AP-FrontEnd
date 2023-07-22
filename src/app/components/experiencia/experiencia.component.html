@@ -1,85 +1,38 @@
-<!--------------- EXPERIENCIA --------------->
-<div class="container shadow bg-info col-12">
-	<div class="row mt-5 col-10">
-		<h5 class="text-center p-1 bg-dark text-light rounded border p-2">EXPERIENCIA</h5>
-	</div>
-	<div class="justify-content-center p-2">
-
-		<div *ngIf="modoNuevoRegistro === false">
+<!--------------- EXPERIENCIA MAT-CARD	 --------------->
+<section class="card mat-card mx-auto chec" id="experiencia" style="margin: 10px;">
+	<div class="container shadow">
+		<div class="row">
+			<h5 class="text-center p-1 bg-dark text-light rounded border p-2">EXPERIENCIA</h5>
+		</div>
+		<div class="justify-content-center p-2">
 			<div class="d-flex justify-content-center mb-4 m-4">
 				<button mat-raised-button (click)="openAddDialog()"
 					class="btn btn-sm btn-green border shadow m-1 text-center text-light fw-bold">
-					<span><img src={{logoadd}} alt="editar" class="logo-sm mt-1 bg-white rounded-circle" />AGREGAR
+					<span><img src={{logoadd}} alt="editar" class="chelogo-sm mt-1 bg-white rounded-circle" />AGREGAR
 						EXPERIENCIA</span>
 				</button>
 			</div>
-		</div>
 
-		<div *ngFor="let item of datosArray  ; let i = index" [attr.data-index]="i">
-			<div class="d-flex justify-content-center mb-4 m-4">
-				<div class="border rounded p-2 col-md-8 col-12 bg-white shadow-lg mb-4">
-
-					<div class="d-flex justify-content-end">
-						<div class="p-1">
-							<button class="btn p-0 m-1" mat-icon-button (click)="openEditDialog(item)">
-								<mat-icon>edit</mat-icon>
+			<div *ngFor="let item of datosArray  ; let i = index" [attr.data-index]="i">
+				<mat-card (click)="selectExperiencia(item)">
+					<mat-card-actions>
+						<div class="align-items-end box1">
+							<button (click)="openEditDialog(item)">
+								<img src={{logopencil}} alt="editar" class="chelogo mt-1" />
 							</button>
-							<button class="btn p-0 m-1" mat-icon-button (click)="deleteItem(item.id)">
-								<mat-icon>delete</mat-icon>
+							<button (click)="deleteItem(item.id)">
+								<img src={{logodelete}} alt="Eliminar" class="chelogo mt-1" />
 							</button>
 						</div>
-					</div>
-					<!-- <div class="row justify-content-center box1 align-items-center p-1"> -->
-					<h4>Ubicación: {{item.ubicacion}}</h4>
-					<h4>Puesto: {{item.puesto}}</h4>
-					<h4>Periodo: {{item.periodo}}</h4>
-					<h4>Empresa: {{item.empresa}}</h4>
-					<h4>Actividades: {{item.actividades}}</h4>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<section class="card mat-card mx-auto" id="experiencia">
-	<div class="container shadow bg-info col-12">
-		<div class="row mt-5">
-			<h5 class="text-center p-1 bg-dark text-light rounded border p-2">EXPERIENCIA MAT-CARD</h5>
-		</div>
-		<div class="d-flex justify-content-center mb-4 m-4">
-			<button mat-raised-button (click)="openAddDialog()"
-				class="btn btn-sm btn-green border shadow m-1 text-center text-light fw-bold">
-				<span><img src={{logoadd}} alt="editar" class="logo-sm mt-1 bg-white rounded-circle" />AGREGAR
-					EXPERIENCIA</span>
-			</button>
-		</div>
-		<!-- <button mat-raised-button (click)="openAddDialog()">Añadir</button> -->
-		<div class="justify-content-center p-2">
-			<!-- <table mat-table class="d-flex container-fluid flex-direction-column nowrap justify-content-center align-items-center"> -->
-			<div *ngFor="let item of datosArray  ; let i = index" [attr.data-index]="i">
-				<!-- <div class="d-flex justify-content-center mb-4 m-4"> -->
-					<!-- <div class="border rounded p-2 col-md-8 col-12 bg-white shadow-lg mb-4"> -->
-						<!-- <div class="d-flex justify-content-end border shadow"> -->
-				<mat-card>
-					<mat-card-actions>
-							<button mat-icon-button (click)="openEditDialog(item)">
-								<mat-icon>edit</mat-icon>
-							</button>
-							<button mat-icon-button (click)="deleteItem(item.id)">
-								<mat-icon>delete</mat-icon>
-							</button>
-						</mat-card-actions>
-						<!-- </div> -->
-						<mat-card-content>
-						<h4>#:{{ item.id }}</h4>
-						<h4>Ubicación: {{item.ubicacion}}</h4>
-						<h4>Puesto: {{item.puesto}}</h4>
-						<h4>Periodo: {{item.periodo}}</h4>
-						<h4>Empresa: {{item.empresa}}</h4>
-						<h4>Actividades: {{item.actividades}}</h4>
+					</mat-card-actions>
+					<mat-card-content>
+						<h4><b>Ubicación: </b>{{item.ubicacion}}</h4>
+						<h4><b>Puesto: </b>{{item.puesto}}</h4>
+						<h4><b>Periodo: </b>{{item.periodo}}</h4>
+						<h4><b>Empresa: </b>{{item.empresa}}</h4>
+						<h4><b>Actividades: </b>{{item.actividades}}</h4>
 					</mat-card-content>
-					</mat-card>
-					<!-- </div> -->
-				<!-- </div> -->
+				</mat-card>
 			</div>
 		</div>
 	</div>

@@ -1,11 +1,17 @@
+// ------------------------------------ EDUCACION.COMPONENT.TS ------------------------------------
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { MatInputModule } from '@angular/material/input';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FirebaseService } from './../../services/firebase.service';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
+import { AngularFireStorage  } from '@angular/fire/compat/storage';
+// import {  put } from "firebase/storage";
+import { finalize } from 'rxjs/operators';
+import { ConfirmationDialogComponent } from './../../components/confirmation-dialog/confirmation-dialog.component';
+
 import { Observable, map } from 'rxjs';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Ieducacion } from './../../interfaces/ieducacion';
+import { getDownloadURL, getStorage, ref } from '@angular/fire/storage/firebase';
 
 @Component({
 	selector: 'app-educacion',
@@ -26,16 +32,15 @@ export class EducacionComponent implements OnInit {
 	datosArray!: any[];
 	datos: Observable<Ieducacion[]>;
 	numRegistros!: number;
-
+	// GPT
 	editMode = false;
 	dialogForm: FormGroup;
-	educacionCollection: AngularFirestoreCollection<Ieducacion>;
-
 	@ViewChild('dialogTemplate', { static: true }) dialogTemplate!: TemplateRef<any>;
 	educacionItems: Observable<Ieducacion[]>;
 
+	educacionCollection: AngularFirestoreCollection<Ieducacion>;
+
 	dialogData: Ieducacion = {
-		id: '',
 		escuela: '',
 		titulo: '',
 		imagen: '',
@@ -45,44 +50,78 @@ export class EducacionComponent implements OnInit {
 		fin: ''
 	};
 
-
-	modoNuevoRegistro: boolean = false;
 	isEditing: boolean = false;
-	// miColeccionService = new FirestoreService(COLLECTION_NAME,'skills');
 	items!: any[];
 	modoEdicion: boolean = false;
 	editID!: number;
 	selectedEducacion: any = {};
 	educacion!: Observable<any[]>;
-	//elementos: Ieducacion[] = []; // Cambio de "elemento" a "elementos"
+	id: any;
+	//------------------------------
+	selectedImage: File | null = null;
+	downloadURL: String | null = null;
 
-	//elementoSeleccionado: Ieducacion | null = null;
-
-	constructor(private firebaseService: FirebaseService,
+	constructor(
+		private firebaseService: FirebaseService,
 		public firestore: AngularFirestore,
+		private storage: AngularFireStorage, 
 		private dialog: MatDialog) {
-		this.educacionCollection = this.firestore.collection<Ieducacion>('educacion');
-		this.educacionItems = this.educacionCollection.valueChanges();
-		this.dialogForm = new FormGroup({
-			id: new FormControl('', Validators.required),
-			escuela: new FormControl('', Validators.required),
-			titulo: new FormControl('', Validators.required),
-			imagen: new FormControl('', Validators.required),
-			carrera: new FormControl('', Validators.required),
-			puntaje: new FormControl('', Validators.required),
-			inicio: new FormControl('', Validators.required),
-			fin: new FormControl('', Validators.required)
-		});
-		this.datosCollection = this.firestore.collection(this.nombreColeccion);
-		this.datos = this.datosCollection.valueChanges();
-		this.getDatosArray();
-		this.getNumRegistros();
-		this.verificarYCrearMiColeccion();
-		console.log('DEBUG: Educacion');
-	}
+			this.educacionCollection = this.firestore.collection<Ieducacion>('educacion');
+			this.educacionItems = this.educacionCollection.valueChanges();
+			this.dialogForm = new FormGroup({
+				escuela: new FormControl('', Validators.required),
+				titulo: new FormControl('', Validators.required),
+				imagen: new FormControl('', Validators.required),
+				carrera: new FormControl('', Validators.required),
+				puntaje: new FormControl('', Validators.required),
+				inicio: new FormControl('', Validators.required),
+				fin: new FormControl('', Validators.required)
+			});
+			this.datosCollection = this.firestore.collection(this.nombreColeccion);
+			this.datos = this.datosCollection.valueChanges();
+			this.getDatosArray();
+			this.getNumRegistros();
+			this.verificarYCrearMiColeccion();
+			console.log('DEBUG: Educacion -LN82-');
+		}
+	ngOnInit(): void {
+			console.log('DEBUG: Educacion -LN85-', this.nombreColeccion);
+			this.verificarYCrearMiColeccion();
+			this.datosCollection = this.firestore.collection(this.nombreColeccion);
+			this.datos = this.datosCollection.valueChanges();
+			this.educacionCollection = this.firestore.collection<any>(this.nombreColeccion);
+			this.educacion = this.educacionCollection.snapshotChanges().pipe(map(actions => actions.map(a => ({ id: a.payload.doc.id, ...a.payload.doc.data() }))));
+			
+		}
 
+		selectEducacion(educacion: any) {
+			console.log('LN94');
+			this.selectedEducacion = { ...educacion };
+			console.log({ ...educacion });
+		}
+		onFileSelected(event: any) {
+			const file: File = event.target.files[0];
+			if (file) {
+				this.selectedImage = file;
+					const filePath = `educacion/${this.selectedImage.name}`;
+					const fileRef = this.storage.ref(filePath);
+					const task = this.storage.upload(filePath, file);
+	
+					task.snapshotChanges()
+						.pipe(
+							finalize(() => {
+								fileRef.getDownloadURL().subscribe(url => {
+									this.downloadURL = url;
+								});
+							})
+						)
+						.subscribe();
+			}
+			this.selectedImage = file;
+		}
+	
 	readDocument(documentId: string) {
-		this.firestore.collection('educacion').doc(documentId).snapshotChanges().subscribe(snapshot => {
+		this.firestore.collection(this.nombreColeccion).doc(documentId).snapshotChanges().subscribe(snapshot => {
 		  const data = snapshot.payload.data();
 		  const id = snapshot.payload.id;
 	  
@@ -95,10 +134,10 @@ export class EducacionComponent implements OnInit {
 
 	openAddDialog(): void {
 		this.editMode = false;
-		const id1 = this.firestore.createId();
+		// const id1 = this.firestore.createId();
 
 		this.dialogData = {
-			id: id1,
+			// id: id1,
 			escuela: '',
 			titulo: '',
 			imagen: '',
@@ -117,64 +156,41 @@ export class EducacionComponent implements OnInit {
 	openDialog(): void {
 		const dialogRef = this.dialog.open(this.dialogTemplate);
 		dialogRef.afterClosed().subscribe(() => {
-
+			const productName: any = this.downloadURL;
+			this.dialogData.imagen = this.downloadURL ?? productName ;
 		});
 	}
+	
 	saveItem(): void {
 		if (this.editMode) {
 			// Guardar cambios
+			const productName: any = this.downloadURL;
+			const name: string = productName ?? this.downloadURL;
+			this.dialogData.imagen = name;
 			this.educacionCollection.doc().update(this.dialogData);
 		} else {
 			// Añadir nuevo elemento
+			const productName: any = this.downloadURL;
+			this.dialogData.imagen = this.downloadURL ?? productName ;
 			this.educacionCollection.add(this.dialogData);
 		}
 		// Cerrar el diálogo después de guardar
 		this.dialog.closeAll();
 	}
-	deleteItem(id: string): Promise<void> {
+	deleteItem(item: any): void {
 		// Eliminar el elemento de la colección en Firebase
-		// const idd = this.educacionCollection.doc().get();
-		return this.educacionCollection.doc(id).delete();
+		const dialogRef = this.dialog.open(ConfirmationDialogComponent);
+		dialogRef.afterClosed().subscribe((result) => {
+			if(result === 'confirm') {
+				this.firebaseService.deleteRecord(this.nombreColeccion,item); 
+			}
+		});
 	}
 
-	ngOnInit(): void {
-		console.log('DEBUG: Educacion', this.nombreColeccion);
-		this.verificarYCrearMiColeccion();
-		this.datosCollection = this.firestore.collection(this.nombreColeccion);
-		this.datos = this.datosCollection.valueChanges();
-		this.educacionCollection = this.firestore.collection<any>(this.nombreColeccion);
-		this.educacion = this.educacionCollection.snapshotChanges().pipe(map(actions => actions.map(a => ({ id: a.payload.doc.id, ...a.payload.doc.data() }))));
-		// this.firebaseService.cargarDatosEnFirebase('educacion',this.educacionList);
-		// this.getDatosArray();
-		// this.experienciaList=this.firebase.getDatosArray('experiencia');
-		// this.educacionService.getElementos().subscribe(elementos => {
-		// 	this.elementos = elementos;
-		// });
-		// this.logopencil = this.obtenerURLArchivo('logoPencil.png');/* .__zone_symbol__value */
-		// console.log('pen',this.logopencil);
-		// this.logoadd = this.cheDownloadStorage('logoAdd.png');
-		// this.logoedu = this.cheDownloadStorage('logoEdu.png');
-		// this.logosave = this.cheDownloadStorage('logoSave.png');
-		// this.logocancel = this.cheDownloadStorage('logoCancel.png');
-		// this.logodelete = this.cheDownloadStorage('logoDelete.png');
-	}
-	// obtenerURLArchivo(nombreArchivo: string): Observable<string> {
-	// 	const referencia = this.storage.ref(nombreArchivo);
-	// 	return referencia.getDownloadURL();
-	//   }
-	// cheDownloadStorage(fileName: string) {
-	// 	const ref = this.storage.ref(fileName);
-	// 	ref.getDownloadURL().subscribe( url => {
-	// 		console.log('file:',fileName,' ',url);
-	// 		const fURL= url;
-	// 		return fURL;
-	// 	});
-	// }
+
 
 	verificarYCrearMiColeccion(): void {
-		const id1 = this.firestore.createId();
 		this.firebaseService.verificarYCrearColeccion(this.nombreColeccion, {
-			id: id1,
 			escuela: 'Escuela',
 			titulo: 'Titulo',
 			imagen: '',
@@ -194,18 +210,8 @@ export class EducacionComponent implements OnInit {
 					return { id, ...data };
 				});
 			})
-			// ).subscribe((array: any[] | { [s: string]: unknown; } | ArrayLike<unknown>) => {
 		).subscribe((array) => {
-
 			this.datosArray = array;
-			// console.log('DEBUG: getDatosArray', this.datosArray);
-			// this.escuela = this.datosArray[0].escuela;
-			// this.titulo = this.datosArray[0].titulo;
-			// this.imagen = this.datosArray[0].imagen;
-			// this.carrera = this.datosArray[0].carrera;
-			// this.puntaje = this.datosArray[0].puntaje;
-			// this.inicio = this.datosArray[0].inicio;
-			// this.fin = this.datosArray[0].fin;
 			console.log('DEBUG EDUCACIÓN datosArray tipo:', typeof (this.datosArray), Object.entries(array));
 			console.log('DEBUG EDUCACIÓN: getDatosArray', this.datosArray, ' length: ', this.datosArray.length);
 		})
@@ -215,92 +221,21 @@ export class EducacionComponent implements OnInit {
 			this.numRegistros = snapshot.size;
 		});
 	}
-	modoReg(estado: boolean) {
-		this.modoNuevoRegistro = estado;
-	}
-	// obtenerElementos(): void {
-	// 	this.educacionService.getElementos().subscribe(elementos => {
-	// 		this.elementos = elementos;
-	// 	});
-	// }
 
-	/* agregarElemento(): void {
-		this.educacionService.crearElemento(this.formulario).then(() => {
-			this.formulario = {
-				escuela: '',
-				titulo: '',
-				imagen: '',
-				carrera: '',
-				puntaje: 100,
-				inicio: '',
-				fin: ''
-			};
-		});
-	} */
-
-	/* editarElemento(elementos: Ieducacion): void {
-		console.log('editar elem');
-		
-		this.elementoSeleccionado = elementos;
-		this.formulario = { ...elementos };
-	  } */
-
-	/* guardarEdicion(): void {
-		console.log('guardar edicion');
-		
-		if (this.elementoSeleccionado && this.elementoSeleccionado.id !== undefined) {
-			const id: string = this.elementoSeleccionado.id;
-			this.educacionService.actualizarElemento(id, this.formulario).then(() => {
-				this.cancelarEdicion();
-			});
-		}
-	} */
-	/* guardarElemento(): void {
-		if (this.elemento.id) {
-		  // Actualizar elemento existente
-		  this.educacionService.actualizarElemento(this.elemento.id, this.elemento);
-		} else {
-		  // Crear nuevo elemento
-		  this.educacionService.crearElemento(this.elemento);
-		}
-		this.cerrarFormulario();
-	  } */
-
-	/*  cerrarFormulario(): void {
-	   this.elemento = {
-		 escuela: '',
-		 titulo: '',
-		 imagen: '',
-		 carrera: '',
-		 puntaje: 100,
-		 inicio: '',
-		 fin: ''
-	   };
-	 } */
-
-
-	/* 	cancelarEdicion(): void {
-			this.elementoSeleccionado = null;
-			this.formulario = {
-				escuela: '',
-				titulo: '',
-				imagen: '',
-				carrera: '',
-				puntaje: 100,
-				inicio: '',
-				fin: ''
-			};
-		} */
-
-	/* eliminarElemento(id?: string): void {
-		if (id) {
-			this.educacionService.eliminarElemento(id);
-		}
-	} */
-
-
-	/* cerrarEdicion(): void {
-		this.elementoSeleccionado = null;
-		this.formulario = { escuela: '', titulo: '', imagen: '', carrera: '', puntaje: 100, inicio: '', fin: '' };
-	} */
 }
+
+
+function put(storageRef: any, file: any) {
+	throw new Error('Function not implemented.');
+}
+/* @Component({
+	selector: 'app-confirmation-dialog',
+	template: `
+	<h2>¿Está seguro de que desea eliminar?</h2>
+	<button (click)="dialogRef.close('cancel')">Cancelar</button>
+	<button (click)="dialogRef.close('confirm')">Eliminar</button>
+	`,
+})
+export class ConfirmationDialogComponent {
+	constructor(public dialogRef: MatDialogRef<ConfirmationDialogComponent>) {}
+} */

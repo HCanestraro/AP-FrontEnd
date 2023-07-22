@@ -1,0 +1,9 @@
+<mat-card>
+    <mat-card-header>
+        <h2>¿Está seguro de que desea eliminar?</h2>
+    </mat-card-header>
+    <mat-card-footer>
+        <button (click)="dialogRef.close('cancel')">Cancelar</button>
+        <button (click)="dialogRef.close('confirm')">Eliminar</button>
+    </mat-card-footer>
+</mat-card>

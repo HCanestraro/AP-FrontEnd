@@ -1,76 +1,34 @@
-<!--------------- EDUCACIÓN --------------->
-<!-- <div class="container shadow bg-info">
-	<div class="row mt-5">
-		<h5 class="text-center p-1 bg-dark text-light rounded border p-2">EDUCACIÓN</h5>
-	</div>
-	<div class="justify-content-center p-2">
-		<div *ngIf="modoNuevoRegistro === false">
-			<div class="d-flex justify-content-center mb-4 m-4">
-				<button mat-raised-button (click)="openAddDialog()"
-					class="btn btn-sm btn-green border shadow m-1 text-center text-light fw-bold">
-					<span><img src={{logoadd}} alt="editar" class="chelogo mt-1 bg-white rounded-circle" />AGREGAR
-						EDUCACIÓN</span>
-				</button>
-			</div>
-		</div>
-		<div *ngFor="let item of datosArray  ; let i = index" [attr.data-index]="i">
-			<mat-card>
-				<mat-card-actions>
-					<button mat-icon-button (click)="openEditDialog(item)">
-						<mat-icon>edit</mat-icon>
-					</button>
-					<button mat-icon-button (click)="deleteItem(item.id)">
-						<mat-icon>delete</mat-icon>
-					</button>
-				</mat-card-actions>
-				<mat-card-content>
-					<h4><b>Id: </b>{{item.id}}</h4>
-					<h4><b>Escuela: </b>{{item.escuela}}</h4>
-					<h4><b>Titulo: </b>{{item.titulo}}</h4>
-					<div class="d-flex container-fluid flex-direction-column justify-content-center align-items-center">
-						<h4>Imagen URL: {{item.imagen}}</h4>
-					</div>
-					<img class="cheimg border" src={{item.imagen}} alt="">
-					<h4><b>Carrera: </b>{{item.carrera}}</h4>
-					<h4><b>Puntaje: </b>{{item.puntaje}}</h4>
-					<h4><b>Inicio: </b>{{item.inicio}}</h4>
-					<h4><b>Fin: </b>{{item.fin}}</h4>
-				</mat-card-content>
-			</mat-card>
-		</div>
-	</div>
-</div>
- -->
 <!--------------- EDUCACIÓN MAT-CARD --------------->
-<section class="card mat-card mx-auto" id="educacion">
+<section class="card mat-card mx-auto chec" id="educacion" style="margin: 10px;">
 	<div class="container shadow bg-info">
-		<div class="row mt-5">
-			<h5 class="text-center p-1 bg-dark text-light rounded border p-2">EDUCACIÓN MAT-CARD</h5>
+		<div class="row">
+			<h5 class="text-center p-1 bg-dark text-light rounded p-2">EDUCACIÓN MAT-CARD</h5>
 		</div>
 		<div class="justify-content-center p-2">
 			<div class="d-flex justify-content-center mb-4 m-4">
 				<button mat-raised-button (click)="openAddDialog()"
 					class="btn btn-sm btn-green border shadow m-1 text-center text-light fw-bold">
-					<span><img src={{logoadd}} alt="editar" class="chelogo mt-1 bg-white rounded-circle" />AGREGAR
+					<span><img src={{logoadd}} alt="editar" class="chelogo-sm mt-1 bg-white rounded-circle" />AGREGAR
 						EDUCACIÓN</span>
 				</button>
 			</div>
-			<!-- <table mat-table class="d-flex container-fluid flex-direction-column nowrap justify-content-center align-items-center"> -->
 			<div *ngFor="let item of datosArray  ; let i = index" [attr.data-index]="i">
-				<mat-card>
-					<mat-card-actions class="box1">
-						<button mat-icon-button (click)="openEditDialog(item)">
-							<mat-icon>edit</mat-icon>
+				<mat-card (click)="selectEducacion(item)">
+					<mat-card-actions>
+						<div class="align-items-end box1">
+						<button (click)="openEditDialog(item)">
+							<img src={{logopencil}} class="chelogo" alt="">
 						</button>
-						<button mat-icon-button (click)="deleteItem(item.id)">
-							<mat-icon>delete</mat-icon>
+							<button (click)="deleteItem(item.id)">
+								<img src={{logodelete}} class="chelogo" alt="">
 						</button>
+					</div>
 					</mat-card-actions>
 					<mat-card-content class="align-items-center justify-content-center">
-						<h4><b>Id: </b>{{item.id}}</h4>
 						<h4><b>Escuela: </b>{{item.escuela}}</h4>
 						<h4><b>Titulo: </b>{{item.titulo}}</h4>
-						<div class="d-flex container-fluid flex-direction-row justify-content-center align-items-center">
+						<div
+							class="d-flex container-fluid flex-direction-row justify-content-center align-items-center">
 							<h4><b>Imagen URL: </b></h4><span>{{item.imagen}}</span>
 						</div>
 						<div class="d-flex justify-content-center align-items-center">
@@ -93,12 +51,13 @@
 				</mat-form-field>
 				<mat-form-field>
 					<mat-label>Titulo</mat-label>
-					<input matInput [(ngModel)]="dialogData.titulo" placeholder="Titulo" required>
+					<input  [(ngModel)]="dialogData.titulo" (change)="onFileSelected($event)"  placeholder="Titulo" required>
 				</mat-form-field>
-				<mat-form-field>
 					<mat-label>URL de la imagen</mat-label>
-					<input matInput [(ngModel)]="dialogData.imagen" placeholder="Imagen" required>
-				</mat-form-field>
+					<input type="file" [(ngModel)]="dialogData.imagen" placeholder="Imagen" id="file" name="file" required>
+					<ng-container *ngIf="downloadURL">
+						<img [src]="downloadURL" alt="Preview" class="preview-image">
+					</ng-container>
 				<mat-form-field>
 					<mat-label>Carrera</mat-label>
 					<input matInput [(ngModel)]="dialogData.carrera" placeholder="Carrera" required>
@@ -121,191 +80,8 @@
 				<button mat-button (click)="saveItem()">Guardar</button> <!-- [disabled]="!dialogForm.valid" -->
 			</mat-dialog-actions>
 		</ng-template>
+
+		
 	</div>
 </section>
-
-<!-- <div class="row"> -->
-<!-- Education -->
-<!-- <div class="shadow" id="educacion">
-			<div class="title-button">
-				 <h3 class="content-title">Educación</h3> 
-				<h3 class="chebox">Educación</h3>
-				<i class="fa-solid fa-plus" data-bs-toggle="modal" data-bs-target="#addeducation"></i>
-			</div>
-			<div class="row">
-				<div class="timeline-box">
-					<div class="timeline"> -->
-<!-- timeline items -->
-<!-- 			<li class="timeline-item" *ngFor="let item of datosArray">
-							<i class="timeline-icon fa-solid fa-graduation-cap"></i>
-							<h5 class="timeline-date">
-								<i class="fa-regular fa-calendar"></i>
-								{{item.inicio}}
-							</h5>
-							<p>Escuela: {{item.escuela}}</p>
-							<p>Titulo: {{item.titulo}}</p>
-							<p>Imagen URL: {{item.imagen}}</p>
-							<img src={{item.imagen}} alt="">
-							<p>Carrera: {{item.carrera}}</p>
-							<p>Puntaje: {{item.puntaje}}</p>
-							<p>Inicio: {{item.inicio}}</p>
-							<p>Fin: {{item.fin}}</p>
-							<div class="title-button">
-								<h5 class="timeline-title">{{item.carrera}}</h5>
-								<div class="d-block">
-									<span style="padding-right: 5px;"><i class="fa-solid fa-edit" data-bs-toggle="modal"
-											data-bs-target="#editeducation"></i></span>
-									<span style="padding-right: 5px;"><i class="fa-solid fa-trash"
-											data-bs-toggle="modal" data-bs-target="#eliminar"></i></span>
-								</div>
-							</div>
-							<p class="timeline-text">{{item.titulo}}</p>
-						</li>
-					</div>
-				</div>
-			</div>
-		</div> -->
-
-
-<!-- <div class="modal fade" id="editeducation" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-			aria-labelledby="staticBackdropLabel" aria-hidden="true">
-			<div class="modal-dialog modal-lg">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="staticBackdropLabel">Modificar educación</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-					<div class="modal-body">
-						<form>
-							<div class="mb-3">
-								<label for="nameImput" class="form-label">Escuela</label>
-								<input class="form-control" type="text"
-									placeholder="Escriba la escuela donde lo consiguió"
-									aria-label="Escriba la escuela donde lo consiguió">
-							</div>
-							<div class="mb-3">
-								<label for="nameImput" class="form-label">Título</label>
-								<input class="form-control" type="text" placeholder="Escriba título conseguido"
-									aria-label="Escriba título conseguido">
-							</div>
-							<div class="mb-3">
-								<label for="nameImput" class="form-label">Imagen URL</label>
-								<input class="form-control" type="text" placeholder="Escriba URL de la imagen"
-									aria-label="Escriba URL de la imagen">
-							</div>
-							<div class="mb-3">
-								<label for="nameImput" class="form-label">Carrera</label>
-								<input class="form-control" type="text" placeholder="Escriba "
-									aria-label="Escriba ">
-							</div>
-							<div class="mb-3">
-								<label for="nameImput" class="form-label">Puntaje</label>
-								<input class="form-control" type="text" placeholder="Escriba "
-									aria-label="Escriba ">
-							</div>
-							<div class="mb-3">
-								<label for="nameImput" class="form-label">Inicio</label>
-								<input class="form-control" type="text" placeholder="Escriba "
-									aria-label="Escriba ">
-							</div>
-							<div class="mb-3">
-								<label for="nameImput" class="form-label">Fin</label>
-								<input class="form-control" type="text" placeholder="Escriba "
-									aria-label="Escriba ">
-							</div>
-		 --> <!-- <div class="mb-3">
-            <label for="exampleFormControlTextarea1" class="form-label">¿Otra información que quiera agregar?</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-          </div> -->
-<!-- 					
-							<button type="button" class="btn btn-outline-primary"
-								data-bs-dismiss="modal">Cancelar</button>
-							<button type="submit" class="btn btn-primary ms-2">Guardar cambios</button>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="modal fade" id="addeducation" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-			aria-labelledby="staticBackdropLabel" aria-hidden="true">
-			<div class="modal-dialog modal-lg">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="staticBackdropLabel">Añadir educación</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-					<div class="modal-body">
-						<form>
-							<div class="mb-3">
-								<label for="nameImput" class="form-label">Escuela</label>
-								<input class="form-control" type="text"
-									placeholder="Escriba la escuela donde lo consiguió"
-									aria-label="Escriba la escuela donde lo consiguió">
-							</div>
-							<div class="mb-3">
-								<label for="nameImput" class="form-label">Título</label>
-								<input class="form-control" type="text" placeholder="Escriba título conseguido"
-									aria-label="Escriba título conseguido">
-							</div>
-							<div class="mb-3">
-								<label for="nameImput" class="form-label">Imagen URL</label>
-								<input class="form-control" type="text" placeholder="Escriba URL de la imagen"
-									aria-label="Escriba URL de la imagen">
-							</div>
-							<div class="mb-3">
-								<label for="nameImput" class="form-label">Carrera</label>
-								<input class="form-control" type="text" placeholder="Escriba "
-									aria-label="Escriba ">
-							</div>
-							<div class="mb-3">
-								<label for="nameImput" class="form-label">Puntaje</label>
-								<input class="form-control" type="text" placeholder="Escriba "
-									aria-label="Escriba ">
-							</div>
-							<div class="mb-3">
-								<label for="nameImput" class="form-label">Inicio</label>
-								<input class="form-control" type="text" placeholder="Escriba "
-									aria-label="Escriba ">
-							</div>
-							<div class="mb-3">
-								<label for="nameImput" class="form-label">Fin</label>
-								<input class="form-control" type="text" placeholder="Escriba "
-									aria-label="Escriba ">
-							</div>
-							
-		 --> <!-- <div class="mb-3">
-								<label for="exampleFormControlTextarea1" class="form-label">¿Otra información que quiera
-									agregar?</label>
-								<textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-							</div> -->
-<!-- 					
-							<button type="button" class="btn btn-outline-primary"
-								data-bs-dismiss="modal">Cancelar</button>
-							<button type="submit" class="btn btn-primary ms-2">Guardar cambios</button>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-
-
-		Modal 
-		<div class="modal fade" id="eliminar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Eliminar elemento</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-					<div class="modal-body">
-						¿Seguro que querés eliminar este elemento?
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-						<button type="button" class="btn btn-primary">Eliminar</button>
-					</div>
-				</div>
-			</div>
-		</div> -->
-<!-- END Educación-->
+<!-- END Educacón-->

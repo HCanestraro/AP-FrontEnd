@@ -21,65 +21,63 @@ export class SkillsComponent implements OnInit {
 	logocancel="https://drive.google.com/uc?export=download&id=1DnHtyYLt7LgH7Nl6HsIOfSh2CDjNiYAE";
 	logodelete="https://drive.google.com/uc?export=download&id=1iW5i4HOltXKRwV0Q2qsJp6mrZvmFq0rw";
 	logoSkill = "https://drive.google.com/uc?export=download&id=1XApdWSnN7YZC0Y5B0IybEyefUZ10wTuu";
-	nombreColeccion = 'skills';
-	datosCollection!: AngularFirestoreCollection<any>;
-	datosArray!: any[];
 	datos: Observable<Iskills[]>;
-	numRegistros!: number;
-	// GPT
-	editMode = false;
+	datosArray!: any[];
+	datosCollection!: AngularFirestoreCollection<any>;
 	dialogForm: FormGroup;
-	// skillsCollection: AngularFirestoreCollection<Iskills>;
-	@ViewChild('dialogTemplate', { static: true }) dialogTemplate!: TemplateRef<any>;
-	skillsItems: Observable<Iskills[]>;
-
 	dialogData: Iskills = {
-		id: '',
 		descripcion: '',
-		urlImagen: ''
+		urlImagen:''
 	};
 
+	downloadURL: String | null = null;
+	editMode = false;
+
 	isEditing: boolean = false;
-	// miColeccionService = new FirestoreService(COLLECTION_NAME,'skills');
 	items!: any[];
+	nombreColeccion = 'skills';
+	numRegistros!: number;
+
+	selectedImage: File | null = null;
+	skillsCollection: AngularFirestoreCollection<any>;
+	skillsItems: Observable<Iskills[]>;
+	
+
 	mySkills: any;
 	modoEdicion: boolean = false;
 	modoNuevoRegistro: boolean = false;
 	i!: number;
 	editID!: number;
-//------------------------------
-skillsCollection: AngularFirestoreCollection<any>;
-skills!: Observable<any[]>;
-selectedSkill: any = {};
-selectedImage: File | null = null;
-downloadURL: string | null = null;
+	//------------------------------
+	skills!: Observable<any[]>;
+	selectedSkill: any = {};
+	@ViewChild('dialogTemplate', { static: true }) dialogTemplate!: TemplateRef<any>;
 
-	constructor(private firebaseService: FirebaseService, 
+	constructor(
+		private firebaseService: FirebaseService, 
 		private firestore: AngularFirestore,
 		private storage: AngularFireStorage, 
 		private dialog: MatDialog) {
-			this.skillsCollection = this.firestore.collection<Iskills>('skills');
+			this.skillsCollection = this.firestore.collection<Iskills>(this.nombreColeccion);
 			this.skillsItems = this.skillsCollection.valueChanges();
 			this.dialogForm = new FormGroup({
-				id: new FormControl('', Validators.required),
 				descripcion: new FormControl('', Validators.required),
 				urlImagen: new FormControl('', Validators.required)
 			});
 			this.datosCollection = this.firestore.collection(this.nombreColeccion);
-		this.datos = this.datosCollection.valueChanges();
-		this.getDatosArray();
-		this.getNumRegistros();
-		this.verificarYCrearMiColeccion();
-		console.log('DEBUG: Skills');
-
+			this.datos = this.datosCollection.valueChanges();
+			this.getDatosArray();
+			this.getNumRegistros();
+			this.verificarYCrearMiColeccion();
+			console.log('DEBUG: Skills -LN70-');
 		 }
 
 	ngOnInit():void {
-		console.log('DEBUG: SKILLS COMPONENTS');
+		console.log('DEBUG: SKILLS COMPONENTS -LN74-');
 		this.verificarYCrearMiColeccion();
 		this.datosCollection = this.firestore.collection(this.nombreColeccion);
 		this.datos = this.datosCollection.valueChanges();
-		this.skillsCollection = this.firestore.collection<any>('skills');
+		this.skillsCollection = this.firestore.collection<any>(this.nombreColeccion);
 		this.skills = this.skillsCollection.snapshotChanges().pipe(
 			map(actions => actions.map(a => 
 				({ id: a.payload.doc.id, ...a.payload.doc.data() })))
@@ -87,7 +85,7 @@ downloadURL: string | null = null;
 	}
 
 	selectSkill(skill: any) {
-		console.log('DEBUG: SELECTSKILL');
+		console.log('DEBUG: SELECTSKILL -LN86-');
 		this.selectedSkill = { ...skill };
 		console.log('DEBUG: selectedSkill:',this.selectedSkill.id);
 		console.log('DEBUG: selectedSkill:',this.selectedSkill.descripcion);
@@ -99,7 +97,7 @@ downloadURL: string | null = null;
 		const file: File = event.target.files[0];
 		if (file) {
 			this.selectedImage = file;
-				const filePath = `softskills/${this.selectedImage.name}`;
+				const filePath = `skills/${this.selectedImage.name}`;
 				const fileRef = this.storage.ref(filePath);
 				const task = this.storage.upload(filePath, file);
 
@@ -118,15 +116,16 @@ downloadURL: string | null = null;
 
 	saveSkill() {
 		if (this.selectedSkill.id) {
+			// let skillData = { ...this.selectedSkill };
 			this.skillsCollection.doc(this.selectedSkill.id).update(this.selectedSkill);
 		} else {
 			const skillData = { ...this.selectedSkill };
-
+			
 			if (this.selectedImage) {
 				const filePath = 'skills/';
 				const fileRef = this.storage.ref(filePath);
 				const task = this.storage.upload(filePath, this.selectedImage);
-
+				
 				task.snapshotChanges().subscribe(() => {
 					fileRef.getDownloadURL().subscribe(url => {
 						skillData.urlImagen = url;
@@ -136,6 +135,7 @@ downloadURL: string | null = null;
 					});
 				});
 			} else {
+				// this.skillData.urlImagen=this.selectedImage;
 				this.skillsCollection.add(skillData);
 				this.selectedSkill = {};
 			}
@@ -155,10 +155,10 @@ downloadURL: string | null = null;
 
 	  openAddDialog(): void {
 		this.editMode = false;
-		const id1 = this.firestore.createId();
+		// const id1 = this.firestore.createId();
 
 		this.dialogData = {
-			id: id1,
+			// id: id1,
 			descripcion: '',
 			urlImagen: ''
 		};
@@ -172,15 +172,20 @@ downloadURL: string | null = null;
 	openDialog(): void {
 		const dialogRef = this.dialog.open(this.dialogTemplate);
 		dialogRef.afterClosed().subscribe(() => {
-
+			// this.dialogData.urlImagen = this.downloadURL;
 		});
 	}
 	saveItem(): void {
 		if (this.editMode) {
 			// Guardar cambios
+			const productName: any = this.downloadURL;
+			const name: string = productName ?? this.downloadURL;
+			this.dialogData.urlImagen = name;
 			this.skillsCollection.doc().update(this.dialogData);
 		} else {
 			// Añadir nuevo elemento
+			const productName: any = this.downloadURL;
+			this.dialogData.urlImagen = this.downloadURL ?? productName ;
 			this.skillsCollection.add(this.dialogData);
 		}
 		// Cerrar el diálogo después de guardar
@@ -194,13 +199,8 @@ downloadURL: string | null = null;
 
 	
 	verificarYCrearMiColeccion(): void {
-		const id1 = this.firestore.createId();
-		/* const userId = this.firestore.collection(this.nombreColeccion).doc().get({
-			id: user?.uid;
-		}; */
 		this.firebaseService.verificarYCrearColeccion(this.nombreColeccion,
 		{
-			id: id1,
 			descripcion: '',
 			urlImagen: ''
 		});
@@ -220,7 +220,6 @@ downloadURL: string | null = null;
 			console.log('DEBUG Skills: getDatosArray', this.datosArray);
 		})
 	}
-// firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>.id: string
 	getNumRegistros(): void {
 		this.datosCollection?.get().subscribe((snapshot) => {
 			this.numRegistros = snapshot.size;
@@ -238,5 +237,4 @@ downloadURL: string | null = null;
 				console.error('Error al eliminar el registro:', error);
 			});
 	}
-
 }

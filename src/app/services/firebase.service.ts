@@ -3,62 +3,31 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { take } from 'rxjs/operators';
-import { Observable, map, of } from 'rxjs';
-import { QuerySnapshot, collection } from 'firebase/firestore';
-// import * as firebase from 'firebase/app';
-// import 'firebase/firestore';
-import { environment } from 'src/environments/environments';
-/* const firebaseConfig = {
-	apiKey: "AIzaSyAZeErFQSWBH_VvVA5gJBuf8PV7HyPHEsU",
-	authDomain: "ap-frontend-ac93a.firebaseapp.com",
-	projectId: "ap-frontend-ac93a",
-	storageBucket: "ap-frontend-ac93a.appspot.com",
-	messagingSenderId: "23901166339",
-	appId: "1:23901166339:web:550d6d39dd029038d76736",
-	measurementId: "G-VEB6GVWYL9"
-  };
-firebase.initializeApp(firebaseConfig); */
-// const firestore = firebase.firestore();
+import { Observable, map } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root'
 })
 
 export class FirebaseService {
-  
-  datosCollection!: AngularFirestoreCollection<any>;
-	// che_nombreColeccion = [ 'aboutme','persona','educacion','experiencia','skills','softskills' , 'users' ];
-	
-	private nombresRegistros: string[] = [];
+	datosCollection!: AngularFirestoreCollection<any>;
+	// che_nombreColeccion = [ 'aboutme','persona','educacion','experiencia','skills','softskills'];
+	// che_nombreCampos = [ 'camposAboutme', 'camposPersona', 'camposEducacion', 'camposExperiencia', 'camposSkills', 'camposSoftskills']
+	// nombreColeccion!: string ;
+	// camposEducacion = ([{escuela:'E.E.M.Nº 24'},{titulo:'Bachiller contable'},{imagen:''},{carrera:'Bachiller'},{puntaje: 70},{inicio:'05/03/90'},{fin: '05/12/95'}]);
+	// camposExperiencia = ([{ubicacion:'Buenos Aires'},{puesto:'Data entry'},{periodo:''},{empresa:''},{actividades:''}]);
+	// camposSkills = [{descripcion:'Descripción'}];
+	// camposSoftskills = [ {name: ''} , {urlImage:''},{level:''}];
 
-	constructor(
-		private firestore: AngularFirestore,
-		private firestoreCollection: AngularFirestoreCollection,
-		private afAuth: AngularFireAuth) { }
-
-	obtenerNombresRegistros(): Observable<string[]> {
-		const colecciones: string[] = [ 'aboutme','persona','educacion','experiencia','skills','softskills' , 'users' ];
-		let a = 0;
-		colecciones.forEach((coleccion) => {
-			this.firestore.collection(coleccion).get().subscribe((querySnapshot: any) => {
-				querySnapshot.docs.forEach((doc: any) => {
-					 a=this.nombresRegistros.push(doc.data().nombre);
-					console.log('Coleccion:',coleccion,' Cant:',a);
-					
-				});
-			});
-		});
-
-		return of(this.nombresRegistros);
-		}
-	
+	constructor(private firestore: AngularFirestore, private afAuth: AngularFireAuth) { }
 
 	obtenerColeccionPorUsuario() {
 		this.afAuth.authState.subscribe((user) => {
 		  if (user) {
 			const userID = user.uid;
 			const coleccion = this.firestore.collection(`users/${userID}/miColeccion`);
-	  			// Utiliza la colección obtenida según el usuario logueado
+	  
+			// Utiliza la colección obtenida según el usuario logueado
 			coleccion.get().subscribe((querySnapshot) => {
 			  querySnapshot.forEach((doc) => {
 				console.log("Documento:", doc.data());
@@ -126,9 +95,10 @@ export class FirebaseService {
 	getNumRegistros(nombreColeccion: string): void {
 		this.datosCollection?.get().subscribe((snapshot: { size: any; }) => {
 			return snapshot.size;
+			// this.numRegistros = snapshot.size;
+			// console.log("REG:", this.numRegistros);
 		});
 	}
-
 	modificarRegistro(nombreColeccion: string, documentId: string, nuevosDatos: any): void {
 		this.firestore.collection(nombreColeccion).doc(documentId).update(nuevosDatos)
 			.then(() => {
@@ -158,7 +128,7 @@ export class FirebaseService {
 
 	
 	deleteRecord(nombreColeccion: string, documentId: string) {
-		console.log('DEBUG: FIREBASE-deleteRecord: coleccion:',nombreColeccion,' DocumentId:', documentId);
+		console.log('DEBUG: borrarRegistro:', documentId);
 		this.firestore.collection(nombreColeccion).doc(documentId).delete()
 			.then(() => {
 				console.log('Registro eliminado correctamente');

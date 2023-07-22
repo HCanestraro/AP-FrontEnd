@@ -1,11 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { PortfolioService } from './../../services/portfolio.service';
 import { FirebaseService } from 'src/app/services/firebase.service';
-import Swal from 'sweetalert2';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Observable, map, take } from 'rxjs';
 import { Iproyecto } from 'src/app/interfaces/iproyecto';
+import { finalize } from 'rxjs/operators';
+import { ConfirmationDialogComponent } from './../../components/confirmation-dialog/confirmation-dialog.component';
+
 @Component({
   selector: 'app-proyectos',
   templateUrl: './proyectos.component.html',
@@ -19,27 +22,50 @@ export class ProyectosComponent  implements OnInit  {
 	logosave="https://drive.google.com/uc?export=download&id=1QjXoDP0V0L7EHnjlfAx5bMFH2T-NbYU7";
 	logocancel="https://drive.google.com/uc?export=download&id=1DnHtyYLt7LgH7Nl6HsIOfSh2CDjNiYAE";
 	logodelete="https://drive.google.com/uc?export=download&id=1iW5i4HOltXKRwV0Q2qsJp6mrZvmFq0rw";
-	 	myProyectos: any;
-		 modoEdicion: boolean = false;
-		 modoNuevoRegistro: boolean = false;
-		 i!: number;
-		 editID!: number;
-		 form: FormGroup;
-		 nombreColeccion = 'proyecto';
-		 datosCollection!: AngularFirestoreCollection<any>;
-		 datosArray!: any[];
-		 datos!: Observable<Iproyecto[]>;
-		 numRegistros!: number;
+	nombreColeccion = 'proyecto';
+	datosCollection!: AngularFirestoreCollection<any>;
+	datosArray!: any[];
+	datos: Observable<Iproyecto[]>;
+	numRegistros!: number;
+	editMode = false;
+	dialogForm: FormGroup;
+	proyectoCollection: AngularFirestoreCollection<Iproyecto>;
+	proyecto!: Observable<any[]>;
 
+	@ViewChild('dialogTemplate', { static: true }) dialogTemplate!: TemplateRef<any>;
+	proyectoItems: Observable<Iproyecto[]>;
 
-	constructor( public portfolioData: PortfolioService, public firestore: AngularFirestore,
-		private firebaseService: FirebaseService) {
-		this.form = new FormGroup({
-			descripcion: new FormControl(['', [Validators.required, Validators.minLength(2)]]),
-			imagen: new FormControl(['', [Validators.required, Validators.minLength(2)]]),
-			titulo: new FormControl(['', [Validators.required, Validators.minLength(2)]]),
-		})
+	dialogData: Iproyecto = {
+		descripcion: '',
+		imagen: '',
+		titulo: ''
 	}
+	//------------------------------
+	selectedProyecto: any = {};
+	selectedImage: File | null = null;
+	downloadURL: String | null = null;
+	dialogItem: any;
+
+	constructor( 
+		public firestore: AngularFirestore,
+		private firebaseService: FirebaseService,
+		private storage: AngularFireStorage, 
+		private dialog: MatDialog) {
+			this.proyectoCollection = this.firestore.collection<Iproyecto>(this.nombreColeccion);
+			this.proyectoItems = this.proyectoCollection.valueChanges();
+			this.dialogForm = new FormGroup({
+				descripcion: new FormControl(['', [Validators.required, Validators.minLength(2)]]),
+				imagen: new FormControl(['', [Validators.required, Validators.minLength(2)]]),
+				titulo: new FormControl(['', [Validators.required, Validators.minLength(2)]]),
+			});
+			this.datosCollection = this.firestore.collection(this.nombreColeccion);
+			this.datos = this.datosCollection.valueChanges();
+			this.getDatosArray();
+			this.getNumRegistros();
+			this.verificarYCrearMiColeccion();
+			console.log('DEBUG: PROYECTO: -LN56-');
+	}
+
 	verificarYCrearMiColeccion(): void {
 		const nombreColeccion = 'proyecto';
 		this.firebaseService.verificarYCrearColeccion(nombreColeccion,
@@ -48,8 +74,25 @@ export class ProyectosComponent  implements OnInit  {
 			imagen: '',
 			descripcion: ''
 		});
-	  }
-
+	}
+	ngOnInit(): void {
+		console.log('DEBUG: PROYECTO: NGONINIT -LN78-');
+		this.verificarYCrearMiColeccion();
+		this.datosCollection = this.firestore.collection(this.nombreColeccion);
+		this.datos = this.datosCollection.valueChanges();
+		this.proyectoCollection = this.firestore.collection<any>(this.nombreColeccion);
+		this.proyecto = this.proyectoCollection.snapshotChanges().pipe(map(actions => actions.map(a => ({ id: a.payload.doc.id, ...a.payload.doc.data() }))));
+		this.getDatosArray();
+		this.getNumRegistros();
+	}
+	selectProyecto(proyecto: any) {
+		console.log('DEBUG: SELECTPROYECTO -LN87-');
+		this.selectedProyecto = { ...proyecto };
+		console.log('DEBUG: selectedProyecto:',this.selectedProyecto.titulo);
+		console.log('DEBUG: selectedProyecto:',this.selectedProyecto.imagen);
+		console.log('DEBUG: selectedProyecto:',this.selectedProyecto.descripcion);
+		this.selectedImage = null;
+	}
 	getDatosArray(): void {
 		this.datosCollection.snapshotChanges().pipe(
 			map((snapshots) => {
@@ -70,32 +113,91 @@ export class ProyectosComponent  implements OnInit  {
 			console.log("REG:", this.numRegistros);
 		});
 	}
-	ngOnInit(): void {
-		this.verificarYCrearMiColeccion();
-		this.datosCollection = this.firestore.collection(this.nombreColeccion);
-		this.datos = this.datosCollection.valueChanges();
-		this.getDatosArray();
-		this.getNumRegistros();
-	
-	}
-	
-		onCrear(event: Event) {
-			let objetoFormulario = this.form.controls;
-			let keysForms = Object.keys(objetoFormulario);
-			console.log("keysForm: ", keysForms);
-			let valueForms = Object.values(objetoFormulario);
-			console.log("valuesForm: ", valueForms);
-	
-			valueForms[0].setValue('');
-			valueForms[1].setValue('');
-			valueForms[2].setValue('');
-			
-	
-			console.log("valueFormDetalles: ", valueForms[0].value);
-			console.log("valueFormEstado: ", valueForms[1].value);
-			console.log("valueFormInstitucion: ", valueForms[2].value);
-	
-			this.modoNuevoRegistro = true;
-	
+	onFileSelected(event: any) {
+		const file: File = event.target.files[0];
+		if (file) {
+			this.selectedImage = file;
+				const filePath = `proyecto/${this.selectedImage.name}`;
+				const fileRef = this.storage.ref(filePath);
+				const task = this.storage.upload(filePath, file);
+
+				task.snapshotChanges()
+					.pipe(
+						finalize(() => {
+							fileRef.getDownloadURL().subscribe(url => {
+								this.downloadURL = url;
+							});
+						})
+					)
+					.subscribe();
 		}
+		this.selectedImage = file;
+	}
+	readDocument(documentId: string) {
+		this.firestore.collection(this.nombreColeccion).doc(documentId).snapshotChanges().subscribe(snapshot => {
+		  const data = snapshot.payload.data();
+		  const id = snapshot.payload.id;
+		  // Utiliza el ID y los datos del documento como desees
+		  console.log('ID:', id);
+		  console.log('Datos:', data);
+		});
+	  }
+	openAddDialog(): void {
+		this.editMode = false;
+		this.dialogData = {
+			titulo: '',
+			imagen: '',
+			descripcion: ''
+		};
+		this.openDialog();
+	}
+	openEditDialog(item: Iproyecto): void {
+		this.editMode = true;
+		this.dialogData = { ...item };
+		this.openDialog();
+	}
+	openDialog(): void {
+		const dialogRef = this.dialog.open(this.dialogTemplate);
+		dialogRef.afterClosed().subscribe(() => {
+
+		});
+	}
+	saveItem(): void {
+		if (this.editMode) {
+			// Guardar cambios
+			const productName: any = this.downloadURL;
+			const name: string = productName ?? this.downloadURL;
+			this.dialogData.imagen = name;
+			this.proyectoCollection.doc().update(this.dialogData);
+		} else {
+			// Añadir nuevo elemento
+			const productName: any = this.downloadURL;
+			this.dialogData.imagen = this.downloadURL ?? productName ;
+			this.proyectoCollection.add(this.dialogData);
+		}
+		// Cerrar el diálogo después de guardar
+		this.dialog.closeAll();
+	}
+	deleteItem(item: any): void {
+		// Eliminar el elemento de la colección en Firebase
+		const dialogRef = this.dialog.open(ConfirmationDialogComponent);
+		dialogRef.afterClosed().subscribe((result) => {
+			if(result === 'confirm') {
+				this.firebaseService.deleteRecord(this.nombreColeccion,item); 
+			}
+		});
+	}
+
 }
+
+/* @Component({
+	selector: 'app-confirmation-dialog',
+	template: `
+	<h2>¿Está seguro de que desea eliminar?</h2>
+	<button (click)="dialogRef.close('cancel')">Cancelar</button>
+	<button (click)="dialogRef.close('confirm')">Eliminar</button>
+	`,
+})
+export class ConfirmationDialogComponent {
+	constructor(public dialogRef: MatDialogRef<ConfirmationDialogComponent>) {}
+} */
