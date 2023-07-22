@@ -46,8 +46,8 @@ export class EducacionComponent implements OnInit {
 		imagen: '',
 		carrera: '',
 		puntaje: 100,
-		inicio: '',
-		fin: ''
+		inicio: 0,
+		fin: 0
 	};
 
 	isEditing: boolean = false;
@@ -143,8 +143,8 @@ export class EducacionComponent implements OnInit {
 			imagen: '',
 			carrera: '',
 			puntaje: 100,
-			inicio: '',
-			fin: ''
+			inicio: 0,
+			fin: 0
 		};
 		this.openDialog();
 	}
@@ -196,8 +196,8 @@ export class EducacionComponent implements OnInit {
 			imagen: '',
 			carrera: '',
 			puntaje: 100,
-			inicio: '',
-			fin: ''
+			inicio: 2000,
+			fin: 2023
 		});
 	}
 

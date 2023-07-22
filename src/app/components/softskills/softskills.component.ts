@@ -10,7 +10,7 @@ import { finalize } from 'rxjs/operators';
 import { AngularFireUploadTask } from '@angular/fire/compat/storage';
 import { percentage } from '@angular/fire/storage/public_api';
 import { user } from '@angular/fire/auth';
-import { coerceNumberProperty } from '@angular/cdk/coercion';
+// import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { ConfirmationDialogComponent } from './../../components/confirmation-dialog/confirmation-dialog.component';
 @Component({
 	selector: 'app-softskills',
@@ -19,19 +19,21 @@ import { ConfirmationDialogComponent } from './../../components/confirmation-dia
 })
 
 export class SoftskillsComponent implements OnInit {
-	autoTicks = true;
+	color = 'primary';
+	xmode = 'determinate';
+	// autoTicks = true;
 	// disabled = false;
 	max = 100;
 	min = 0;
-	showTicks = true;
+	// showTicks = true;
 	step = 1;
-	thumbLabel = true;
+	// thumbLabel = true;
 	// value = 0;
 	
-	private _tickInterval = 1;
+	// private _tickInterval = 1;
 
 	task!: AngularFireUploadTask;
-	percentage!: Observable<number | undefined>;
+	// percentage!: Observable<number | undefined>;
 
 
 	logopencil = "https://drive.google.com/uc?export=download&id=1jA2K7nPYax0JVefFmgn8HvsYre_25zie";
@@ -47,7 +49,7 @@ export class SoftskillsComponent implements OnInit {
 	dialogData: Isoftskills = {
 		name: '',
 		urlImage: '',
-		level: ''
+		level: 0
 	};
 	dialogItem: any;
 	downloadURL: String | null = null;
@@ -57,15 +59,15 @@ export class SoftskillsComponent implements OnInit {
 	items!: any[];
 	nombreColeccion = 'softskills';
 	numRegistros!: number;
-
+	
 	selectedImage: File | null = null;
 	selectedsoftSkill: any = {};
 	softskills!: Observable<any[]>;
 	softskillsCollection: AngularFirestoreCollection<Isoftskills>;
 	softskillsItems: Observable<Isoftskills[]>;
-	
+	value: Number = 30;
 	@ViewChild('dialogTemplate', { static: true }) dialogTemplate!: TemplateRef<any>;
-
+	
 	constructor(private firebaseService: FirebaseService,
 		private firestore: AngularFirestore,
 		private dialog: MatDialog,
@@ -76,7 +78,7 @@ export class SoftskillsComponent implements OnInit {
 		this.dialogForm = new FormGroup({
 			name: new FormControl(['', [Validators.required, Validators.minLength(2)]]),
 			urlImage: new FormControl([''], [Validators.required, Validators.minLength(2)]),
-			level: new FormControl(['', [Validators.required, Validators.minLength(2)]])
+			level: new FormControl([0, [Validators.required]])
 		});
 
 		this.datosCollection = this.firestore.collection(this.nombreColeccion);
@@ -107,12 +109,12 @@ export class SoftskillsComponent implements OnInit {
 		this.getDatosArray();
 		this.getNumRegistros();
 	}
-	get tickInterval(): number | 'auto' {
-		return this.showTicks ? (this.autoTicks ? 'auto' : this._tickInterval) : 0;
-	}
-	set tickInterval(value) {
-		this._tickInterval = coerceNumberProperty(this.dialogData.level);
-	}
+	// get tickInterval(): number | 'auto' {
+	// 	return this.showTicks ? (this.autoTicks ? 'auto' : this._tickInterval) : 0;
+	// }
+	// set tickInterval(value) {
+	// 	this._tickInterval = coerceNumberProperty(this.dialogData.level);
+	// }
 	readDocument(documentId: string) {
 		this.firestore.collection('softskills').doc(documentId).snapshotChanges().subscribe(snapshot => {
 			const data = snapshot.payload.data();
@@ -129,7 +131,7 @@ export class SoftskillsComponent implements OnInit {
 		this.dialogData = {
 			name: '',
 			urlImage: '',
-			level: ''
+			level: 0
 		};
 		this.openDialog();
 	}
@@ -141,7 +143,8 @@ export class SoftskillsComponent implements OnInit {
 	openDialog(): void {
 		const dialogRef = this.dialog.open(this.dialogTemplate);
 		dialogRef.afterClosed().subscribe(() => {
-
+			
+			// this.value = this.dialogData.level;
 		});
 	}
 	saveItem(): void {
@@ -201,7 +204,7 @@ export class SoftskillsComponent implements OnInit {
 			{
 				name: 'Name',
 				urlImage: '',
-				level: '89'
+				level: 89
 			});
 	}
 	/* **************************************************************************************************** */
@@ -275,22 +278,22 @@ export class SoftskillsComponent implements OnInit {
 				const path = 'test/' + file.name;
 				const ref = this.storage.ref(path);
 				this.task = ref.put(file);
-				this.percentage = this.task.percentageChanges();
+				// this.percentage = this.task.percentageChanges();
 			  			
 		});
 	};
-	upload(name: File) {
-		const file = name; // Aquí debes colocar el archivo que deseas subir
-		const filePath = `gs://ap-frontend-ac93a.appspot.com/softskills/${file.name}`;
-		// const fileRef = this.storage.ref(filePath);
-		const task = this.storage.upload(filePath, file);
+	// upload(name: File) {
+	// 	const file = name; // Aquí debes colocar el archivo que deseas subir
+	// 	const filePath = `gs://ap-frontend-ac93a.appspot.com/softskills/${file.name}`;
+	// 	// const fileRef = this.storage.ref(filePath);
+	// 	const task = this.storage.upload(filePath, file);
 
-		// const storageRef = this.storage.ref();
-		const fileRef = this.storage.upload('images/' , file.name);
-		// fileRef.put(file).then((snapshot) => {
-	  	console.log('Imagen subida correctamente');
-		// });
-	}
+	// 	// const storageRef = this.storage.ref();
+	// 	const fileRef = this.storage.upload('images/' , file.name);
+	// 	// fileRef.put(file).then((snapshot) => {
+	//   	console.log('Imagen subida correctamente');
+	// 	// });
+	// }
 	inputfile() {
 		// Ejemplo de uso
 		const inputFile = document.getElementById('inputFile') as HTMLInputElement;

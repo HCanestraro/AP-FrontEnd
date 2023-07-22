@@ -34,3 +34,10 @@ th, td {
 	width: 100px;
 	height: 100px;
 }
+.tp-container {
+	display: flex;
+	flex-direction: column;
+}
+.tp-container > * {
+	width: 100%;
+}

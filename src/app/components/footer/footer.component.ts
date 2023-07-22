@@ -13,20 +13,15 @@ import { MiDialogComponent } from './../mi-dialog-component/mi-dialog-component.
 })
 
 export class FooterComponent implements OnInit {
-
 	constructor(private dialog: MatDialog) { }
-
 	ngOnInit(): void {
 		console.log('DEBUG: FOOTER');
-		
 	}
-
 	abrirDialog(): void {
 		const dialogRef = this.dialog.open(MiDialogComponent, {
 			width: '400px',
 			// Opciones de configuración adicionales
 		});
-
 		dialogRef.afterClosed().subscribe(result => {
 			console.log('Dialog result: ${result}');
 			// Lógica a ejecutar después de cerrar el dialog

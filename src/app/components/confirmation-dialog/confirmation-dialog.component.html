@@ -1,9 +1,9 @@
-<mat-card>
-    <mat-card-header>
+<mat-card class='d-flex container-fluid justify-content-center align-items-center bg-dark text-light rounded  p-2 border shadow'>
+    <mat-card-header class="texto">
         <h2>¿Está seguro de que desea eliminar?</h2>
     </mat-card-header>
     <mat-card-footer>
-        <button (click)="dialogRef.close('cancel')">Cancelar</button>
-        <button (click)="dialogRef.close('confirm')">Eliminar</button>
+        <button class="btn btn-warning" (click)="dialogRef.close('cancel')">Cancelar</button>
+        <button class="btn btn-warning" (click)="dialogRef.close('confirm')">Eliminar</button>
     </mat-card-footer>
 </mat-card>

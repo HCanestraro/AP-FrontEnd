@@ -4,11 +4,18 @@ body {
 	box-sizing: border-box;
 }
 
+.bgblack {
+	background-color: #000;
+}
 .allScreen {
 	width: 100%;
 	height: 100%;
 }
 
+navbar {
+	background-color: #000;
+	width: 100%;
+}
 .box1 {
 	border: 2px solid #000;
 }
@@ -36,7 +43,9 @@ i {
     border-left-width: 0px;
     border-right-width: 0px;
 }
-.card {
+
+card {
+	background-color: #000;
 	width: auto;
 	height: auto;
 }
@@ -209,6 +218,8 @@ img.mat-card-image {
 }
 
 .mat-button {
+	margin-left: 5px;
+	margin-right: 5px;
 	color: blue;
 	background-color: yellow;
 }
@@ -381,7 +392,7 @@ img.mat-card-image {
 	all: unset;
 	border-radius: 4px;
 	/* border: 1px solid #eee; */
-	background-color: #fafafa;
+	/* background-color: #fafafa; */
 	height: 400px;
 	width: 200px;
 	margin: 0 8px 16px;
@@ -393,3 +404,23 @@ img.mat-card-image {
 	transition: all 0.2s ease-in-out;
 	line-height: 24px;
 }
+
+.slidein {
+	animation-duration: 3s;
+	animation-name: slidein;
+	animation-iteration-count: 3;
+	animation-direction: alternate;
+  }
+  
+/*   @keyframes slidein {
+	from {
+	  margin-left:100%;
+	  width:300%
+	}
+  
+	to {
+	 margin-left:0%;
+	 width:100%;
+   }
+  } */
+  

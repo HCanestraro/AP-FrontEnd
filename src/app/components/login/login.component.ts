@@ -100,4 +100,10 @@ export class LoginComponent implements OnInit {
 					// Error en el inicio de sesión, muestra el mensaje de error al usuario
 				});
 	}
+	cheFormVistaPrevia() {
+		console.log(
+			'Email: '+this.email,
+			'Contraseña: '+this.password
+		);
+	}
 }

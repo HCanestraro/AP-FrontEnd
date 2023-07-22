@@ -12,7 +12,7 @@ import { Component, OnInit, Output } from '@angular/core';
 // const storageRef = ref(storage);
 // import { listAll } from "firebase/storage";
 
-
+// import { Cimg } from './../../interfaces/cimg';
 
 @Component({
 	selector: 'app-image-gallery',
@@ -30,6 +30,7 @@ export class ImageGalleryComponent implements OnInit {
 
 	ngOnInit() {
 		console.log('debug image-galleri oninit ln17');
+		// console.log(this.cimg.getlogopencil());
 	/* listAll(storageRef).then((res) => {
   		res.items.forEach((itemRef) => {
   		  // ...

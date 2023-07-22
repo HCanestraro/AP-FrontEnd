@@ -67,87 +67,6 @@
 					<img src={{profilePicture}} alt="ProfilePicture" id="img-about" width="50px" height="50px">
 					<a href="#" data-bs-toggle="modal" data-bs-target="#editmenu"><i
 							class="fa-solid fa-pen-to-square"></i></a>
-
-					<!-- Menú de edición -->
-					<!-- <div class="modal fade" id="editmenu" data-bs-backdrop="static" data-bs-keyboard="false"
-						tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-						<div class="modal-dialog modal-lg">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h5 class="modal-title font1" id="staticBackdropLabel">Modificar perfil</h5>
-									<button type="button" class="btn-close" data-bs-dismiss="modal"
-										aria-label="Close"></button>
-								</div>
-								<div class="modal-body">
-									<form [formGroup ]="form">
-									<div class="mb-3">
-										<label for="nombres" class="form-label">Nombres</label>
-										<input class="form-control" type="text" formControlName="nombres" id="nombres" placeholder="Escriba su nombre" aria-label="Escriba su nombre">
-									</div>
-									<div class="mb-3">
-										<label for="apellido" class="form-label">Apellido</label>
-										<input class="form-control" type="text" formControlName="apellido" id="apellido" placeholder="Escriba su apellido"
-											aria-label="Escriba su apellido">
-									</div>
-									
-									<div class="mb-3">
-										<label for="fecha_nacimiento" class="form-label">Fecha de nacimiento:</label>
-										<input class="form-control" type="text" formControlName="fecha_nacimiento" id="fecha_nacimiento" placeholder="Escriba su ocupación"
-											aria-label="Escriba su fecha de nacimiento">
-									</div>
-
-									<div class="mb-3">
-										<label for="nacionalidad" class="form-label">Nacionalidad:</label>
-										<input class="form-control" type="text" formControlName="nacionalidad" id="nacionalidad"
-											placeholder="Escriba su cuidad, provincia, país"
-											aria-label="Escriba su cuidad, provincia, país">
-									</div>
-									
-									<div class="mb-3">
-										<label for="mail" class="form-label">Mail</label>
-										<input class="form-control" type="text" formControlName="email" id="email" placeholder="Escriba su correo"
-											aria-label="Escriba su correo">
-									</div>
-
-									<div class="mb-3">
-										<label for="sobre_mi" class="form-label">Sobre mi</label>
-										<input class="form-control" type="text" formControlName="sobre_mi" id="sobre_mi" placeholder="Escriba su ocupación"
-											aria-label="Escriba sobre Ud.">
-									</div>
-
-									<div class="mb-3">
-										<label for="ocupacion" class="form-label">Ocupación</label>
-										<input class="form-control" type="text" formControlName="ocupacion" id="ocupacion" placeholder="Escriba su ocupación"
-											aria-label="Escriba su ocupación">
-									</div>
-
-									<div class="mb-3">
-										<label for="imagen_background_header" class="form-label">Editar foto de banner</label>
-										<input class="form-control" type="text" formControlName="imagen_background_header" id="imagen_background_header">
-									</div>
-									
-									<div class="mb-3">
-										<label for="imagen_perfil" class="form-label">Editar foto de Perfil</label>
-										<input class="form-control" type="text" formControlName="imagen_perfil" id="imagen_perfil">
-									</div>
-
-									<div class="mb-3">
-										<label for="id_domicilio" class="form-label">Id Domicilio:</label>
-										<input class="form-control" type="text" formControlName="id_domicilio" id="id_domicilio">
-									</div>
-									<br>
-
-									<button type="button" class="btn btn-outline-primary"
-										data-bs-dismiss="modal">Cancelar</button>
-									<button type="submit" class="btn btn-primary ms-2">Guardar cambios</button>
-								</form>
-
-								</div>
-							</div>
-						</div>
-					</div>
- -->
-
 				</div>
 
 				<div class="mb-3" id="info-data">
@@ -168,6 +87,10 @@
 						</li>
 					</ul>
 				</div>
+				<div>
+					<button type="button" class="btn btn-primary" matTooltip="Editar..." (click)="mostrarModal()">Editar
+						perfil...</button>
+				</div>
 				<!-- <div id="info-action">
 					<a href="#" class="btn btn-primary font2">Intereses: </a>
 					<a href="#" class="btn btn-light font2" id="dropdownMenuAction" data-bs-toggle="dropdown"
@@ -187,4 +110,100 @@
 		</div>
 	</div>
 </div>
+
+<!-- <section> -->
+<ng-template #myModal>
+	<!-- <div class="modal"> -->
+	<!-- Menú de edición data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+			aria-labelledby="staticBackdropLabel" aria-hidden="true"-->
+	<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" id="myModal">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="myModalLabel">Modificar perfil</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+
+					<ng-container *ngTemplateOutlet="miFormTemplate"></ng-container>
+						
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal">Guardar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</ng-template>
+<ng-template #miFormTemplate>
+	<form [formGroup]="formTemplate">
+		<div class="mb-3">
+			<label for="nombres" class="form-label">Nombres</label>
+			<input class="form-control" type="text" formControlName="nombres" id="nombres"
+				placeholder="Escriba su nombre" aria-label="Escriba su nombre">
+		</div>
+		<div class="mb-3">
+			<label for="apellido" class="form-label">Apellido</label>
+			<input class="form-control" type="text" formControlName="apellido" id="apellido"
+				placeholder="Escriba su apellido" aria-label="Escriba su apellido">
+		</div>
+
+		<div class="mb-3">
+			<label for="fecha_nacimiento" class="form-label">Fecha de nacimiento:</label>
+			<input class="form-control" type="text" formControlName="fecha_nacimiento"
+				id="fecha_nacimiento" placeholder="Escriba su ocupación"
+				aria-label="Escriba su fecha de nacimiento">
+		</div>
+
+		<div class="mb-3">
+			<label for="nacionalidad" class="form-label">Nacionalidad:</label>
+			<input class="form-control" type="text" formControlName="nacionalidad" id="nacionalidad"
+				placeholder="Escriba su cuidad, provincia, país"
+				aria-label="Escriba su cuidad, provincia, país">
+		</div>
+
+		<div class="mb-3">
+			<label for="mail" class="form-label">Mail</label>
+			<input class="form-control" type="text" formControlName="email" id="email"
+				placeholder="Escriba su correo" aria-label="Escriba su correo">
+		</div>
+
+		<div class="mb-3">
+			<label for="sobre_mi" class="form-label">Sobre mi</label>
+			<input class="form-control" type="text" formControlName="sobre_mi" id="sobre_mi"
+				placeholder="Escriba su ocupación" aria-label="Escriba sobre Ud.">
+		</div>
+
+		<div class="mb-3">
+			<label for="ocupacion" class="form-label">Ocupación</label>
+			<input class="form-control" type="text" formControlName="ocupacion" id="ocupacion"
+				placeholder="Escriba su ocupación" aria-label="Escriba su ocupación">
+		</div>
+
+		<div class="mb-3">
+			<label for="imagen_background_header" class="form-label">Editar foto de banner</label>
+			<input class="form-control" type="text" formControlName="imagen_background_header"
+				id="imagen_background_header">
+		</div>
+
+		<div class="mb-3">
+			<label for="imagen_perfil" class="form-label">Editar foto de Perfil</label>
+			<input class="form-control" type="text" formControlName="imagen_perfil" id="imagen_perfil">
+		</div>
+
+		<div class="mb-3">
+			<label for="id_domicilio" class="form-label">Id Domicilio:</label>
+			<input class="form-control" type="text" formControlName="id_domicilio" id="id_domicilio">
+		</div>
+		<br>
+
+		<button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Cancelar</button>
+		<button type="submit" class="btn btn-primary ms-2">Guardar cambios</button>
+	</form>
+</ng-template>
+<!-- </section> -->
 <!-- END Profile-->

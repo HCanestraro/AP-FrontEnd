@@ -5,6 +5,6 @@ export interface Ieducacion {
     imagen: String;
     carrera: String;
     puntaje: Number;
-    inicio: String;
-    fin: String;
+    inicio: Number;
+    fin: Number;
 }

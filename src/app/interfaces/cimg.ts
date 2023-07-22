@@ -1,5 +1,5 @@
 // En un archivo .ts
-class cimg {
+export class Cimg {
 	logopencil: string;
 	logoadd: string;
 	logoedu: string;

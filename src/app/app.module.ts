@@ -4,7 +4,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-// import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Placement as PopperPlacement, Options } from '@popperjs/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -47,6 +48,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 // import { MatDatepickerModule } from '@angular/material/datepicker';
 // import { MatNativeDateModule } from '@angular/material/core';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -55,6 +57,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 // import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -67,11 +71,14 @@ import { ImageGalleryComponent } from './components/image-gallery/image-gallery.
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 
 const materialModules = [
+	MatProgressBarModule,
+	MatTooltipModule,
 	MatButtonModule,
 	MatCardModule,
 	MatSnackBarModule,
 	// MatDatepickerModule,
 	// MatNativeDateModule,
+	MatProgressSpinnerModule,
 	MatSliderModule,
 	MatToolbarModule,
 	MatIconModule,

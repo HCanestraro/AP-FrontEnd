@@ -1,14 +1,15 @@
 <!--------------- SOFTKILLS MAT-CARD --------------->
-<section class="card mat-card mx-auto chec" id="softskills" style="margin: 10px;">
-	<div class="container shadow bg-info">
+<section class="card mat-card mx-auto chec bgblack" id="softskills" style="margin: 10px;">
+	<div class="container shadow bgblack">
 		<div class="row">
 			<h5 class="text-center p-1 bg-dark text-light rounded p-2">SOFTSKILLS MAT-CARD</h5>
 		</div>
 		<div class="justify-content-center p-2">
 			<div class="d-flex justify-content-center mb-4 m-4">
 				<button mat-raised-button (click)="openAddDialog()"
-					class="btn btn-sm btn-green border shadow m-1 text-center text-light fw-bold">
-					<span><img src={{logoadd}}  class="chelogo-sm mt-1 bg-white rounded-circle" alt="">AGREGAR SOFTSKILLS</span>
+					class="btn btn-sm btn-green border shadow m-1 text-center text-light fw-bold" matTooltip="Añadir un nuevo registro...">
+					<span><img src={{logoadd}} class="chelogo-sm mt-1 bg-white rounded-circle" alt="">AGREGAR
+						SOFTSKILLS</span>
 				</button>
 			</div>
 			<!-- <div *ngFor="let item of datosArray  ; let i = index" [attr.data-index]="i"> -->
@@ -16,13 +17,13 @@
 				<mat-card (click)="selectsoftSkill(item)">
 					<mat-card-actions>
 						<div class="align-items-end box1">
-							<button (click)="openEditDialog(item)">
+							<button (click)="openEditDialog(item)" matTooltip="Editar el registro...">
 								<img src={{logopencil}} alt="editar" class="chelogo mt-1" />
 							</button>
-							<button (click)="deleteItem(item.id)">
+							<button (click)="deleteItem(item.id)" matTooltip="Eliminar el registro...">
 								<img src={{logodelete}} alt="Eliminar" class="chelogo mt-1" />
 							</button>
-							</div>
+						</div>
 					</mat-card-actions>
 					<mat-card-content>
 						<h4><b>Nombre: </b>{{item.name}}</h4>
@@ -32,7 +33,14 @@
 							<img mat-card-image class="cheimg" src={{item.urlImage}} alt="">
 						</div>
 						<h4><b>Nivel: {{item.level}}</b></h4>
+
 					</mat-card-content>
+					<mat-card-footer>
+						<mat-progress-bar mode="determinate" value={{item.level.toString()}}
+							color="accent"></mat-progress-bar>
+						<mat-progress-spinner mode='determinate' diameter={{item.level}}
+							color={{color}}></mat-progress-spinner>
+					</mat-card-footer>
 				</mat-card>
 			</div>
 		</div>
@@ -45,20 +53,17 @@
 				</mat-form-field>
 
 				<mat-label>URL de la imagen</mat-label>
-					<input type="file" [(ngModel)]="dialogData.urlImage" (change)="onFileSelected($event)"   placeholder="Imagen" required>
-					<ng-container *ngIf="downloadURL">
-						<img [src]="downloadURL" alt="Preview" class="preview-image">
-					</ng-container>
+				<input type="file" [(ngModel)]="dialogData.urlImage" (change)="onFileSelected($event)"
+					placeholder="Imagen" required>
+				<ng-container *ngIf="downloadURL">
+					<img [src]="downloadURL" alt="Preview" class="preview-image">
+				</ng-container>
 
-					<mat-form-field class="example-margin">
+				<mat-form-field class="example-margin">
 					<mat-label>Nivel</mat-label>
-					<input matInput [(ngModel)]="dialogData.level" type="number" placeholder="Nivel" required>
-					<mat-slider
-						class="example-margin"
-						[max]="max"
-						thumbLabel = "true" 
-						tickInterval = "true" min="0" max="100" 
-						[(ngModel)]="dialogData.level" name="level">
+					<input matInput [(ngModel)]="dialogData.level" type="number" max="100" min="0" placeholder="Nivel" required>
+					<mat-slider class="example-margin" [max]="max" thumbLabel="true" tickInterval="true" min="0"
+						max="100" [(ngModel)]="dialogData.level" name="level">
 					</mat-slider>
 				</mat-form-field>
 				<mat-dialog-actions>
