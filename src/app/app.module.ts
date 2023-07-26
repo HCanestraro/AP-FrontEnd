@@ -4,8 +4,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Placement as PopperPlacement, Options } from '@popperjs/core';
+// import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+// import { Placement as PopperPlacement, Options } from '@popperjs/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -36,10 +36,13 @@ import { FirebaseService } from './services/firebase.service';
 import { InterceptorService } from './services/interceptor.service';
 // firebase
 import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { RegisterComponent } from './components/register/register.component';
+import { DataService } from './services/data.service';
 
 // Material
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -69,6 +72,9 @@ import { MiDialogComponent } from './components/mi-dialog-component/mi-dialog-co
 import { ErrorHandlingModule } from './modules/error-handling/error-handling.module';
 import { ImageGalleryComponent } from './components/image-gallery/image-gallery.component';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
+import { PdfViewerComponent } from './components/pdf-viewer/pdf-viewer.component';
+import { PhotoCaptureComponent } from './components/photo-capture/photo-capture.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 const materialModules = [
 	MatProgressBarModule,
@@ -108,8 +114,11 @@ const materialModules = [
 		ContactFormComponent,
     	RegisterComponent,
     	MiDialogComponent,
-     ImageGalleryComponent,
-     ConfirmationDialogComponent
+		ImageGalleryComponent,
+     	ConfirmationDialogComponent,
+     			PdfViewerComponent,
+
+     	PhotoCaptureComponent
 	],
 
 	imports: [
@@ -122,6 +131,8 @@ const materialModules = [
 		// CloudinaryModule,
 		materialModules,
 		AngularFireModule.initializeApp(environment.firebase),
+		// AngularFireDatabaseModule,
+		AngularFireStorageModule,
 		AngularFirestoreModule,
 		AngularFireAuthModule,
 		// provideFirebaseApp(() => initializeApp(environment.firebase)),
@@ -130,7 +141,8 @@ const materialModules = [
 		provideStorage(() => getStorage()), 
 		// HotToastModule.forRoot(),
 		FontAwesomeModule,
-		ErrorHandlingModule
+		ErrorHandlingModule,
+		PdfViewerModule
 	],
 	providers: [],
 	bootstrap: [AppComponent],

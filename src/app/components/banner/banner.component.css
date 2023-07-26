@@ -3,7 +3,7 @@
 }
 .modal {
     display: none;
-    overflow: hidden;
+    overflow: visible;
 }
 .modal.fade.show {
     display: block;
@@ -12,7 +12,7 @@
     position: relative;
     width: auto;
     margin: 0.5rem;
-    pointer-events: none;
+    pointer-events: visibleFill;
 }
 
 .modal.fade .modal-dialog {

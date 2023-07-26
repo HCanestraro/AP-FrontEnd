@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import { getStorage } from "firebase/storage";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -15,10 +16,11 @@ export const environment = {
   storageBucket: "ap-frontend-ac93a.appspot.com",
   messagingSenderId: "23901166339",
   appId: "1:23901166339:web:550d6d39dd029038d76736",
-  measurementId: "G-VEB6GVWYL9"
+  measurementId: "G-VEB6GVWYL9",
 }
 };
 
 // Initialize Firebase
-// const app = initializeApp( firebaseConfig );
+// const app = initializeApp( firebase );
+// const storage = getStorage(app);
 // const analytics = getAnalytics(app);

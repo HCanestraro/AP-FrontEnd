@@ -112,15 +112,15 @@
 </div>
 
 <!-- <section> -->
-<ng-template #myModal>
+<ng-template #miModal>
 	<!-- <div class="modal"> -->
 	<!-- Menú de edición data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
 			aria-labelledby="staticBackdropLabel" aria-hidden="true"-->
-	<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" id="myModal">
+	<div class="modal fade box1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" id="miModal">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="myModalLabel">Modificar perfil</h5>
+					<h5 class="modal-title" id="miModalLabel">Modificar perfil</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -141,7 +141,7 @@
 </ng-template>
 <ng-template #miFormTemplate>
 	<form [formGroup]="formTemplate">
-		<div class="mb-3">
+		<div class="mb-3 box1">
 			<label for="nombres" class="form-label">Nombres</label>
 			<input class="form-control" type="text" formControlName="nombres" id="nombres"
 				placeholder="Escriba su nombre" aria-label="Escriba su nombre">

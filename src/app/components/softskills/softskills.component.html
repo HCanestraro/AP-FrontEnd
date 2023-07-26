@@ -51,10 +51,11 @@
 					<mat-label>Nombre</mat-label>
 					<input matInput [(ngModel)]="dialogData.name" placeholder="Name" required>
 				</mat-form-field>
-
-				<mat-label>URL de la imagen</mat-label>
-				<input type="file" [(ngModel)]="dialogData.urlImage" (change)="onFileSelected($event)"
-					placeholder="Imagen" required>
+				<mat-form-field>
+					<mat-label>URL de la imagen</mat-label>
+					<input matInput type="text" [(ngModel)]="dialogData.urlImage" placeholder="Imagen" required>
+				</mat-form-field>
+				<input type="file"  (change)="onFileSelected($event)" placeholder="Imagen">
 				<ng-container *ngIf="downloadURL">
 					<img [src]="downloadURL" alt="Preview" class="preview-image">
 				</ng-container>

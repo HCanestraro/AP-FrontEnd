@@ -26,7 +26,7 @@ export class BannerComponent implements OnInit {
 	logodelete = "https://drive.google.com/uc?export=download&id=1iW5i4HOltXKRwV0Q2qsJp6mrZvmFq0rw";
 
 	formTemplate!: FormGroup;
-	@ViewChild('myModal') myModal: any;
+	@ViewChild('miModal') miModal: any;
 	// myPortfolio: any;
 	// public myPersona!: any[];
 	nombreColeccion = 'persona';
@@ -126,9 +126,9 @@ export class BannerComponent implements OnInit {
 	// this.verErr();
 
 mostrarModal() {
-	console.log('DEBUG BANNER: OPENMODAL LN120');
+	console.log('DEBUG BANNER: OPENMODAL LN129');
 
-	this.modalService.open(this.myModal,{ariaLabelledBy: 'myModalLabel'}).result.then(
+	this.modalService.open(this.miModal,{ariaLabelledBy: 'miModalLabel'}).result.then(
 		() => this.formTemplate.reset()
 		);
 	document.body.classList.add('modal-open');

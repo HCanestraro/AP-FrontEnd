@@ -254,6 +254,9 @@ export class SoftskillsComponent implements OnInit {
 					finalize(() => {
 						fileRef.getDownloadURL().subscribe(url => {
 							this.downloadURL = url;
+							const productName: any = this.downloadURL;
+							const name: string = productName ?? this.downloadURL;
+							this.dialogData.urlImage = name;
 						});
 					})
 				)
