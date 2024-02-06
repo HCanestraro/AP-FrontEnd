@@ -39,6 +39,7 @@
 	<ng-template #dialogTemplate let-dialogRef="dialogRef">
 		<h2 mat-dialog-title>{{ editMode ? 'Editar Skills' : 'Añadir Skills' }}</h2>
 		<mat-dialog-content>
+			<!-- <form (submit)="saveSkill()"> -->
 			<mat-form-field>
 				<mat-label>Titulo</mat-label>
 				<input matInput [(ngModel)]="dialogData.descripcion" placeholder="Descripción" required>
@@ -48,6 +49,7 @@
 				<ng-container *ngIf="downloadURL">
 					<img [src]="downloadURL" alt="Preview" class="preview-image">
 				</ng-container>
+			<!-- </form> -->
 		</mat-dialog-content>
 		<mat-dialog-actions>
 			<button mat-button (click)="dialogRef.close()">Cancelar</button>

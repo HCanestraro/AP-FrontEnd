@@ -1,6 +1,6 @@
 <!--------------- PROYECTOS --------------->
 <section class="card mat-card mx-auto chec bgblack" id="proyecto" style="margin: 10px;">
-	<div class="container shadow bg-info">
+	<div class="container shadow">
 		<div class="row">
 			<h5 class="text-center p-1 bg-dark text-light rounded  p-2">PROYECTOS</h5>
 		</div>
@@ -50,11 +50,20 @@
 					<mat-label>Titulo</mat-label>
 					<input matInput [(ngModel)]="dialogData.titulo" placeholder="Titulo" required>
 				</mat-form-field>
-
-				<mat-label>URL de la imagen</mat-label>
-				<input type="file" [(ngModel)]="dialogData.imagen" (change)="onFileSelected($event)"
-					placeholder="Imagen" required>
-				<ng-container *ngIf="downloadURL">
+				<mat-form-field>
+					<mat-label>URL de la imagen</mat-label>
+					<input type="text" [(ngModel)]="dialogData.imagen" placeholder="Imagen" required><!-- (change)="onFileSelected($event)" -->
+				</mat-form-field>
+				<!-- <mat-label>Subir imagen</mat-label> -->
+				<!-- <input type="file" name="onFile" (change)="onFileSelected($event)" id="onFile" -->
+					<!-- placeholder="Imagen"> -->
+					<ng-container *ngIf="downloadURL===null">
+						<script>this.downloadURL=this.dialogData.imagen;</script>
+						<!-- <img src={{this.dialogData.imagen}} alt="" class="preview-image"> -->
+						<!-- <img [src]="downloadURL" alt="Preview" class="preview-image"> -->
+					</ng-container>
+					<ng-container *ngIf="downloadURL">
+					<!-- <img src={{this.dialogData.imagen}} alt="" class="preview-image"> -->
 					<img [src]="downloadURL" alt="Preview" class="preview-image">
 				</ng-container>
 				<mat-form-field>

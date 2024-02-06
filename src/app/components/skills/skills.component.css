@@ -39,4 +39,6 @@
   .alineado-sm{
     margin-left: 2em;
   }
-  
+  .card {
+    background-color: #000;
+  }

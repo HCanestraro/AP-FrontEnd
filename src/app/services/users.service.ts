@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { collection,  doc, docData, Firestore, getDoc, setDoc, updateDoc, } from '@angular/fire/firestore';
 import { filter, from, map, Observable, of, switchMap } from 'rxjs';
-import { Users } from '../interfaces/user';
+import { Users } from '../interfaces/iuser';
 import { AuthService } from './auth.service';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 

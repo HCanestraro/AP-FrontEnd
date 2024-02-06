@@ -3,9 +3,12 @@ import { ErrorHandler } from '@angular/core';
 export class GlobalErrorHandler implements ErrorHandler {
   handleError(error: any[]) {
     // Aquí puedes personalizar la lógica para manejar el error
-    console.error('Ocurrió un error:', error[0]);
-    console.log(error.length);
-    
+    const code = error;
+    console.error('error #%d', code);
+    // Prints: error #5, to stderr
+    console.error('error', code);
+    // Prints: error 5, to stderr
+    console.error('Ocurrió un error:', code);
     // Otras acciones que desees realizar
   }
 }

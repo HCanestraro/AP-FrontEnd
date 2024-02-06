@@ -47,6 +47,8 @@
 		<ng-template #dialogTemplate let-dialogRef="dialogRef">
 			<h2 mat-dialog-title>{{ editMode ? 'Editar Softskills' : 'Añadir Softskills' }}</h2>
 			<mat-dialog-content>
+				<!-- <form (submit)="savesoftSkill()"> -->
+
 				<mat-form-field>
 					<mat-label>Nombre</mat-label>
 					<input matInput [(ngModel)]="dialogData.name" placeholder="Name" required>
@@ -56,6 +58,11 @@
 					<input matInput type="text" [(ngModel)]="dialogData.urlImage" placeholder="Imagen" required>
 				</mat-form-field>
 				<input type="file"  (change)="onFileSelected($event)" placeholder="Imagen">
+				<ng-container *ngIf="!downloadURL">
+					<script>this.downloadURL = dialogData.urlImage.value;</script>
+					<!-- <img [src]="downloadURL" alt="Preview" class="preview-image"> -->
+				</ng-container>
+
 				<ng-container *ngIf="downloadURL">
 					<img [src]="downloadURL" alt="Preview" class="preview-image">
 				</ng-container>
@@ -67,9 +74,11 @@
 						max="100" [(ngModel)]="dialogData.level" name="level">
 					</mat-slider>
 				</mat-form-field>
+				<!-- </form> -->
 				<mat-dialog-actions>
 					<button mat-button (click)="dialogRef.close()">Cancelar</button>
-					<button mat-button (click)="saveItem()">Guardar</button> <!-- [disabled]="!dialogForm.valid" -->
+					<!-- <button mat-button (click)="saveItem()">Guardar</button> [disabled]="!dialogForm.valid" -->
+					<button mat-button (click)="savesoftSkill()">Guardar</button> <!-- [disabled]="!dialogForm.valid" -->
 				</mat-dialog-actions>
 			</mat-dialog-content>
 		</ng-template>

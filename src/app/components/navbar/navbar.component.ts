@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { Observable, map } from 'rxjs';
+import { Iaboutme } from 'src/app/interfaces/iaboutme';
 @Component({
 	selector: 'app-navbar',
 	templateUrl: './navbar.component.html',
@@ -17,7 +18,11 @@ export class NavbarComponent implements OnInit {
 	registerActive: Boolean = false;
 	portfolioActive: Boolean = false;
 	pageNotFoundActive: Boolean = false;
-
+	datosCollection2: AngularFirestoreCollection<any>;
+	datos2!: Observable<Iaboutme[]>;
+	profilePicture!: any;
+	datosArray2!: any[];
+	nombreColeccion2 = 'aboutme';
 	logopencil = "https://drive.google.com/uc?export=download&id=1jA2K7nPYax0JVefFmgn8HvsYre_25zie";
 	logoadd = "https://drive.google.com/uc?export=download&id=11BKh21cSfuiTBDHbY26XH5Ux9TBVYdWm";
 	logoedu = "https://drive.google.com/uc?export=download&id=1_TzJ4uPlPA_qU9DaaARLKqlLoXVi5pWu   ";
@@ -25,24 +30,36 @@ export class NavbarComponent implements OnInit {
 	logocancel = "https://drive.google.com/uc?export=download&id=1DnHtyYLt7LgH7Nl6HsIOfSh2CDjNiYAE";
 	logodelete = "https://drive.google.com/uc?export=download&id=1iW5i4HOltXKRwV0Q2qsJp6mrZvmFq0rw";
 
-	constructor(private router: Router, private afAuth: AngularFireAuth,
-		private firestore: AngularFirestore) { }
+	constructor(
+		private router: Router, 
+		private afAuth: AngularFireAuth,
+		private firestore: AngularFirestore) { 
+			this.datosCollection2 = this.firestore.collection(this.nombreColeccion2);
+			this.datos2 = this.datosCollection2.valueChanges();
+		
+		}
 
 	ngOnInit(): void {
 		console.log("DEBUG: NATBAR, ruta activa -ln32-:", this.router.url);
 		this.afAuth.onAuthStateChanged((user) => {
+			this.getDatosArray2();
 
 			if (user) {
-				this.imagenPerfil = this.firestore
-					.doc<any>(`users/${user.uid}`)
-					.valueChanges()
-					// .pipe( map( (userData) => userData?.profileImage));
-					.pipe(map((userData) => userData?.photoURL));
-				this.userAlias = this.firestore
-					.doc<any>(`users/${user.uid}`)
-					.valueChanges()
-					// .pipe( map( (userData) => userData?.profileImage));
-					.pipe(map((userData) => userData?.displayName));
+				// this.imagenPerfil = this.firestore
+				// 	.doc<any>(`users/${user.uid}`)
+				// 	.valueChanges()
+				// 	// .pipe( map( (userData) => userData?.profileImage));
+				// 	.pipe(map((userData) => userData?.photoURL));
+				// this.imagenPerfil = this.firestore
+				// 	.doc().(`users/${user.uid}`)
+				// 	.valueChanges()
+				// 	// .pipe( map( (userData) => userData?.profileImage));
+				// 	.pipe(map((userData) => userData?.photoURL));
+				// this.userAlias = this.firestore
+				// 	.doc<any>(`users/${user.uid}`)
+				// 	.valueChanges()
+				// 	// .pipe( map( (userData) => userData?.profileImage));
+				// 	.pipe(map((userData) => userData?.displayName));
 				this.usuarioLogueado = true;
 				this.router.navigate(['/portfolio']);
 				// alert('USUARIO LOGUEADO:' + this.usuarioLogueado + ' Alias: ' + this.userAlias);
@@ -107,5 +124,20 @@ export class NavbarComponent implements OnInit {
 				// this.userAlias = '';
 			})
 			.catch(error => console.error('Error al cerrar sesión', error));
+	}
+	getDatosArray2(): void {
+		this.datosCollection2.snapshotChanges().pipe(
+			map((snapshots) => {
+				return snapshots.map((snapshot) => {
+					const data = snapshot.payload.doc.data();
+					const id = snapshot.payload.doc.id;
+					return { id, ...data };
+				});
+			})
+		).subscribe((array2) => {
+			this.datosArray2 = array2;
+			this.profilePicture = this.datosArray2[0].profilePicture;
+			console.log('DEBUG: NATBAT getDatosArray2 -LN229-', this.datosArray2);
+		})
 	}
 }

@@ -4,12 +4,13 @@ import { FirebaseService } from 'src/app/services/firebase.service';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Iskills } from './../interfaces/iskills';
 import { Iaboutme } from './../interfaces/iaboutme';
+import { Ipersona } from './../interfaces/ipersona';
 import { Ieducacion } from './../interfaces/ieducacion';
 import { Iexperiencia } from './../interfaces/iexperiencia';
-import { Iproyecto } from './../interfaces/iproyecto';
+import { Iskills } from './../interfaces/iskills';
 import { Isoftskills } from '../interfaces/isoftskills';
+import { Iproyecto } from './../interfaces/iproyecto';
 
 @Injectable({
 	providedIn: 'root'
@@ -42,7 +43,10 @@ export class PortfolioService {
 		// return this.http.get<Iaboutme>('./../../assets/data/data.json');
 		// return this.firebaseService.getDatosArray('AboutMe');
 	}
-
+	obtenerDatosPersona(): void {
+		console.log('ObeterDatosPersona -LN47-');
+		
+	}
 	obtenerDatosBanner(): Observable<any> {
 		console.log("OBTENERDATOSBANNERX");
 		return this.http.get('./../../assets/data/data.json');

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { getStorage, ref, listAll } from "firebase/storage";
+import { finalize } from 'rxjs/operators';
 // import { DatastoreService } from './../../services/datastore.service';
 // import fetch from 'node-fetch';
 // import { getStorage, ref, listAll } from "firebase/storage";
@@ -9,7 +11,6 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 // import * as firebase from 'firebase/compat';
 // import { Observable, forkJoin, map, switchMap } from 'rxjs';
 // import { Image } from 'src/app/interfaces/image.interface';
-import { finalize } from 'rxjs/operators';
 // import * as firebase from 'firebase/compat';
 // import { getStorage, ref } from "firebase/storage";
 // import { EventEmitter } from "@angular/core";
@@ -38,7 +39,8 @@ export class ImageGalleryComponent implements OnInit
 	selectedFile: File | null = null;
 	uploadPercent: number | undefined = undefined;
 	images: any[] = [];
-
+	lista: any[] = [];
+	registerMode: boolean= false;
 
 	constructor(private storage: AngularFireStorage) {	 }
 
@@ -86,6 +88,30 @@ export class ImageGalleryComponent implements OnInit
 					// console.log(array);
 				// }
 	}
+
+	listaStorage() 
+	{
+		const storage = getStorage();
+
+		// Create a reference under which you want to list
+		const listRef = ref(storage, 'files/uid');
+
+		// Find all the prefixes and items.
+		listAll(listRef)
+  			.then((res) => {
+    		res.prefixes.forEach((folderRef) => {
+      		// All the prefixes under listRef.
+      		// You may call listAll() recursively on them.
+    		});
+    		res.items.forEach((itemRef) => {
+      		// All the items under listRef.
+			this.lista.push(itemRef);
+    		});
+  			}).catch((error) => {
+    		// Uh-oh, an error occurred!
+  			});
+	}
+
 }
 // 	addData(item: any): void {
 // 		this.datastoreService.addData(item);

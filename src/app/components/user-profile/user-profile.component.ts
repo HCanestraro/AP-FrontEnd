@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { Users } from '../../interfaces/user';
+import { Users } from '../../interfaces/iuser';
 import { Observable, map } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import * as firebase from 'firebase/compat';

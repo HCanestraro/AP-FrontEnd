@@ -7,6 +7,7 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/comp
 import { Observable, map, take } from 'rxjs';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Iexperiencia } from 'src/app/interfaces/iexperiencia';
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
 	selector: 'app-experiencia',
@@ -54,21 +55,21 @@ export class ExperienciaComponent implements OnInit {
 			empresa: new FormControl(['', [Validators.required, Validators.minLength(2)]]),
 			actividades: new FormControl(['', [Validators.required, Validators.minLength(2)]]),
 		});
+		console.log('DEBUG: EXPERIENCIA');
+	}
+
+	ngOnInit(): void {
+		this.verificarYCrearMiColeccion();
 		this.datosCollection = this.firestore.collection(this.nombreColeccion);
 		this.datos = this.datosCollection.valueChanges();
 		this.getDatosArray();
 		this.getNumRegistros();
-		this.verificarYCrearMiColeccion();
-		console.log('DEBUG: EXPERIENCIA');
 	}
+
 	selectExperiencia(experiencia: any) {
 		console.log('DEBUG SELECTEXPERIENCIA LN65');
-		this.selectExperiencia = { ...experiencia };
-		console.log(this.selectedExperiencia.ubicacion);
-		console.log(this.selectedExperiencia.puesto);
-		console.log(this.selectedExperiencia.periodo);
-		console.log(this.selectedExperiencia.empresa);
-		console.log(this.selectedExperiencia.actividades);
+		this.selectedExperiencia = { ...experiencia };
+		console.log(this.selectedExperiencia);
 	}
 	openAddDialog(): void {
 		this.editMode = false;
@@ -96,7 +97,8 @@ export class ExperienciaComponent implements OnInit {
 	saveItem(): void {
 		if (this.editMode) {
 			// Guardar cambios
-			this.experienciaCollection.doc().update(this.dialogData);
+			this.experienciaCollection.doc(this.selectedExperiencia.id).update(this.dialogData);
+			// this.experienciaCollection.update(this.dialogData);
 		} else {
 			// Añadir nuevo elemento
 			this.experienciaCollection.add(this.dialogData);
@@ -104,10 +106,17 @@ export class ExperienciaComponent implements OnInit {
 		// Cerrar el diálogo después de guardar
 		this.dialog.closeAll();
 	}
+	
 	deleteItem(item: any): void {
 		// Eliminar el elemento de la colección en Firebase
-		this.firebaseService.deleteRecord('experiencia', item);/* .delete(); */
+		const dialogRef = this.dialog.open(ConfirmationDialogComponent);
+		dialogRef.afterClosed().subscribe((result) => {
+			if(result === 'confirm') {
+				this.firebaseService.deleteRecord(this.nombreColeccion,item); 
+			}
+		});
 	}
+
 	verificarYCrearMiColeccion(): void {
 		this.firebaseService.verificarYCrearColeccion(this.nombreColeccion,
 			{
@@ -125,6 +134,7 @@ export class ExperienciaComponent implements OnInit {
 			console.log("REG:", this.numRegistros);
 		});
 	}
+
 	getDatosArray(): void {
 		this.datosCollection.snapshotChanges().pipe(
 			map((snapshots) => {
@@ -139,11 +149,5 @@ export class ExperienciaComponent implements OnInit {
 			console.log('DEBUG: getDatosArray', this.datosArray);
 		})
 	}
-	ngOnInit(): void {
-		this.verificarYCrearMiColeccion();
-		this.datosCollection = this.firestore.collection(this.nombreColeccion);
-		this.datos = this.datosCollection.valueChanges();
-		this.getDatosArray();
-		this.getNumRegistros();
-	}
+
 }

@@ -49,8 +49,10 @@ export class PhotoCaptureComponent {
   }
 }
 
-/* En este código, hemos utilizado @ViewChild para obtener una referencia al elemento <video> y capturar la foto cuando el usuario hace clic en el botón "Capture Photo". La foto capturada se almacena en Firebase Storage con una ruta única generada a partir de la fecha y hora actual.
-
-Recuerda que para que este código funcione, primero debes haber configurado correctamente la conexión a tu proyecto de Firebase en el archivo environments/environment.ts.
-
-Una vez que hayas configurado Firebase y completado estos pasos, el componente "photo-capture" permitirá a los usuarios tomar una foto con su cámara y guardarla en el almacenamiento de Firebase. */
+/* En este código, hemos utilizado @ViewChild para obtener una referencia al elemento <video> y capturar la foto cuando 
+el usuario hace clic en el botón "Capture Photo". La foto capturada se almacena en Firebase Storage con una ruta única 
+generada a partir de la fecha y hora actual.
+Recuerda que para que este código funcione, primero debes haber configurado correctamente la conexión a tu proyecto de 
+Firebase en el archivo environments/environment.ts.
+Una vez que hayas configurado Firebase y completado estos pasos, el componente "photo-capture" permitirá a los usuarios 
+tomar una foto con su cámara y guardarla en el almacenamiento de Firebase. */

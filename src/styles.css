@@ -44,7 +44,7 @@ i {
     border-right-width: 0px;
 }
 
-card {
+.card {
 	background-color: #000;
 	width: auto;
 	height: auto;
@@ -320,7 +320,7 @@ img.mat-card-image {
 
 }
 
-.cheimg {
+.cheimg, .cheimage {
 	height: 150px;
 	width: 150px;
 	/* position: absolute; */

@@ -14,14 +14,14 @@ import { MyService } from './myservice.service';
 
 export class FirestoreService {
 	private collectionName!: string;
-	private collection: AngularFirestoreCollection;
+	private collection!: AngularFirestoreCollection;
 
   	constructor( private firestore: AngularFirestore) {
-		this.collectionName = 'skills';
-		this.collection = this.firestore.collection(this.collectionName);
+		// this.collectionName = 'skills';
+		// this.collection = this.firestore.collection(this.collectionName);
 	}
 
-	private async collectionExists(): Promise<boolean> {
+	private async collectionExists(collection: string): Promise<boolean> {
 		const collections = await this.firestore.collection<any>('__metadata__').get();
 		const snapshot = await lastValueFrom(collections);
 		return !snapshot.empty;
@@ -29,14 +29,14 @@ export class FirestoreService {
 		// collections.docs.some((doc) => doc.id === this.collectionName);
 	}
 
-	private async createCollection(): Promise<void> {
-		return this.firestore.collection('__metadata__').doc(this.collectionName).set({});
+	private async createCollection(collection: string): Promise<void> {
+		return this.firestore.collection('__metadata__').doc(collection).set({});
 	}
 
-	async initCollectionIfNotExists(): Promise<void> {
-		const exists = await this.collectionExists();
+	async initCollectionIfNotExists(collection: string): Promise<void> {
+		const exists = await this.collectionExists(collection);
 		if (!exists) {
-			await this.createCollection();
+			await this.createCollection(collection);
 		}
 	}
 

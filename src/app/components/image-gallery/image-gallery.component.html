@@ -1,10 +1,12 @@
 <!--------------- image-gallery--------------->
-<div class="d-flex container shadow bg-info">
-	<div class="row mt-5 text-center justify-content-center align-items-center">
-		<h5 class="checenter p-1 bg-dark text-light rounded border p-2">IMAGE GALLERY</h5>
-	</div>
-	<p>Ver Imagenes</p>
-<!-- 	<ul>
+<section class="card mat-card mx-auto chec bgblack" id="proyecto" style="margin: 10px;">
+	<div class="container shadow bg-info">
+		<div class="row">
+			<h5 class="text-center p-1 bg-dark text-light rounded  p-2">IMAGE GALLERY</h5>
+		</div>
+		<p>Ver Imagenes</p>
+
+		<!-- 	<ul>
 		<li *ngFor="let item of data; let i = index;">
 			{{ item }}
 			<button (click)="updateData(i, newData)">Editar</button>
@@ -16,15 +18,32 @@
 		<input type="text" [(ngModel)]="newItem">
 		<button type="submit">Agregar</button>
 	</form> -->
-	<mat-card>
-		<input type="file" (change)="onFileSelected($event)" accept="image/*">
-		<button mat-raised-button (click)="uploadImage()">Upload</button>
-	</mat-card>
-	<!-- List of uploads images -->
-	<mat-card *ngFor="let image of images" class="image-card">
-		<img [src]="image.url" alt="Upload Image">
-		<mat-card-actions>
-			<button mat-button (click)="deleteImage(image.id)">Delete</button>
-		</mat-card-actions>
-	</mat-card>
-</div>
+		<p>Lista: {{lista}}</p>
+		
+		<!-- List of uploads images -->
+		<div class="d-flex container-fluid justify-content-center align-items-center box1 shadow">
+			<mat-card *ngFor="let image of lista" class="image-card" class="border">
+				<mat-card-header>
+					<h6 mat-card-title>Lista</h6>
+				</mat-card-header>
+				<mat-card-content>
+					<img [src]="image.url" alt="Upload Image">
+				</mat-card-content>
+				<mat-card-actions>
+					<button mat-button (click)="deleteImage(image.id)">Delete</button>
+				</mat-card-actions>
+			</mat-card>
+		</div>
+		<mat-divider></mat-divider>
+		<mat-card *ngFor="let image of lista" class="image-card border">
+			<img [src]="image.url" alt="Upload Image">
+			<mat-card-actions>
+				<button mat-button>button</button>
+			</mat-card-actions>
+		</mat-card>
+		<mat-card>
+			<input type="file" (change)="onFileSelected($event)" accept="image/*">
+			<button mat-raised-button (click)="uploadImage()">Upload</button>
+		</mat-card>
+	</div>
+</section>

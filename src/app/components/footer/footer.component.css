@@ -1,11 +1,11 @@
-.footer {
+.chefooter {
     width: 100%;
     height: auto;
     flex-direction: column;
     bottom: 0;
     left: 0;
-    font-size: 18px;
-    font-family: Arial, Helvetica, sans-serif; 
+    font-size: 10px;
+    font-family:  sans-serif,Arial, Helvetica; 
     text-shadow: chocolate;
     background-color: black;
     color: chartreuse;

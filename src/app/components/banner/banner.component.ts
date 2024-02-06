@@ -9,6 +9,11 @@ import { Observable, map, take } from 'rxjs';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { Iaboutme } from 'src/app/interfaces/iaboutme';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/services/auth.service';
+
+interface MiDocumento {
+	miArray: string[];
+  }
 
 @Component({
 	selector: 'app-banner',
@@ -24,7 +29,7 @@ export class BannerComponent implements OnInit {
 	logosave = "https://drive.google.com/uc?export=download&id=1QjXoDP0V0L7EHnjlfAx5bMFH2T-NbYU7";
 	logocancel = "https://drive.google.com/uc?export=download&id=1DnHtyYLt7LgH7Nl6HsIOfSh2CDjNiYAE";
 	logodelete = "https://drive.google.com/uc?export=download&id=1iW5i4HOltXKRwV0Q2qsJp6mrZvmFq0rw";
-
+	usuario: any = '';
 	formTemplate!: FormGroup;
 	@ViewChild('miModal') miModal: any;
 	// myPortfolio: any;
@@ -37,6 +42,7 @@ export class BannerComponent implements OnInit {
 	nombreColeccion2 = 'aboutme';
 	datosCollection2: AngularFirestoreCollection<any>;
 	datosArray2!: any[];
+	dA2: string[] = [];
 	datos2!: Observable<Iaboutme[]>;
 	numRegistros2!: number;
 	aboutme!: any[];
@@ -46,10 +52,13 @@ export class BannerComponent implements OnInit {
 	profilePicture!: any;
 	ocupacion!: any;
 	ubication!: any;
-	company: any = [];
+	company: string[] = [];
 	addEventListener: any;
+	miArray: string[] = [];
+
 	// private portfolioData: PortfolioService,
 	constructor(
+		private authService: AuthService,
 		private fb: FormBuilder,
 		private modalService: NgbModal,
 		public firestore: AngularFirestore,
@@ -62,13 +71,13 @@ export class BannerComponent implements OnInit {
 		this.datos2 = this.datosCollection2.valueChanges();
 		this.getDatosArray2();
 		this.getNumRegistros2();
-		console.log('DEBUG: Banner');
-
-
+		console.log('DEBUG: Banner -LN73-');
 	}
 	ngOnInit(): void 
 	{
-		console.log('DEBUG BANNER: verificar Persona y Aboutme');
+		const authg = this.authService.authGetAuth();
+		this.usuario = authg;
+		console.log('DEBUG BANNER: authService.authGetAuth: -LN73-', authg);
 		this.firebaseService.verificarYCrearColeccion('persona',
 			{
 				id: '1',
@@ -112,6 +121,7 @@ export class BannerComponent implements OnInit {
 			image_perfil: new FormControl(['', [Validators.required, Validators.minLength(2)]]),
 			id_domicilio: new FormControl(['', [Validators.required, Validators.minLength(2)]])
 		});
+		// this.obtenerMiArrayDesdeFirestore();
 	}
 	// const element = document.getElementById("watchme") ?? document.createElement('div');
 	// let position = 0;
@@ -126,7 +136,7 @@ export class BannerComponent implements OnInit {
 	// this.verErr();
 
 mostrarModal() {
-	console.log('DEBUG BANNER: OPENMODAL LN129');
+	console.log('DEBUG BANNER: OPENMODAL LN137');
 
 	this.modalService.open(this.miModal,{ariaLabelledBy: 'miModalLabel'}).result.then(
 		() => this.formTemplate.reset()
@@ -156,10 +166,25 @@ getDatosArray(): void {
 		this.apellido = this.datosArray[0].apellido;
 		this.ocupacion = this.datosArray[0].ocupacion;
 
-		console.log('DEBUG BANNER datosArray tipo:', typeof (this.datosArray), Object.entries(array));
-		console.log('DEBUG BANNER: getDatosArray', this.datosArray, ' length: ', this.datosArray.length);
+		console.log('DEBUG BANNER datosArray tipo -LN167-:', typeof (this.datosArray), Object.entries(array));
+		console.log('DEBUG BANNER: getDatosArray -LN168-', this.datosArray, ' length: ', this.datosArray.length);
 	});
 }
+
+/* async obtenerMiArrayDesdeFirestore() {
+    try {
+      const snapshot = await this.firestore.collection<MiDocumento>('aboutme').get().toPromise();
+
+      // Utilizar la interfaz definida para acceder al campo "miArray"
+      snapshot?.forEach((doc) => {
+        this.miArray.push(...doc.data().miArray);
+      });
+
+      console.log('DEBUG BANNER ABOUTME:',this.miArray,' len ', this.miArray.length);
+    } catch (error) {
+      console.error('Error al obtener el array desde Firestore:', error);
+    }
+  } */
 
 getDatosArray2(): void {
 	this.datosCollection2.snapshotChanges().pipe(
@@ -172,13 +197,36 @@ getDatosArray2(): void {
 		})
 	).subscribe((array2) => {
 		this.datosArray2 = array2;
+		this.dA2 = array2;
 		this.bannerImage = this.datosArray2[0].bannerImage;
 		this.profilePicture = this.datosArray2[0].profilePicture;
 		this.company[0] = this.datosArray2[0].company[0];
 		this.company[1] = this.datosArray2[0].company[1];
 		this.company[2] = this.datosArray2[0].company[2];
+		// [0].company[0]
+		// "Sobre mí...Sobre mí...Sobre mí...Sobre mí...Sobre mí...Sobre mí..."
+		// [
+		// 	{
+		// 		"id": "mOW79YbI3ZNNho3FPp7I",
+		// 		"about": "Sobre mí...Sobre mí...Sobre mí...Sobre mí...Sobre mí...Sobre mí...",
+		// 		"ubication": "La Matanza, Buenos Aires, Argentina",
+		// 		"profilePicture": "https://drive.google.com/uc?export=download&id=1cJWZ-4fWDwXLptzX6E1_rwtHB9kSiLWN",
+		// 		"company": [
+		// 			"I.N.T.I. Argentina Programa",
+		// 			"https://argentinaprograma.inti.gob.ar",
+		// 			"https://drive.google.com/uc?export=download&id=1-lX9QgBw8iGXLEgBd_pmdsM_Fz3l6LJn"
+		// 		],
+		// 		"institution": "Intituto Nacional de Tecnología Industrial",
+		// 		"bannerImage": "https://drive.google.com/uc?export=download&id=1n7Zw94hqOWvhXpoumSTDtpM35JTr_rCY",
+		// 		"posicion": "Estudiante",
+		// 		"bannerImage2": "https://drive.google.com/uc?export=download&id=1H-fPPXI-WczRIV2N0cPiF2xu0_IUBklS",
+		// 		"institutionImage": "https://www.argentina.gob.ar/sites/default/files/logo-inti-arg-blanco_23.png",
+		// 		"descripcion": "descripcion",
+		// 		"profilePicture2": "https://drive.google.com/uc?export=download&id=1DdFJjIWAxC9QQMOaUlxnddhe5nl6YPdI"
+		// 	}
+		// ]
 		// this.myAboutme=Object.entries(array2);
-		console.log('DEBUG: BANNER getDatosArray2', this.datosArray2);
+		console.log('DEBUG: BANNER getDatosArray2 -LN229-', this.datosArray2,' --',this.dA2);
 	})
 }
 

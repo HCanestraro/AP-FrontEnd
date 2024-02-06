@@ -56,10 +56,15 @@
 	<div class="row mt-5">
 		<h5 class="text-center p-1 bg-dark text-light rounded border p-2">Sobre Mí</h5>
 	</div>
-
+	<ul>
+		<li *ngFor="let dato of miArray">
+			<p>dato</p>
+		</li>
+	</ul>
 	<!-- <div class="justify-content-center p-2" id="card-about" *ngFor="let dato of datosArray ; let i = index"
 		[attr.data-index]="i"> -->
 	<div class="justify-content-center p-2" id="card-about">
+		<p>{{bannerImage}}</p>
 		<img class="card-img-top" src={{bannerImage}} alt="Card image cap">
 		<div id="info">
 			<div class="info-about">

@@ -167,7 +167,7 @@ export class EducacionComponent implements OnInit {
 			const productName: any = this.downloadURL;
 			const name: string = productName ?? this.downloadURL;
 			this.dialogData.imagen = name;
-			this.educacionCollection.doc().update(this.dialogData);
+			this.educacionCollection.doc(this.selectedEducacion.id).update(this.dialogData);
 		} else {
 			// Añadir nuevo elemento
 			const productName: any = this.downloadURL;

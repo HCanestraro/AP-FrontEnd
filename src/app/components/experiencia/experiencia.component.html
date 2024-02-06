@@ -13,7 +13,7 @@
 				</button>
 			</div>
 
-			<div *ngFor="let item of datosArray  ; let i = index" [attr.data-index]="i">
+			<div *ngFor="let item of datosArray">  <!--  ; let i = index" [attr.data-index]="i" -->
 				<mat-card (click)="selectExperiencia(item)">
 					<mat-card-actions>
 						<div class="align-items-end box1">

@@ -7,9 +7,9 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Observable, map, take } from 'rxjs';
 import { Isoftskills } from 'src/app/interfaces/isoftskills';
 import { finalize } from 'rxjs/operators';
-import { AngularFireUploadTask } from '@angular/fire/compat/storage';
-import { percentage } from '@angular/fire/storage/public_api';
-import { user } from '@angular/fire/auth';
+// import { AngularFireUploadTask } from '@angular/fire/compat/storage';
+// import { percentage } from '@angular/fire/storage/public_api';
+// import { user } from '@angular/fire/auth';
 // import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { ConfirmationDialogComponent } from './../../components/confirmation-dialog/confirmation-dialog.component';
 @Component({
@@ -19,6 +19,13 @@ import { ConfirmationDialogComponent } from './../../components/confirmation-dia
 })
 
 export class SoftskillsComponent implements OnInit {
+	logopencil = "https://drive.google.com/uc?export=download&id=1jA2K7nPYax0JVefFmgn8HvsYre_25zie";
+	logoadd = "https://drive.google.com/uc?export=download&id=11BKh21cSfuiTBDHbY26XH5Ux9TBVYdWm";
+	logoedu = "https://drive.google.com/uc?export=download&id=1_TzJ4uPlPA_qU9DaaARLKqlLoXVi5pWu   ";
+	logosave = "https://drive.google.com/uc?export=download&id=1QjXoDP0V0L7EHnjlfAx5bMFH2T-NbYU7";
+	logocancel = "https://drive.google.com/uc?export=download&id=1DnHtyYLt7LgH7Nl6HsIOfSh2CDjNiYAE";
+	logodelete = "https://drive.google.com/uc?export=download&id=1iW5i4HOltXKRwV0Q2qsJp6mrZvmFq0rw";
+
 	color = 'primary';
 	xmode = 'determinate';
 	// autoTicks = true;
@@ -32,16 +39,10 @@ export class SoftskillsComponent implements OnInit {
 	
 	// private _tickInterval = 1;
 
-	task!: AngularFireUploadTask;
+	// task!: AngularFireUploadTask;
 	// percentage!: Observable<number | undefined>;
 
 
-	logopencil = "https://drive.google.com/uc?export=download&id=1jA2K7nPYax0JVefFmgn8HvsYre_25zie";
-	logoadd = "https://drive.google.com/uc?export=download&id=11BKh21cSfuiTBDHbY26XH5Ux9TBVYdWm";
-	logoedu = "https://drive.google.com/uc?export=download&id=1_TzJ4uPlPA_qU9DaaARLKqlLoXVi5pWu   ";
-	logosave = "https://drive.google.com/uc?export=download&id=1QjXoDP0V0L7EHnjlfAx5bMFH2T-NbYU7";
-	logocancel = "https://drive.google.com/uc?export=download&id=1DnHtyYLt7LgH7Nl6HsIOfSh2CDjNiYAE";
-	logodelete = "https://drive.google.com/uc?export=download&id=1iW5i4HOltXKRwV0Q2qsJp6mrZvmFq0rw";
 	datos: Observable<Isoftskills[]>;
 	datosArray!: any[];
 	datosCollection!: AngularFirestoreCollection<any>;
@@ -88,14 +89,7 @@ export class SoftskillsComponent implements OnInit {
 		this.verificarYCrearMiColeccion();
 		console.log('DEBUG: SOFTSKILLS LN86');
 	}
-	selectsoftSkill(softskill: any) {
-		console.log('DEBUG: SELECTSOFTSKILL LN89');
-		this.selectedsoftSkill = { ...softskill };
-		console.log('DEBUG: selectedsoftSkill:', this.selectedsoftSkill.name);
-		console.log('DEBUG: selectedsoftSkill:', this.selectedsoftSkill.urlImage);
-		console.log('DEBUG: selectedsoftSkill:', this.selectedsoftSkill.level);
-		this.selectedImage = null;
-	}
+
 	ngOnInit(): void {
 		console.log('DEBUG: SOFTSKILLS COMPONENTS LN86');
 		this.verificarYCrearMiColeccion();
@@ -109,6 +103,14 @@ export class SoftskillsComponent implements OnInit {
 		this.getDatosArray();
 		this.getNumRegistros();
 	}
+
+	selectsoftSkill(softskill: any) {
+		console.log('DEBUG: SELECTSOFTSKILL LN89');
+		this.selectedsoftSkill = { ...softskill };
+		console.log(this.selectedsoftSkill);
+		this.selectedImage = null;
+	}
+	
 	// get tickInterval(): number | 'auto' {
 	// 	return this.showTicks ? (this.autoTicks ? 'auto' : this._tickInterval) : 0;
 	// }
@@ -150,14 +152,14 @@ export class SoftskillsComponent implements OnInit {
 	saveItem(): void {
 		if (this.editMode) {
 			// Guardar cambios
-			const productName: any = this.downloadURL;
-			const name: string = productName ?? this.downloadURL;
-			this.dialogData.urlImage = name;
-			this.softskillsCollection.doc().update(this.dialogData);
+			// const productName: any = this.downloadURL;
+			// const name: string = productName ?? this.downloadURL;
+			// this.dialogData.urlImage = name;
+			this.softskillsCollection.doc(this.selectedsoftSkill.id).update(this.dialogData);
 		} else {
 			// Añadir nuevo elemento
-			const productName: any = this.downloadURL;
-			this.dialogData.urlImage = this.downloadURL ?? productName ;
+			// const productName: any = this.downloadURL;
+			// this.dialogData.urlImage = this.downloadURL ?? productName ;
 			this.softskillsCollection.add(this.dialogData);
 		}
 		// Cerrar el diálogo después de guardar
@@ -187,6 +189,9 @@ export class SoftskillsComponent implements OnInit {
 				this.selectedsoftSkill = {};
 			}
 		}
+				// Cerrar el diálogo después de guardar
+				this.dialog.closeAll();
+
 	}
 	deleteItem(item: any): void {
 		// Eliminar el elemento de la colección en Firebase
@@ -230,16 +235,7 @@ export class SoftskillsComponent implements OnInit {
 		})
 	}
 	/* **************************************************************************************************** */
-	borrarRegistro(documentId: string) {
-		console.log('DEBUG: SOFTSKILLS: -LN171- borrarRegistro:', documentId);
-		this.firestore.collection(this.nombreColeccion).doc(documentId).delete()
-			.then(() => {
-				console.log('Registro eliminado correctamente');
-			})
-			.catch((error) => {
-				console.error('Error al eliminar el registro:', error);
-			});
-	}
+	
 
 	onFileSelected(event: any) {
 		const file: File = event.target.files[0];
@@ -265,26 +261,26 @@ export class SoftskillsComponent implements OnInit {
 		this.selectedImage = file;
 	}
 
-	uploadImageToFirebase = (file: File): Promise<string> => {
-		return new Promise((resolve, reject) => {
-			// Crea una referencia al almacenamiento de Firebase
-			const storageRef = this.storage.ref('softskills/');
-			// Genera un nombre de archivo único para evitar colisiones
-			const fileName = `${Date.now()}_${file.name}`;
-			// Crea una referencia al archivo en el almacenamiento
-			const fileRef = storageRef.child(fileName);
-			// Sube el archivo al almacenamiento
-			const uploadTask = fileRef.put(file);
-			// Escucha los eventos de estado de la carga
+	// uploadImageToFirebase = (file: File): Promise<string> => {
+	// 	return new Promise((resolve, reject) => {
+	// 		// Crea una referencia al almacenamiento de Firebase
+	// 		const storageRef = this.storage.ref('softskills/');
+	// 		// Genera un nombre de archivo único para evitar colisiones
+	// 		const fileName = `${Date.now()}_${file.name}`;
+	// 		// Crea una referencia al archivo en el almacenamiento
+	// 		const fileRef = storageRef.child(fileName);
+	// 		// Sube el archivo al almacenamiento
+	// 		const uploadTask = fileRef.put(file);
+	// 		// Escucha los eventos de estado de la carga
 			
-				// const file = target.files[0];
-				const path = 'test/' + file.name;
-				const ref = this.storage.ref(path);
-				this.task = ref.put(file);
-				// this.percentage = this.task.percentageChanges();
+	// 			// const file = target.files[0];
+	// 			const path = 'test/' + file.name;
+	// 			const ref = this.storage.ref(path);
+	// 			this.task = ref.put(file);
+	// 			// this.percentage = this.task.percentageChanges();
 			  			
-		});
-	};
+	// 	});
+	// };
 	// upload(name: File) {
 	// 	const file = name; // Aquí debes colocar el archivo que deseas subir
 	// 	const filePath = `gs://ap-frontend-ac93a.appspot.com/softskills/${file.name}`;
@@ -297,22 +293,22 @@ export class SoftskillsComponent implements OnInit {
 	//   	console.log('Imagen subida correctamente');
 	// 	// });
 	// }
-	inputfile() {
-		// Ejemplo de uso
-		const inputFile = document.getElementById('inputFile') as HTMLInputElement;
-		let myVariable: String = this.dialogData.urlImage; // Variable para guardar el valor del almacenamiento
+	// inputfile() {
+	// 	// Ejemplo de uso
+	// 	const inputFile = document.getElementById('inputFile') as HTMLInputElement;
+	// 	let myVariable: String = this.dialogData.urlImage; // Variable para guardar el valor del almacenamiento
 
-		inputFile.addEventListener('change', async () => {
-			const selectedFile = inputFile;
+	// 	inputFile.addEventListener('change', async () => {
+	// 		const selectedFile = inputFile;
 
-			try {
-				const downloadURL = await this.uploadImageToFirebase(this.dialogItem.urlImage);
-				myVariable = downloadURL; // Guarda el valor del almacenamiento en la variable
-				console.log('URL de descarga:', downloadURL);
-			} catch (error) {
-				console.error('Error al cargar la imagen:', error);
-			}
-		});
-	}
+	// 		try {
+	// 			const downloadURL = await this.uploadImageToFirebase(this.dialogItem.urlImage);
+	// 			myVariable = downloadURL; // Guarda el valor del almacenamiento en la variable
+	// 			console.log('URL de descarga:', downloadURL);
+	// 		} catch (error) {
+	// 			console.error('Error al cargar la imagen:', error);
+	// 		}
+	// 	});
+	// }
 }
 

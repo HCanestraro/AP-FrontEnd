@@ -17,4 +17,7 @@
   .selected-image {
     margin-top: 20px;
   }
-  
+  .card {
+    background-color: #000;
+    height: 400px;
+  }

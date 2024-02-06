@@ -17,7 +17,6 @@ export class AutenticacionService {
 	}
 	login(credenciales:any):Observable<any>{
 		console.log('DEBUG: autenticacionService - login - ln19:', credenciales);
-		
 		return this.http.post(this.urlLogin , credenciales).pipe(map(data => {
 		console.log('Auth Service credenciales:',credenciales);
 		console.log('Auth Service Mapeo de data:', data);
@@ -26,6 +25,7 @@ export class AutenticacionService {
 		}));
 	}
 	registro(credenciales:any):Observable<any> {
+		console.log('AUTENTICACIONSERVICE: REGISTRO -LN28-');
 		return this.http.post(this.urlNuevo, credenciales);
 	}
 	token() {
@@ -40,5 +40,4 @@ export class AutenticacionService {
 		sessionStorage.removeItem('token');
 		console.log('Auth Service Token Removido ln41', sessionStorage.getItem('token'));
 	}
-
 }

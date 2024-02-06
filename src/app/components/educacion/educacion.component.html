@@ -1,5 +1,5 @@
 <!--------------- EDUCACIÓN MAT-CARD --------------->
-<section class="card mat-card mx-auto chec bgblack" id="educacion" style="margin: 10px;">
+<section class="card mat-card mx-auto chec bgblack b01" id="educacion" style="margin: 10px;">
 	<div class="container shadow">
 		<div class="row">
 			<h5 class="text-center p-1 bg-dark text-light rounded p-2">EDUCACIÓN MAT-CARD</h5>
@@ -34,10 +34,18 @@
 						<div class="d-flex justify-content-center align-items-center">
 							<img class="cheimg" src={{item.imagen}} alt="">
 						</div>
-						<h4><b>Carrera: </b>{{item.carrera}}</h4>
-						<h4><b>Puntaje: </b>{{item.puntaje}}</h4>
-						<h4><b>Inicio: </b>{{item.inicio}}</h4>
-						<h4><b>Fin: </b>{{item.fin}}</h4>
+						<div class="row">
+							<div class="col border">
+
+								<h4><b>Carrera: </b>{{item.carrera}}</h4>
+								<h4><b>Puntaje: </b>{{item.puntaje}}</h4>
+							</div>
+							<div class="col border">
+
+								<h4><b>Inicio: </b>{{item.inicio}}</h4>
+								<h4><b>Fin: </b>{{item.fin}}</h4>
+							</div>
+						</div>
 					</mat-card-content>
 				</mat-card>
 			</div>
@@ -69,14 +77,20 @@
 						<mat-label>Puntaje</mat-label>
 						<input matInput type="number" [(ngModel)]="dialogData.puntaje" placeholder="Puntaje" required>
 					</mat-form-field>
-					<mat-form-field>
-						<mat-label>Inicio</mat-label>
-						<input matInput type="number" [(ngModel)]="dialogData.inicio" placeholder="Inicio" required>
-					</mat-form-field>
-					<mat-form-field>
-						<mat-label>Fin</mat-label>
-						<input matInput type="number" [(ngModel)]="dialogData.fin" placeholder="Fin" required>
-					</mat-form-field>
+					<div class="row">
+						<div class="col border">
+							<mat-form-field>
+								<mat-label>Inicio</mat-label>
+								<input matInput type="number" [(ngModel)]="dialogData.inicio" placeholder="Inicio" required>
+							</mat-form-field>
+						</div>
+						<div class="col border">
+							<mat-form-field>
+								<mat-label>Fin</mat-label>
+								<input matInput type="number" [(ngModel)]="dialogData.fin" placeholder="Fin" required>
+							</mat-form-field>
+						</div>
+					</div>
 				</div>
 			</mat-dialog-content>
 			<mat-dialog-actions>
@@ -84,8 +98,6 @@
 				<button mat-button (click)="saveItem()">Guardar</button> <!-- [disabled]="!dialogForm.valid" -->
 			</mat-dialog-actions>
 		</ng-template>
-
-
 	</div>
 </section>
 <!-- END Educacón-->

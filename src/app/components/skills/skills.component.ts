@@ -8,6 +8,7 @@ import { Observable, map, take } from 'rxjs';
 import { Iskills } from 'src/app/interfaces/iskills';
 import { user } from '@angular/fire/auth';
 import { finalize } from 'rxjs/operators';
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 @Component({
 	selector: 'app-skills',
 	templateUrl: './skills.component.html',
@@ -87,9 +88,7 @@ export class SkillsComponent implements OnInit {
 	selectSkill(skill: any) {
 		console.log('DEBUG: SELECTSKILL -LN86-');
 		this.selectedSkill = { ...skill };
-		console.log('DEBUG: selectedSkill:',this.selectedSkill.id);
-		console.log('DEBUG: selectedSkill:',this.selectedSkill.descripcion);
-		console.log('DEBUG: selectedSkill:',this.selectedSkill.urlImagen);
+		console.log(this.selectedSkill);
 		this.selectedImage = null;
 	}
 
@@ -181,7 +180,7 @@ export class SkillsComponent implements OnInit {
 			const productName: any = this.downloadURL;
 			const name: string = productName ?? this.downloadURL;
 			this.dialogData.urlImagen = name;
-			this.skillsCollection.doc().update(this.dialogData);
+			this.skillsCollection.doc(this.selectedSkill.id).update(this.dialogData);
 		} else {
 			// Añadir nuevo elemento
 			const productName: any = this.downloadURL;
@@ -191,10 +190,14 @@ export class SkillsComponent implements OnInit {
 		// Cerrar el diálogo después de guardar
 		this.dialog.closeAll();
 	}
-	deleteItem(id: string): Promise<void> {
+	deleteItem(item: any): void {
 		// Eliminar el elemento de la colección en Firebase
-		return this.skillsCollection.doc(id).delete();
-	}
+		const dialogRef = this.dialog.open(ConfirmationDialogComponent);
+		dialogRef.afterClosed().subscribe((result) => {
+			if(result === 'confirm') {
+				this.firebaseService.deleteRecord(this.nombreColeccion,item); 
+			}
+		});	}
 
 
 	
@@ -225,16 +228,5 @@ export class SkillsComponent implements OnInit {
 			this.numRegistros = snapshot.size;
 			console.log("REG:", this.numRegistros);
 		});
-	}
-
-	borrarRegistro(documentId: string) {
-		console.log('DEBUG: borrarRegistro:', documentId);
-		this.firestore.collection(this.nombreColeccion).doc(documentId).delete()
-			.then(() => {
-				console.log('Registro eliminado correctamente');
-			})
-			.catch((error) => {
-				console.error('Error al eliminar el registro:', error);
-			});
 	}
 }
